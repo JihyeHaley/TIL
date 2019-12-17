@@ -402,7 +402,10 @@ public class BookTest {
 		System.out.println(book5.getBookInfo());
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> bafe32333065b84d43e45ece458f2ec102d4a8d7
 ```
 
 ### this
@@ -463,7 +466,10 @@ getPrice() : int
 * getPrice() : int - 가격을 리턴한다.
 * main() - 5개의 원소를 갖는 Product 타입의 배열을 생성한 후에 Product 객체를 5개 생성하여 각각의 원			 소로 대입하고 Product 객체들의 각 정보들을 행 단위로 출력한다.(상품명   재고량   가격) 
 		 – 가격은 천단위로 , 를 붙이고 금액 끝에 ‘원’도 붙여서 출력한다.
+<<<<<<< HEAD
 
+=======
+>>>>>>> bafe32333065b84d43e45ece458f2ec102d4a8d7
 ```
 
 ```java
@@ -511,5 +517,8 @@ public class ProductTest {
 		}
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> bafe32333065b84d43e45ece458f2ec102d4a8d7
 ```
