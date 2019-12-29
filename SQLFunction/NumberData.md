@@ -2,9 +2,9 @@
 
 
 
-# NUMBER DATA,  NUMBER FUNCTION
+# Number Data,  Number Function
 
-표시는 안했지만 scott 계정에서 EMP데이터를 가져오는 것이 아니라면 반드시 ***FROM DUAL*** 써줘야 합니다! 
+☘️표시는 안했지만 scott 계정에서 EMP데이터를 가져오는 것이 아니라면 반드시 ***FROM DUAL*** 써줘야 합니다! 
 
 
 
