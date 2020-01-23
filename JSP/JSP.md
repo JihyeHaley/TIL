@@ -17,26 +17,77 @@
 
 1. 내장객체 -9개
 
-   * request, 
-   * response, 
-   * session, 
-   * out, 
-   * application, 
-   * config,
-   * exception page, 
+   * request
+
+   * response
+
+   * session
+
+   * out
+
+   * application
+
+   * config
+
+   * exception page,  **에러 날때만 사용 가능**
+
+     ~~~jsp
+     <%@ page isErrorPage="true" @>
+       에러인지 아닌지 확인하고 해결할려고 쓰는 아이
+       isErrorPage가 True 여야만 Exception이 작동한당
+       
+       jasper
+       
+     
+       얘가 정의하고 있는 syntax 에러도 지켜줘야한다.
+     ~~~
+
    * pageContext
 
 2. JSP 태그
-    <%@  %>,    <%!   %>,      <%=   %>,      <%   %>,      <%--   --%>
-   지시자태그,    선언문태그,     표현식태그,    수행문태그,      주석태그
-
+    <%@  %>        지시자태그
+   **<%!   %>      **   선언문태그        자바코드 포함 수행문태그
+**<%=  %>**         표현식태그        자바코드 포함
+    **<%   %>**          수행문태그        자바코드 포함
+    <%--   --%>.     주석태그
+                          무조건 멤버변수가 되어버린다.
+    
+    * <%@ %> 지시자태그
+    
+      * Converter 라는 것이 jsp소스를 servlet으로 변경해준다.
+    
+        ~~~jsp
+        <%@ page 속성명="속성값"... %>
+        					속석명... 
+        		* 배운 속성명 - language, contentType, PageEncoding, 
+        									errorPage, isErrorPage, import
+         	* 안배운 속성명 -- session, buffer, isELIgored ..
+        
+        
+        <%@ include file="포함하려는 대상파일의 로컬 URL" %> : include 지시자 태그
+        ~~~
+    
+        * 포함하는 위치: 이 지시자 태그가 사용된 위치
+        * 포함하는 시기: JSP를 Servlet 으로 변환하기 전
+        * 포함하는 대상: html, jsp, jspf(권장)
+    
 3. 액션태그
 
    ~~~jsp
    <jsp:include/>
    <jsp:forward/>
    <jsp:pram/>
+   꺽새 를 꼭 주기
    ~~~
+
+   | a.jsp | b.jsp |
+   | ----- | ----- |
+
+   Include action 태그로: 2개의 서블릿                                     (동적 Include)
+
+   Include  지시자 태그로 : 1개의 서블릿 (변환시 일어나는 액션) (정적 Include)	
+
+   * ***‼️Include 지시자 태그로 하면 반복되면 에러가 난다.***
 
 4. 커스텀태그
    필요에 의해서 고객이 하고 싶은대로 할 수 있게 해준
@@ -105,3 +156,18 @@ DateTimeFormatter formatter = DateTimeFormatter.offPattern("hh~~~~");
 
 
 
+
+
+xxxVO - Value Object  - 값을 보관하는 용도의 객체
+
+xxxDAO - Data Access Object - DB 연동기능(JDBC)을 지원하는 객체
+
+xxxService(xxxBiz) - Service Object - 이런 저런 서비스 로직을 지원하는 객체
+
+
+
+
+
+Application scope는 재기동해도 계속 유지된다
+
+서버를 죽이고 다시 키면 reset되서 시작된다.
