@@ -2,7 +2,7 @@
 
 *Feb 10 2020 Practice at Multi Campus
 
-### Controller, VO, Service, html, jsp
+### Controller, VO, DAO, Service, html, jsp
 
 
 
@@ -60,6 +60,26 @@ public class LottoVO {
 	public void setResult(String result) {
 		this.result = result;
 	}	
+}
+~~~
+
+
+
+##### LottoDAO.java
+
+~~~java
+package dao;
+import java.util.Random;
+import org.springframework.stereotype.Repository;
+@Repository // COMPONENT라는 ANNOTATION을 지정하는거랑 똑같은 방식
+public class LottoDAO {
+	public LottoDAO()  {
+		System.out.println("LottoDAO 객체생성");
+	}
+	public int getLottoNumber() {
+		Random rand = new Random();
+		return rand.nextInt(6)+1;
+	}
 }
 ~~~
 
