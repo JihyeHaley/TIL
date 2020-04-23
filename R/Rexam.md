@@ -1,4 +1,4 @@
-1. vector -index
+1. vector -index    sd>
 
 2. rep, seq, 콜론?
 
