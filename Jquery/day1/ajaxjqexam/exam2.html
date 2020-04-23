@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset='utf-8'>
+<title>New Web Project</title>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>		
+$(document).on('ready',  function() {
+	$.ajax('content/samplejson.txt', {				
+		success :  function(data) {
+			//alert(data);
+		  	var result = JSON.parse(data);
+		    $.each(result, function(key, value) { 
+               $('body').append("<h1>" +value + 
+            		   '</h1>');
+            });
+		}
+	});
+});
+</script>
+</head>
+<body>
+	<h1>jQuery 로 구현하는 AJAX 프로그램 1 - JSON</h1>
+</body>
+</html>
