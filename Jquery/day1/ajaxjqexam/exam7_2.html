@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("#loginb").click(	function() {
+		$.ajax("content/login.jsp", {		
+			type : "POST", 	
+			dataType : "json",
+			data : $("#loginf").serialize(),
+			success : function(data) {
+				$.each(data, function(key, value) {
+					if (value == "ok") {
+						$("#result").text("로그인 성공!!").css("color", "Blue");
+					} else if (value == "fail") {
+						$("#result").text("로그인 실패!!").css("color", "Red");
+						$("#loginf").each(function() {
+							this.reset();
+							$("#id").focus();
+						});
+					}
+				});
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+	<h3>계정과 패스워드를 입력해 주세요.</h3>
+	<form id="loginf">
+		<table>
+			<tr>
+				<td><label for="id">계정</label></td>
+				<td><input type="text" id="id" name="id" required/></td>
+			</tr>
+			<tr>
+				<td><label for="passwd">패스워드</label></td>
+				<td><input type="password" id="passwd" name="passwd" required/></td>
+			</tr>
+			<tr>
+				<td><input type="button" id="loginb" name="loginb" value="로그인" /></td>
+				<td><output id="result"></output></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
