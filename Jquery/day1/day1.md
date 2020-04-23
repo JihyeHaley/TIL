@@ -1,178 +1,117 @@
-### day17 실습
+### day1 
 
-##### : Spring, R, Java, servlet-task
+##### : Jquery
 
+jQuery
 
-| OnePersonService.java | OnePersonController.java | oneView.jsp |
-| --------------------- | ------------------------ | ----------- |
-| R 연동                | Controller               | View 화면   |
+[jQueryHome](http://jquery.com)
 
+[jQueryUi](https://jqueryui.com/)
 
-
-##### Controller 설명
-
-```java
-public ModelAndView xxx() = new ModelAndView;
-xxx.addObject("yyyy");
-xxx.setViewName("zzzzz");
-return xxx;
-```
-
-- `xxx`는 메소드 명
-- jsp에서 `$ {yyyy}`로 결과물을 보여준다.
-- view에서 jsp이름 **[ zzzzz ]**
+[jQuery플러그인](https://plugins.jquery.com/)
 
 
 
-##### OnePersonService.java
-
-```java
-package edu.spring.redu;
-import java.io.File;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import rtest.OnePersonService;
-
-@Controller
-public class OnePersonController {
-	@Autowired
-	OnePersonService sr;
-	
-	@RequestMapping("/map7")
-	public ModelAndView getMyMap(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		// 실제 톰캣 path를 확인해 보자!! -> 실제 path와 다르고 톰캣이 알아서 관리하는 path를 따로 관리한다.
-		String real_path = req.getSession().getServletContext().getRealPath("/");
-		//System.out.println(real_path);
-	    real_path = real_path.replace("\\", "/");
-	    //System.out.println(real_path);		
-	    // resources 브라우저에서 바로 요처어할 수 있는 path
-		File f = new File(real_path+"/resources/leafletSeoulGu");
-		if(!f.exists()) f.mkdir();
-		String gu = req.getParameter("gu");
-		if(gu == null)
-			gu = "양천구";
-		String result = sr.returnmap7(real_path+"/resources/leafletSeoulGu", gu);
-		mav.addObject("leafletOne", "http://localhost:8000/redu/resources/leafletSeoulGu/"+result);
-		mav.setViewName("oneView");
-		return mav;
-	}
-}
-```
+* jQuery.ajax()     ==     
+  * **$.ajax()**, **$.get()** ←default, **$.post()**   ←  **xml**
+  * $.getJSON()   ←  json
+  * $.(...).load()    ←  get방식만 지원하고 응답이 text 형식일때만 의미가 있다.
 
 
 
-##### OnePersonController.java
+#### Package
 
-```java
-package rtest;
-
-import org.rosuda.REngine.Rserve.RConnection;
-import org.springframework.stereotype.Service;
-
-@Service
-public class OnePersonService {
-	public String returnmap7(String path, String gu)  {
-		RConnection r = null;
-		String retStr = "";
-		try {
-			r = new RConnection();
-			//System.out.println("start");
-			r.eval("setwd('c:/HaleyDeveloper/Rstudy')");
-			//System.out.println("test1");
-			r.eval("library(Kormaps)");
-			r.eval("library(dplyr)");
-			r.eval("library(leaflet)");
-			r.eval("library(htmlwidgets)");
-			r.eval("DONG<-read.csv('data/one.csv')");
-			r.eval("Encoding(names(korpopmap2)) <- 'UTF-8'");
-			r.eval("Encoding(korpopmap2@data$name)<-'UTF-8'");
-			r.eval("Encoding(korpopmap2@data$행정구역별_읍면동)<-'UTF-8'");
-			
-			r.eval("Encoding(names(korpopmap3)) <- 'UTF-8'");
-			r.eval("Encoding(korpopmap3@data$name)<-'UTF-8'");
-			r.eval("Encoding(korpopmap3@data$행정구역별_읍면동)<-'UTF-8'");
-			
-			
-			r.eval("k3 <- korpopmap3");
-			r.eval("guname <- '" + gu + "'");
-			
-			r.eval("gucodename<- korpopmap2@data[,c(\"name\",\"code.data\")]");
-			r.eval("gucode <- gucodename[korpopmap2@data$name == guname, \"code.data\"]");
-			r.eval("pattern <- paste0('^', gucode)");
-			//System.out.println("test2");
-			
-			// grep : 이 데이터셋 안에 이 단어가 있는 것을 Index로 꺼내줌
-			r.eval("k3@polygons <- k3@polygons[grep(pattern, k3@data$code.data)]");
-			r.eval("k3@data <- k3@data[grep(pattern, k3@data$code.data),]");
-			
-			
-			r.eval("k3@data$name <-gsub('·','',k3@data$name) ");
-			r.eval("colnames(DONG)<-c('구별','name','일인가구')");
-			//강동구 1인 가구 뽑기
-			r.eval("dong <- DONG %>%filter(구별=='" + gu + "')");
-			//System.out.println("test22");
-			r.eval("guname <- iconv(guname, from='CP949', to='UTF-8')"); // iconv
-			//System.out.println("test222");
-			r.eval("k3@data<-merge(k3@data,dong,by.x='name',sort=FALSE)");
-			r.eval("mymap <- k3@data");
-			r.eval("mypalette <- colorNumeric(palette ='Set3' , domain = k3@data$'일인가구')");
-			r.eval("mypopup <- paste0(mymap$name,'<br> 1인가구: ',k3@data$'일인가구')");
-			r.eval("map7 <- NULL");
-			//System.out.println("test3");
-			r.eval("map7<-leaflet(k3) %>% " + 
-					"			  addTiles() %>% " + 
-					"			  setView(lat=37.52711, lng=126.987517, zoom=12) %>%" + 
-					"			  addPolygons(stroke =FALSE," + 
-					"			              fillOpacity = .7," + 
-					"			              popup = mypopup," + 
-					"			              color = ~mypalette(k3@data$'일인가구')) %>%" + 
-					"			  addLegend( values = ~k3@data$'일인가구'," + 
-					"			             pal = mypalette ," + 
-					"			             title = '인구수'," + 
-					"			             opacity = 1)");
-			r.eval("map7");
-			String fileName = path + "/index.html";
-			System.out.println(path);
-			r.eval("saveWidget(map7,'"+fileName+"',  selfcontained = F)");
-			System.out.println("test5");
-			retStr = r.eval("'index.html'").asString();
-			System.out.println("test6");
-
-		} catch (Exception e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} finally {
-			r.close(); 
-		}
-		return retStr;
-	}	
-}
-```
+* **effect**
+  * exam1 - hide, show
+  * exam2 - toggle
+  * exam3 - fade in , fade out
+  * exam4 - slide up, slide down
+  * exam5 - animate (if/else)
+  * exam6 - animate method 를 두번 호출하면서 효과를 변, back은 없음
+  * exam7- toggle (opacity 0,1)
+  * exam8 - toggle (width, height, toggle, swing like easing - 점빨, 점느) [swing or lean]
+  * exam9 - toggle( width만) ←→
+  * exam10 -  jquery plug in 사용
 
 
 
-##### oneView.jsp
+* **domedit**
 
-```java
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>R-Leaflet 일인가구 시각화 실습</h1> 
-<hr>
-<iframe src="${leafletOne }" width="100%" height=500></iframe> 
-</body>
-</html>
-```
+  * exam4 - attr (argument1개, 속성1개만 있음), 이미지 size 바꿈 width만 변경
 
+  * exam5 - attr 변수에 function이 와서 수행하도록 *****?index는 0부터*
+
+  * exam6 - attr 변수에 function이 와서 수행하도록 width는 또 function을 활용해서 받아오고, height는 고정
+
+  * exam7 - 있었던 속성 삭제 , removeAttr
+
+  * exam8 - **Attr, Css는 Argument 사양이 똑같아**
+
+    ### Attr('HTML속성명'), Css() 는 똑같은 사양
+
+    > *** Attr('HTML속성명') ⇒ *getter* (첫번째 것만 처리한다.)**
+
+    > *** Attr('HTML속성명', 'HTML속성값')
+
+    - Attr('HTML속성명', '함수')
+
+    - Attr({HTML속성명: 'HTML속성값', HTML속성명: 'HTML속성값',...} ) ⇒ setter**
+
+      $(document).ready(function () { $('h1').each(function(index,data) { var color = $(data).css('color'); alert(color); });
+
+  * exam9 -색상처리
+
+  * exam10 - 글자의 background 컬러도 검정색으로
+
+  * exam11
+
+    - html() -  innerHTML(htlm 태그로서 rendering)
+
+      argument 有O ('태그문자열'),  ('함수')—> setter
+
+      argument 無X—> getter
+
+    - text() —> textContent
+
+  * exam12- alert가 하나로 묶어서 나온다.
+
+  * exam13 - div 태그에 아무것도 없지만... // h1 태그 추가해서 html 로, // h1 태그 추가해서 text 로
+
+  * exam14 - div 태그에 아무것도 없지만... // h1 태그 추가해서 html  header + index로
+
+  
+
+* **ajaxjqexam** - jQuery를 가지고 ajax를 구현
+
+  * exam1 - ??
+
+    ```
+      $(document).ready( function() {
+         $.ajax('content/sample.xml', {
+            success :  function(data) {                    
+              $(data).find('testxml').each(function() { 
+                $('body').append("<h1>"+$(this).find('name').text() + '</h1>');
+                $('body').append("<h1>"+$(this).find('age').text() + '</h1>');
+                $('body').append("<h1>"+$(this).find('kind').text() + '</h1>');
+              });
+            }
+          });
+      });
+    ```
+
+    body 태그에 h1 태그를 찾아서 붙여라
+
+  * exam2 -
+
+    - $(....).each(함수)
+    - $.each(배열객체 또는 자바스크립트 객체, 함수) ← 반복처리를 대신 해준다.
+
+  * exam3 -
+
+  * exam5 - load();
+
+  * exam7
+
+  * exam7_1
+
+  * exam7_2 ← 파일 업로드 post 방식
