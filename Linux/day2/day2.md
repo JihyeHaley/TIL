@@ -63,6 +63,13 @@
       .
       ```
 
+
+
+
+* wc  [something] [filename.확장자]
+
+  * word count 
+
   
 
 * **mkdir** , make directory
@@ -143,7 +150,8 @@
 * clear 
   *  현재 사용중인 터미널 화면을 깨끗하게 지워준다.
 
-
+* process
+  * process status프로세스 : 현재 수행중인 프로그램
 
 * 종료
 
@@ -179,16 +187,14 @@
 
 * 에디터 사용
 
-  * ```
-    ed
-    ```
-
+  * ed
+    
   * vi
 
     * ```
-      vi [파일이름.txt]
+    vi [파일이름.txt]
       ```
-
+  
       * ### **i or a  누르면 끼워넣기로 변경됨** insert
 
       * ### **i or a  누르면 끼워넣기로 변경됨 append**
@@ -196,7 +202,7 @@
       * **esc : 명령모드으로** (명령모드 상태로만 실행해야하는 명령어)
 
         * dd : 행전체 삭제
-        *  t : 글자만 삭제
+      *  t : 글자만 삭제
         * yy : 복사
         * p: 붙여넣기
         * :wq + enter : 저장하고 끝냄
@@ -210,17 +216,17 @@
         * /xxx : xxx 찾기
         * x : 현재 커서가 위치한 글자 삭제
         * X : 현재 커서가 위치한 앞 글자 삭제
-
+  
         
 
   * **cat [file name]** or **head [file name]** or **tail [file name]**
 
     * file의 내용을 볼 수 있도록 보여주는 
-    * head (앞에서 10줄)
+  * head (앞에서 10줄)
     * tail (뒤에서10줄)
-
+  
   * ```
-    gedit
+  gedit
     ```
-
+  
     
