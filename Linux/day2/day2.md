@@ -153,6 +153,15 @@
 * process
   * process status프로세스 : 현재 수행중인 프로그램
 
+
+
+* Symbolic link
+  * ln -s [파일이름]
+    * file 이름 duplicate
+    * link하고 있는 파일
+
+
+
 * 종료
 
   * ```
