@@ -52,3 +52,16 @@ m2, m3, m4
 
 
 
+## :confused:  HADOOP
+
+Spring MVC에서 Hadoop 연동하여 HDFS 나 MapReduce 기능을 사용하려면
+
+* hadoop 폴더를 C:\에 저장한 후에 HADOOP_HOME, PATH 설정
+  * HADOOP_HOME :`c:\hadoop`
+  * PATH :%HADOOP_HOME%bin
+
+
+
+* CMD 창 가서 확인하기 
+  * echo %PATH%
+  * echo %HADOOP_HOME%
