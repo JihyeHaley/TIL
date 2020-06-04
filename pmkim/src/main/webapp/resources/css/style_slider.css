@@ -1,0 +1,95 @@
+ .cover-slides{
+     height: 100vh;
+}
+ .slides-navigation a {
+     background: #b0b435;
+     position: absolute;
+     height: 70px;
+     width: 70px;
+     top: 50%;
+     font-size: 20px;
+     display: block;
+     color: #fff;
+     line-height: 90px;
+     text-align: center;
+     transition: all .3s ease-in-out;
+}
+ .slides-navigation a i{
+     font-size: 40px;
+}
+ .slides-navigation a:hover {
+     background: #000000;
+}
+ .cover-slides .container{
+     height: 100%;
+     position: relative;
+     z-index: 2;
+}
+ .cover-slides .container > .row {
+     -webkit-box-align: center;
+     -ms-flex-align: center;
+     align-items: center;
+}
+ .cover-slides .container > .row {
+     height: 100%;
+}
+ .overlay-background {
+     background: #333;
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     top: 0;
+     opacity: 0.5;
+}
+ .cover-slides h1{
+     font-family: 'Poppins', sans-serif;
+     font-weight: 500;
+     font-size: 64px;
+     color: #fff;
+}
+ .cover-slides p{
+     font-size: 18px;
+     color: #fff;
+     padding-bottom: 30px;
+}
+ .slides-pagination a{
+     border: 2px solid #ffffff;
+	 border-radius: 6px;
+}
+ .slides-pagination a.current{
+     background: #b0b435;
+     border: 2px solid #b0b435;
+}
+ .cover-slides p a{
+     font-size: 24px;
+     color: #ffffff;
+     border: none;
+     text-transform: uppercase;
+     padding: 10px 20px;
+}
+
+ #slider-range .ui-slider-handle {
+     background-color: #b0b435;
+     border: 10px solid #fff;
+     border-radius: 50%;
+     cursor: pointer;
+     height: 21px;
+     top: -6px;
+     transition: none 0s ease 0s;
+     width: 21px;
+     box-shadow: 0px 0px 6.65px 0.35px rgba(0,0,0,0.15);
+}
+ #slider-range .ui-slider-range {
+     background-color: #ffc107;
+     border-radius: 0;
+}
+ #slider-range {
+     background: #000000;
+     border: medium none;
+     border-radius: 50px;
+     float: left;
+     height: 10px;
+     margin-top: 14px;
+     width: 100%;
+}

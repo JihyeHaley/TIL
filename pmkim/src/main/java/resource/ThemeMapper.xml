@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resource.ThemeMapper">
+    
+    <select id="allGoodsTheme"  resultType="vo.GoodsInfoThemeVO">
+       <!-- select good_name, good_img from goods -->
+       select g.good_name, g.good_img, e.event_name, s.shop_name
+        from goods g, event e, shop_code s where g.good_id = e.good_id
+    </select>
+ 	 	
+</mapper>
+
+
+
+
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="resource.NewsMapper">
+	<select id="newsAll" resultType="vo.NewsVO">
+		select write_id, write_date, title, content, shop_name
+		from( select b.write_id as write_id, b.write_date as write_date, b.title as title, b.content as content, sc.shop_name as shop_name, rownum as rnum
+				from board b, shop_code sc
+				where b.shop_name_kor = sc.shop_name_kor
+				and (b.title like '%CU%'
+				or b.title like '%GS%'
+				or b.title like '%이마트24%' or b.title like '%Emart24%'
+				or b.title like '%세븐일레븐%' or b.title like '%7Eleven%'
+				or b.title like '%미니스톱%' or b.title like '%ministop%'))
+		where rnum between #{startNum} and #{endNum}	
+	</select>
+	
+	<select id="newsSort" resultType="vo.NewsVO">
+		select write_id, write_date, title, content, shop_name
+		from( select b.write_id as write_id, b.write_date as write_date, b.title as title, b.content as content, sc.shop_name as shop_name, rownum as rnum
+				from board b, shop_code sc
+				where b.shop_name_kor = sc.shop_name_kor
+				and b.shop_name_kor = #{shop_name_kor}
+				and (b.title like '%CU%'
+				or b.title like '%GS%'
+				or b.title like '%이마트24%' or b.title like '%Emart24%'
+				or b.title like '%세븐일레븐%' or b.title like '%7Eleven%'
+				or b.title like '%미니스톱%' or b.title like '%ministop%'))
+		where rnum between #{startNum} and #{endNum}	
+		
+	</select>
+	
+	<select id="newsAllCount" resultType="_int">
+		select count(b.write_id)
+		from board b, shop_code sc
+		where b.shop_name_kor = sc.shop_name_kor
+		and (b.title like '%CU%'
+		or b.title like '%GS%'
+		or b.title like '%이마트24%' or b.title like '%Emart24%'
+		or b.title like '%세븐일레븐%' or b.title like '%7Eleven%'
+		or b.title like '%미니스톱%' or b.title like '%ministop%')
+	</select>
+	
+	<select id="newsSortCount" resultType="_int">
+		select count(b.write_id)
+		from board b, shop_code sc
+		where b.shop_name_kor = sc.shop_name_kor
+		and b.shop_name_kor = #{shop_name_kor}
+		and (b.title like '%CU%'
+		or b.title like '%GS%'
+		or b.title like '%이마트24%' or b.title like '%Emart24%'
+		or b.title like '%세븐일레븐%' or b.title like '%7Eleven%'
+		or b.title like '%미니스톱%' or b.title like '%ministop%')
+	</select>
+</mapper>

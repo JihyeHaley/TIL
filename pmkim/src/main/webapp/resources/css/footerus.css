@@ -1,0 +1,294 @@
+.container3 {
+    width: 70%;
+    border-radius:20px;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-right: auto;
+    margin-left: auto; 
+    background-color:white;
+    color:black;
+}
+
+.text-centers{
+    text-align:center;}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -1.5rem;
+    margin-left: -1.5rem; }
+
+.col-lg-422 {
+    flex: 0 0 20%;
+    max-width: 20%; }
+
+
+.mb-5{
+    margin-bottom: 3rem !important; 
+    margin-left : 2.5%;
+    margin-right : 2%;}
+
+.mb-lg-0{
+    margin-bottom: 0 !important; }
+
+.git_img{
+    width:20%;
+    margin-bottom:80px;
+    border-radius:15px;}
+
+.profile{
+    width:100%;
+    height:200px;
+    border-radius:30px;}
+
+/*------------------------------------------------------------------ Footer Main -------------------------------------------------------------------*/
+
+.profile-text{
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 20px;
+    color:black;
+}
+.result-text{
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 20px;
+    color:black;
+}
+.footer-main{
+    padding: 70px 0px;
+    background: #0F694D;
+}}
+.footer-main hr{
+   border-top: 1px solid rgba(255,255,255,.6);
+}
+.footer-top-box{
+   margin-bottom: 30px;
+}
+.footer-top-box h3{
+   color: black;
+   position: relative;
+   font-size: 20px;
+}
+.footer-top-box h3::before {
+    border-bottom: 2px solid #0F694D;
+    content: "";
+    height: 3px;
+    width: 50%;
+    position: absolute;
+    bottom: 3px;
+    left: 0px;
+}
+.list-time{
+   margin-top: 15px;
+}
+.footer-top-box .list-time li{
+   color: black;
+   font-size: 16px;
+   display: block;
+   float: none;
+}
+
+.newsletter-box{
+   margin-top: 15px;
+   position: relative;
+}
+.newsletter-box input{
+   height: 40px;
+   border: none;
+   padding: 0 10px;
+   background: transparent;
+   border-radius: 0;
+   background: #fff;
+   padding: 0 20px;
+   width: 100%;
+}
+.newsletter-box i{
+   position: absolute;
+   right: 15px;
+   top: 10px;
+   font-size: 20px;
+}
+.newsletter-box button{   
+   color: black;
+   font-size: 16px;
+   font-weight: 500;
+   
+}
+ .footer-top-box p{
+    padding-bottom: 15px;
+    color: black;
+ }
+
+ .footer-top-box ul{
+     display: inline-block;
+}
+ .footer-top-box ul li {
+     float: left;
+     margin-right: 5px;
+}
+ .footer-top-box ul li a {
+     color:black;
+     display: inline-block;
+     width: 36px;
+     height: 36px;
+     border: 2px solid black;
+     text-align: center;
+     line-height: 32px;
+}
+ .footer-top-box ul li a:hover {
+     color: #0F694D;
+     border-color: #0F694D;
+}
+.footer-widget, .footer-link, .footer-link-contact{
+   margin-top: 15px;
+}
+ .footer-widget h4 {
+     color: black;
+     font-size: 16px;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     margin-bottom: 20px;
+     position: relative;
+     font-weight: 700;
+}
+ .footer-widget h4::before {
+     border-bottom: 3px solid #0F694D;
+     content: "";
+     height: 3px;
+     width: 100%;
+     position: absolute;
+     bottom: 3px;
+     left: 0px;
+}
+ .footer-widget p {
+     color: black;
+     font-weight: 400;
+     font-size: 14px;
+     padding-bottom: 20px;
+}
+
+ .footer-link{
+}
+ .footer-link h4{
+     color: black;
+     font-size: 16px;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     margin-bottom: 20px;
+     position: relative;
+     font-weight: 700;
+}
+ .footer-link h4::before {
+     border-bottom: 3px solid #0F694D;
+     content: "";
+     height: 3px;
+     width: 100%;
+     position: absolute;
+     bottom: 3px;
+     left: 0px;
+}
+ .footer-link ul li {
+     margin-right: 5px;
+}
+ .footer-link ul li a {
+     color: black;
+     text-align: left;
+     display: block;
+     line-height: 32px;
+     position: relative;
+     padding-left: 15px;
+     transition: all .3s ease-in-out;
+     -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+     -o-transition: all .3s ease-in-out;
+     -ms-transition: all .3s ease-in-out;
+}
+ .footer-link ul li a::before {
+     font-family: 'Youth', sans-serif;
+     content: "\f105";
+     position: absolute;
+     left: 5px;
+     line-height: 35px;
+     font-size: 16px;
+     transition: all .3s ease-in-out;
+     -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+     -o-transition: all .3s ease-in-out;
+     -ms-transition: all .3s ease-in-out;
+}
+ .footer-link ul li a:hover::before {
+     left: 5px;
+}
+ .footer-link ul li a:hover {
+     color: #0F694D;
+     border-color: #0F694D;
+     padding-left: 20px;
+}
+ .footer-link-contact h4{
+     color: black;
+     font-size: 16px;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     margin-bottom: 20px;
+     position: relative;
+     font-weight: 700;
+}
+ .footer-link-contact h4::before {
+     border-bottom: 3px solid #0F694D;
+     content: "";
+     height: 3px;
+     width: 100%;
+     position: absolute;
+     bottom: 3px;
+     left: 0px;
+}
+ .footer-link-contact ul li{
+     margin-bottom: 12px;
+}
+ .footer-link-contact ul li i{
+     position: absolute;
+     left: 0;
+     top: 5px;
+     padding-right: 6px;
+}
+
+ .footer-link-contact ul li p a:hover{
+     color: #0F694D;
+}
+    .footer-link-contact ul li p{
+        padding-left: 25px;
+        color: #060606;
+        position: relative;
+   }
+    .footer-link-contact ul li p{
+        font-size: 16px;
+        color: #060606;
+        font-weight: 300;
+        padding-right: 16px;
+        line-height: 24px;
+   }
+    .footer-link-contact ul li p a{
+        color: #060606;
+   }
+
+/*------------------------------------------------------------------ Copyright -------------------------------------------------------------------*/
+.footer-copyright{
+    background: #060606;
+    padding: 20px 0px;
+    position: relative;
+}
+.footer-copyright p {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+}
+.footer-copyright p a{
+    color: white;
+}
+.footer-copyright p a:hover{
+    color: white;
+}
+        

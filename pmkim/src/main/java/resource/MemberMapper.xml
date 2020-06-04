@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="resource.MemberMapper">
+   <!-- <select id="loginCheck" resultType="String">
+      select id from member 
+      where id = #{id} and pw = #{pw}
+   </select>
+   
+   <select id = "memberInfo" resultType="vo.MemberVO">
+      select id, pw, name, tel_num, email, nick_name, road_addr, login_type, member_type from member 
+      where id= #{id} and pw =#{pw}
+   </select>
+   
+   <insert id = "joinMember" parameterType="vo.MemberVO">
+      insert into member (id, pw, name, tel_num, email, sign_date, nick_name, road_addr, login_type, member_type) 
+      values (#{id}, #{pw}, #{name}, #{tel_num}, #{email}, sysdate, #{nick_name}, #{road_addr}, #{login_type}, #{member_type})
+   </insert>
+   
+   <select id = "checkId" parameterType="String" resultType="_int">
+      select count(id) from member where id = #{id}
+   </select>
+   
+      <select id = "checkEmail" parameterType="String" resultType="_int">
+      select count(email) from member where id = #{email}
+   </select>
+   
+   <delete id="deleteMember" parameterType="vo.MemberVO">
+      delete from member where id=#{id}
+   </delete> -->
+   
+    <select id="loginCheck" resultType="String">
+ 		select id, name
+ 		from member
+ 		where id=#{id} and 
+ 			  pw=#{pw}
+ 	</select>
+ 	
+ 	<select id="viewMember" resultType="vo.MemberVO">
+ 		select id, nick_name 
+ 		from member
+ 		where id=#{id} and 
+ 			  pw=#{pw}
+ 	</select>
+ 	
+ 	<insert id="insertMember" parameterType="vo.MemberVO">
+		insert into member(id, pw, name, tel_num, email, sign_date, nick_name, road_addr, member_type)
+	    values(#{id}, #{pw}, #{name}, #{tel_num}, #{email}, sysdate, #{nick_name}, #{road_addr}, #{member_type})
+	</insert>
+ 	
+ 	<select id="idCheck" parameterType="String" resultType="_int">
+ 		select count(id)
+ 		from member
+ 		where id=#{id}
+ 	</select>
+</mapper>
