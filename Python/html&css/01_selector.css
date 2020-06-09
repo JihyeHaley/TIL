@@ -1,0 +1,15 @@
+h1{
+    color: red;
+}
+
+#hi{
+    color:blue;
+}
+
+.bye{
+    color:green;
+}
+
+a[href]{
+    color:orange;
+}
