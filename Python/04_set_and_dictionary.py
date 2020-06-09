@@ -13,7 +13,7 @@ set_c = set() #set은 class를 통해서 선언을 해주고 사용해야 한다
 
 #2. dictionary
 print('---- dictionary ----')
-dict_a = {1: 1, 2: 2, 3: 3, 1: 4} #set이랑 똑같이 생겼는데 기본값은 dictionary
+dict_a = {1: 1, 2: 2, 3: 3} #set이랑 똑같이 생겼는데 기본값은 dictionary
 #key가 겹쳐버리면 나중에 씌인 값이 나온다.
 print(dict_a)
 print(type(dict_a))
