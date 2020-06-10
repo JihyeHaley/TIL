@@ -12,6 +12,10 @@
 
 
 
+
+
+
+
 ## :kissing_smiling_eyes: About Django :)
 
 * 하나의 프로젝트는 여러 앱을 가지게 된다.
@@ -20,6 +24,14 @@
 * 작은 규모의 서비스에서는 세부적으로 나누지 않는다.
 * app 이름은 ***복수형***으로 하는 것이 권장된다.
   * ![image-20200610102139196](C:\Users\ohhoj\AppData\Roaming\Typora\typora-user-images\image-20200610102139196.png)
+
+
+
+
+
+
+
+
 
 ## django project 시작하기
 
@@ -52,6 +64,12 @@ python manage.py startapp articles
 ##### app 'articles' 안에 'templates' 폴더를 만들고 그 안에 보여줄 html파일들을 만든다.
 
 ![image-20200610104405178](C:\Users\ohhoj\AppData\Roaming\Typora\typora-user-images\image-20200610104405178.png)
+
+
+
+
+
+
 
 
 
@@ -88,3 +106,23 @@ python manage.py startapp articles
 
 
 
+
+
+## Variable Routing
+
+##### 1. 자기소개 페이지 (이름, 나이)
+
+##### 2. 수  2개를 받아서 곱셈 결과를 보여주는 페이지
+
+
+
+#### in "urls.py"
+
+path('introduce/<str:name>**/**') ====> **/** 슬래쉬 잊지말기!!!!!!!
+
+
+
+##### 회문판별
+
+- variable routing 
+- 회문일때랑 아닐때 다르게 출력되도록

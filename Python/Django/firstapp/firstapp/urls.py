@@ -30,5 +30,5 @@ urlpatterns = [
     path('introMe/<str:name>/<int:age>/', views.introMe),
     path('calculation/<int:num1>/<int:num2>/', views.calculation),
     path('dtl-practice/', views.dtl_practice),
-    path('rotator/<word>/', views.rotator)
+    path('rotator/<word>/', views.rotator),
 ]
