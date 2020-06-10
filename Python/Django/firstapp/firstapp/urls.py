@@ -23,4 +23,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
     path('dinner/', views.dinner),
+    path('randomImg/', views.randomImg),
+    path('hello/<str:name>/', views.hello),
+    # str 타입 명시는 생략 가능
+    # paht('hello/<name>/, view.hello),
+    path('introMe/<str:name>/<int:age>/', views.introMe),
+    path('calculation/<int:num1>/<int:num2>/', views.calculation),
+    path('dtl-practice/', views.dtl_practice),
+    path('rotator/<word>/', views.rotator)
 ]
