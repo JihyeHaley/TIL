@@ -27,10 +27,6 @@
 
 
 
-
-
-
-
 ## Django 프로젝트 특징
 
 - app 들의 집합 (한개의 프로젝트에 여러 app들이 존재함)
@@ -98,27 +94,94 @@
 
 ## django project 시작하기
 
-```
-python manage.py startapp articles
+#### 1. django 프로젝트 생성
+
+```python
+#아주 처음에만
+#이미 설치했다면 skip
+
+pip install django=2.1.15 
 ```
 
-#### 1. django 프로젝트 생성
+
 
 #### 2. app 생성
 
+<앱 생성 시작>
+
+```python
+django-admin startproject firstapp
+```
+
+​	:honey_pot: **tips**
+
+​    `ls`를 하면 **/firstappd** 을 볼 수 있다.
+
+​	`cd firstapp` -> `ls` 하면 **manage.py** 가 생성된다.
+
+```
+python manage.py [앱 이름](복수형)
+```
+
+   :honey_pot: **tips**
+
+   `python manage.py articles` = 강사님 말씀대로 했다. :)
+
+   **/articles** 파일이 만들어졌을 거고 그 안에 **/templates** 파일을 만들어야 한다.
+
+   `mkdir templates`를 만들거나 마우스로 폴더를 만들면된다.
+
+
+
 #### 3. 프로젝트에 app 등록 (settings.py)
+
+​	**INSTALLED_APPS에 [앱 이름]넣어주기** 
+
+​	나는 `articles`를 젤 위에 넣어줬다. :smile_cat:
+
+```python
+INSTALLED_APPS = [
+    'articles',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+
+​	settings.py 에서 한글 그리고 지역을 설정할 수 있다.
+
+  ```python
+LANGUAGE_CODE = 'ko-kr'
+
+TIME_ZONE = 'Asia/Seoul'
+  ```
+
+
 
 #### 4. urls.py 작성
 
+​	:honey_pot: **tips**
+
+​	from [앱이름] import views
+
+​	`from articles import views` <- 요것도 잊지 말자 :)
+
+
+
+(아이디어톤 끝나고 다시 수정 예정)	
+
 #### 5. views.py 작성
+
+(아이디어톤 끝나고 다시 수정 예정)
+
+​	
 
 #### 6. templates 작성
 
-
-
-
-
-
+(아이디어톤 끝나고 다시 수정 예정)	
 
 
 
@@ -135,24 +198,5 @@ python manage.py startapp articles
 - `views.py` : view들이 정의 되는 곳..다양한 함수 작성 (중간 관리자-젤 중요)
 
 
-
-
-
-<img src="C:\Users\ohhoj\AppData\Roaming\Typora\typora-user-images\image-20200610101233102.png" alt="image-20200610101233102" style="zoom:50%;" />
-
-
-
-
-
-
-
-
-![image-20200610103734101](C:\Users\ohhoj\AppData\Roaming\Typora\typora-user-images\image-20200610103734101.png)
-
-
-
-##### app 'articles' 안에 'templates' 폴더를 만들고 그 안에 보여줄 html파일들을 만든다.
-
-![image-20200610104405178](C:\Users\ohhoj\AppData\Roaming\Typora\typora-user-images\image-20200610104405178.png)
 
 
