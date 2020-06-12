@@ -8,3 +8,13 @@
 
 It is super fun to study Python and Django. Happy to face this work before i graduate.
 
+
+
+## :love_letter: June 12 2020 기준 
+
+#### Nowadays, I have been learning Python  and Django from basic to practice. How i cannot use this amazing skills. 
+
+#### Please look around my "*PYTHON*" folder in order you to search about my practice and patience. 
+
+#### I've been upgraded :) I'm sure and will be :laughing:
+
