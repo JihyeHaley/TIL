@@ -100,7 +100,9 @@ def catch(request):
     print(request.GET.get('hi')) 
     pprint(request.META)
     message = request.GET.get('message')
+    name = request.GET.get('name')
     contenxt = {
         'message' : message,
+        'name' : name,
     }
     return render(request, 'catch.html', contenxt)
