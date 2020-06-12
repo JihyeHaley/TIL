@@ -99,7 +99,7 @@ def catch(request):
     # .get('') none 값으로 나옴. server안멈춤
     print(request.GET.get('hi')) 
     pprint(request.META)
-    message = request.GET.get('message')
+    message = request.GET.getmaster('message')
     name = request.GET.get('name')
     contenxt = {
         'message' : message,
