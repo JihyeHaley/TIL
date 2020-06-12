@@ -10,6 +10,9 @@ It is super fun to study Python and Django. Happy to face this work before i gra
 
 
 
+
+
+
 ## :love_letter: June 12 2020 기준 
 
 #### Nowadays, I have been learning Python  and Django from basic to practice. How i cannot use this amazing skills. 
