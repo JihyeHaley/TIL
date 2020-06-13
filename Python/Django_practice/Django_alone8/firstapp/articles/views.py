@@ -8,11 +8,11 @@ def index(request, name, age):
         'name' : name,
         'age' : age,
     }
-    return render(request, 'index.html', content)
+    return render(request, 'articles/index.html', content)
 
 
 def form_practice_a(request):
-    return render(request, 'form_practice_a.html')
+    return render(request, 'articles/form_practice_a.html')
 
 
 def form_practice_b(request):
@@ -30,4 +30,4 @@ def form_practice_b(request):
         'age' : age,
         'message' : message,
     }
-    return render(request, 'form_practice_b.html', content)
+    return render(request, 'articles/form_practice_b.html', content)
