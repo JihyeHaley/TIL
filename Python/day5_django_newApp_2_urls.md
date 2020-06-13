@@ -42,11 +42,11 @@
 
 #### 			app_name/
 
-####  				templates/
+####  					templates/
 
-#### 					app_name(pages *or* articles...) / <- namespace 분리역할
+#### 							app_name(pages *or* articles...) / <- namespace 분리역할
 
-#### 						index.html
+#### 									index.html
 
 ​		- app_name/templates 이후에 app_name폴더를 하나 더 둠으로써 이름 공간을 생성한다.
 
@@ -120,60 +120,36 @@ python manage.py startapp pages
 
 #### firstapp/urls.py에서 views.py가 충돌 할 거니깐 URL을 각 앱들의 URL파일을 만들어서 수정해주기
 
-​	admin/은 가져오지 않기*
+​	admin/은 가져오지 않기	![attach1](https://user-images.githubusercontent.com/58539681/84569923-fabb5e00-adc4-11ea-8485-04e60eabf4a7.png)
 
-* ```python
-  from django.urls import path
-  from . import views
-  
-  urlpatterns = [
-      path('index/', views.index),
-      path('dinner/', views.dinner),
-      path('randomImg/', views.randomImg),
-      path('hello/<str:name>/', views.hello),
-      # str 타입 명시는 생략 가능
-      # paht('hello/<name>/, view.hello),
-      path('introMe/<str:name>/<int:age>/', views.introMe),
-      path('calculation/<int:num1>/<int:num2>/', views.calculation),
-      path('dtl-practice/', views.dtl_practice),
-      path('rotator/<word>/', views.rotator),
-      path('throw/',views.throw),
-      path('catch/', views.catch),
-      path('lotto-throw/', views.lotto_throw),
-      path('lotto-catch/', views.lotto_catch),
-      path('artii/', views.artii),
-      path('artii-result/', views.artii_result),
-  ]
-  ```
 
-  
-    * ❓이제 html파일을 모두 바꿀 수가 없으니깐 name으로 한다.
+  * ❓이제 html파일을 모두 바꿀 수가 없으니깐 name으로 한다.
 
-      * firstapp/articles/urls.py
+    * firstapp/articles/urls.py
 
-        * ```
-          urlpatterns = [
-              path('artii/', views.artii, name='artii'),
-              path('artii-result/', views.artii_result, name='artii_result'),
-          ]
-          ```
+      * ```python
+        urlpatterns = [
+            path('artii/', views.artii, name='artii'),
+            path('artii-result/', views.artii_result, name='artii_result'),
+        ]
+        ```
 
-          * name = '이름이름'은 **path 이름**!
+        * name = '이름이름'은 **path 이름**!
 
-  
 
-  * firstapp/articles/templates/artii.html
 
-    * ```html
-      <form action="{% url 'artii_result' %}" method="get">
-          단어입력: <input type="text" name="word"><br>
-      ```
+* firstapp/articles/templates/artii.html
 
-      * action의 url설정에  urls.py에서 설정한 path 이름을 적어준다. 
+  * ```html
+    <form action="{% url 'artii_result' %}" method="get">
+        단어입력: <input type="text" name="word"><br>
+    ```
 
-        **{% url '*[name 적기]*' %}**
+    * action의 url설정에  urls.py에서 설정한 path 이름을 적어준다. 
 
-        url + tab만 해도 만들어준다.
+      **{% url '*[name 적기]*' %}**
+
+      url + tab만 해도 만들어준다.
 
 
 

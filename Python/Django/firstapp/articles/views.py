@@ -132,7 +132,7 @@ def artii(request):
 
     # 2. ARTII api fontlist로 요청을 보내 폰트 정보를 받는다.
     font_response = requests.get(font_URL).text
-    #print(type(font_response))
+    print(type(font_response))
 
     # 3. 문자열 데이터를 리스트로 변환한다.
     # enter로 문자열들이 구분되어 이썽서 split함수를 사용해서 list로 만들어 주는 과정
