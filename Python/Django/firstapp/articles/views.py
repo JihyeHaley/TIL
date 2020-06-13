@@ -13,7 +13,7 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'articles/index.html')
 
 
 def dinner(request):
@@ -22,7 +22,7 @@ def dinner(request):
     context = {
         'pick' : pick,
     }
-    return render(request, 'dinner.html', context)
+    return render(request, 'articles/dinner.html', context)
     #딕셔너리 형태로 보내게 된다.
 
 
@@ -34,14 +34,14 @@ def randomImg(request):
         'picked_Img' : picked_Img,
         'random_comment' : random_comment,
     }
-    return render(request, 'randomImg.html', context)
+    return render(request, 'articles/randomImg.html', context)
 
 
 def hello(request, name):
     context = {
         'name' : name,
     }
-    return render(request, 'hello.html', context)
+    return render(request, 'articles/hello.html', context)
 
 
 def introMe(request, name, age):
@@ -49,7 +49,7 @@ def introMe(request, name, age):
         'name' : name,
         'age' : age,
     }
-    return render(request, 'introMe.html', context)
+    return render(request, 'articles/introMe.html', context)
 
 
 def calculation(request, num1, num2) :
@@ -59,7 +59,7 @@ def calculation(request, num1, num2) :
         'num2' : num2,
         'result' : result,
     }
-    return render(request, 'calculation.html', context)
+    return render(request, 'articles/calculation.html', context)
 
 
 def dtl_practice(request):
@@ -73,7 +73,7 @@ def dtl_practice(request):
         'messages' : messages,
         'datetime_now' : datetime_now,
     }
-    return render(request, 'dtl_practice.html', context)
+    return render(request, 'articles/dtl_practice.html', context)
 
 
 def rotator(request, word):
@@ -85,12 +85,12 @@ def rotator(request, word):
         'word' : word,
         'result' : result,
     }
-    return render(request, 'rotator.html', context)
+    return render(request, 'articles/rotator.html', context)
 
 
 def throw(request):
     #페이지만 보여주면 되니깐, return renter만 하면 된다.
-    return render(request, 'throw.html') 
+    return render(request, 'articles/throw.html') 
 
 
 def catch(request):
@@ -100,17 +100,17 @@ def catch(request):
     # .get('') none 값으로 나옴. server안멈춤
     print(request.GET.get('hi')) 
     pprint(request.META)
-    message = request.GET.getmaster('message')
+    message = request.GET.get('message')
     name = request.GET.get('name')
     contenxt = {
         'message' : message,
         'name' : name,
     }
-    return render(request, 'catch.html', contenxt)
+    return render(request, 'articles/catch.html', contenxt)
 
 
 def lotto_throw(request):
-    return render(request, 'lotto_throw.html')
+    return render(request, 'articles/lotto_throw.html')
 
 
 def lotto_catch(request):
@@ -122,11 +122,11 @@ def lotto_catch(request):
         'name' : name,
         'lotto' : lotto,
     }
-    return render(request, 'lotto_catch.html', content)
+    return render(request, 'articles/lotto_catch.html', content)
 
 
 def artii(request):
-    
+    #fonts_list를 여기서 추출해줘야지 요청 페이지에서 볼 수 있다.
     #1. font URL
     font_URL = 'http://artii.herokuapp.com/fonts_list'
 
@@ -135,13 +135,14 @@ def artii(request):
     #print(type(font_response))
 
     # 3. 문자열 데이터를 리스트로 변환한다.
+    # enter로 문자열들이 구분되어 이썽서 split함수를 사용해서 list로 만들어 주는 과정
     fonts_list = font_response.split('\n')
-    print(fonts_list)
+    #print(fonts_list)
     
     context = {
         'fonts_list' : fonts_list,
     }
-    return render(request, 'artii.html', context)
+    return render(request, 'articles/artii.html', context)
 
 
 def artii_result(request):
@@ -160,4 +161,4 @@ def artii_result(request):
         'result' : result,
     }
 
-    return render(request, 'artii_result.html', context)
+    return render(request, 'articles/artii_result.html', context)

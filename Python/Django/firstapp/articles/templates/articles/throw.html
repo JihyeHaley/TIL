@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block throw %}
     <h1>Throw</h1>
-    <form action="/catch/" method="GET"> <!-- <<<- 어떤 action으로 받을 건지 :)-->
+    <form action="{% url 'articles:catch' %}" method="GET"> <!-- <<<- 어떤 action으로 받을 건지 :)-->
         <input type="text" name="message">
         <input type="text" name="name">
         <input type="submit"> <!-- 버튼이 될려면 type이 "submit"이 되어야 한다.-->
         <!-- <button></button> default값으로 type="submit"이다. javascript나 event할때는 button이 더 유용할 거다. -->
     </form>
-</body>
-</html>
+{% endblock throw %}
+

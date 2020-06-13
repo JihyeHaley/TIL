@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block lotto_throw %}
+    <form action="{% url 'articles:lotto_catch' %}" method="get">
+        <input type="text" name="name">name</input>
+        <input type="submit"></input>
+    </form>
+{% endblock  %}
+

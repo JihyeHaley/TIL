@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test - dtl_practice</title>
-</head>
-<body>
-    <h1>1. 반복문</h1>
+{% extends 'base.html' %}
+
+{% block dtl_practice %}
+     <h1>1. 반복문</h1>
     {% for food in foods %} 
         <p>{{ food }}</p>
     {% endfor %}
@@ -87,5 +82,5 @@
     <p>{% now "DATETIME_FORMAT" %}</p>
     <p>{% now "SHORT_DATE_FORMAT" %}</p>
     <p>{% now "SHORT_DATETIME_FORMAT" %}</p>
-</body>
-</html>
+
+{% endblock  %}
