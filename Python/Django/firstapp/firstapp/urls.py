@@ -33,4 +33,8 @@ urlpatterns = [
     path('rotator/<word>/', views.rotator),
     path('throw/',views.throw),
     path('catch/', views.catch),
+    path('lotto-throw/', views.lotto_throw),
+    path('lotto-catch/', views.lotto_catch),
+    path('artii/', views.artii),
+    path('artii-result/', views.artii_result),
 ]
