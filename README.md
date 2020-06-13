@@ -1,6 +1,6 @@
 # :woman_student: This is Jihye(Haley)'s TIL (Today I Learned) 
 
-## at Samsung SDS Multicampus
+## at SDS Multicampus
 
 안녕하세요!
 
