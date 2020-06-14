@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block index %}
+    <h1>pages의 index</h1>
+    <img src="{% static 'images/main.jpg' %}" alt="">
+    <p>main에서 가져온 사진입니다. 이걸 보면 성공한거! 로직을 좀 더 쉽게 짜보기.</p>
+    <p>일본어 공부도 중요하지만, 용어들을 잘 이해하는 것도 엄청 중요하다!</p>
+{% endblock  %}
