@@ -50,9 +50,9 @@
 
 ​		- app_name/templates 이후에 app_name폴더를 하나 더 둠으로써 이름 공간을 생성한다.
 
-### 	Django는 기본적으로 templates를 "*app_name/templates*"에서 찾는다.
+### 	❗️⭐️"Django는 기본적으로 templates를 "*app_name/templates*"에서 찾는다."
 
-### 	Django는 기본적으로 static 도 "*app_name/static*"에서 찾는다.
+### 	❗️⭐️Django는 기본적으로 static 도 "*app_name/static*"에서 찾는다.
 
 ​		**'DIRS': [os.path.join(BASE_DIR, 'firstapp', 'templates')],**
 
