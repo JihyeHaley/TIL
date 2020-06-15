@@ -1,4 +1,4 @@
-class Dog:
+class Dog1:
     # MyDogList (파스칼 케이스)
     # myDogList (카멜 케이스)
     
@@ -9,9 +9,9 @@ class Dog:
     def __init__(self, name):
         self.name = name #인스턴스 변수
 
-
-my_dog = Dog('gazi')
-your_dog = Dog('namu')
+print('--dog1--')
+my_dog = Dog1('gazi')
+your_dog = Dog1('namu')
 
 
 print(my_dog.kind)
@@ -20,29 +20,31 @@ print(your_dog.kind)
 print(my_dog.name)
 print(your_dog.name)
 
-class Dog:
+class Dog2:
     # 이름에 맞게 사용하는것이 가장 바람직하다
     tricks = []   # mistaken use of a class variable
 
     def __init__(self, name):
         self.name = name
-        
 
     def add_trick(self, trick):
         self.tricks.append(trick)
 
-my_dog = Dog('gazi')
-your_dog = Dog('namu')
+print('--dog2--')
+my_dog = Dog2('gazi')
+your_dog = Dog2('namu')
 
 my_dog.add_trick('hello')
 your_dog.add_trick('hihi')
 
 #클래스변수는 모든 인스턴스가 참조한다.
+print(my_dog.name)
+print(your_dog.name)
 print(my_dog.tricks)
 print(your_dog.tricks)
 
 
-class Dog:
+class Dog3:
 
     def __init__(self, name):
         self.name = name
@@ -52,9 +54,9 @@ class Dog:
         self.tricks.append(trick)
 
     
-
-my_dog = Dog('gazi')
-your_dog = Dog('namu')
+print('--dog3--')
+my_dog = Dog3('gazi')
+your_dog = Dog3('namu')
 
 my_dog.add_trick('hello')
 your_dog.add_trick('hihi')
@@ -94,3 +96,15 @@ class person:
 my_name = person('jihye')
 
 print(my_name.greeting())
+
+
+class Hello:
+    def __init__(self, name):
+        self.name = name
+    
+    def hihi(self):
+        return f'hello, {self.name}'
+print('--hello--')
+my_name = Hello('haley')
+print(my_name.hihi())
+
