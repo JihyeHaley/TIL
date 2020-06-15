@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center">성공</h1>
+    <hr>
+    <table>
+        <tr>
+            <th>글 번호</th>
+            <th>글 제목</th>
+            <th>글 내용</th>
+        </tr>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.pk}}</td>
+            <td>{{ article.title}}</td>
+            <td>{{ article.content}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock  %}
