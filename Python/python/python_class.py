@@ -67,7 +67,7 @@ variable = 'apple'
 # 단축형
 print(variable.capitalize())
 # self가 작성되는 이유
-#print(str.captiablize(variable))
+print(str.captiablize(variable))
 
 
 # 절차 지향 vs 객체 지향
