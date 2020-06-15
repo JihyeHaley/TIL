@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block dtl_practice %}
+     <h1>1. 반복문</h1>
+    {% for food in foods %} 
+        <p>{{ food }}</p>
+    {% endfor %}
+    <!-- for같은 것들은 열리면 닫혀야한다.-->
+
+
+    <!-- forloop.counter or forloop.count0 은 python에서 enumerate같은 함수-->
+    {% for food in foods %}
+        <p>{{ forloop.counter }} {{ food }}</p> 
+    {% endfor %}
+
+    {% for element in empty_list %}
+        <p>{{ element }}</p>
+    {% empty %}
+        <p>지금은 아무것도 없네요...</p>
+    {% endfor %}
+    <hr>
+
+
+    <h3>2번. 조건문 </h3>
+    {% if '짜장면' in foods %}
+        <p>짜장면은 역시 또자강!</p>
+    {% else %}
+        <p>너 다이어트 중이지? 그만 먹어.... 제발... 바지 작잖아...ㅠㅠ 반성하자 ㅠㅠ </p>
+    {% endif %}
+    <hr>
+    {% for food in foods %}
+        {% if forloop.first %}
+            <p>샐러드는 no dressing이지 !</p>
+        {% else %}
+            <p>{{ food }}</p>
+        {% endif %}
+    {% endfor %}
+    <hr>
+
+
+    <h3>3번. Length Filter </h3> <!-- pipe line 뒤쪽에 사용하는 것들-->
+    {% for food in foods %}
+        {% if food|length > 2 %}
+            <p>메뉴이름이 너무 길어요</p>
+        {% else %}
+            <p>{{ food }}, {{ food|length }}</p>
+        {% endif %}
+    {% endfor %}
+    <hr>
+
+
+    <h3>4번. Lorem ipsum </h3> <!-- pipe line 뒤쪽에 사용하는 것들-->
+    <p>{% lorem %}</p> <!-- 이미 정의된 변수 호출이라서 퍼센트로-->
+    <hr>
+    <p>{% lorem 3 w %}</p>
+    <hr>
+    <p>{% lorem random %}</p>
+    <hr>
+
+
+    <h3>5. 글자수 제한</h3>
+    <p>{{ messages|truncatewords:3 }}</p>
+    <p>{{ messages|truncatechars:5 }}</p> <!-- ...은 무조건 나오니깐 그거 계산해서 숫자 쓰기-->
+    <p>{{ messages|truncatechars:10 }}</p>
+    <hr>
+
+
+    <h3>6. 글자 관련 필터</h3>
+    <p>{{ 'ABC'|lower }}</p>
+    <p>{{ messages|title }}</p>
+    <p>{{ messages|capfirst }}</p>
+    <p>{{ foods|random }}</p>
+    <hr>
+
+    <h3>7. 연산</h3>
+    <p>{{ 4|add:6 }}</p> <!-- 애초의 목적이 다르기 때문에 -->
+    <hr>
+
+    <h3>8. 날짜처리</h3>
+    <p>{{ datetime_now }}</p>
+    <p>{% now "DATE_FORMAT" %}</p>
+    <p>{% now "DATETIME_FORMAT" %}</p>
+    <p>{% now "SHORT_DATE_FORMAT" %}</p>
+    <p>{% now "SHORT_DATETIME_FORMAT" %}</p>
+
+{% endblock  %}
