@@ -7,4 +7,4 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
     #auto_now_add = 최초 생성 일자
     updated_at = models.DateTimeField(auto_now=True)
-
+    users = models.TextField(default='test')

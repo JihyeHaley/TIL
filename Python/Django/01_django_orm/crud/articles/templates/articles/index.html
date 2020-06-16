@@ -2,19 +2,23 @@
 
 {% block content %}
     <h1 class="text-center">성공</h1>
+    <a href="{% url 'articles:new' %}">NEW</a>
     <hr>
-    <table>
+    <table style="width:70%;">
         <tr>
             <th>글 번호</th>
             <th>글 제목</th>
             <th>글 내용</th>
+            <ht>back?</th>
         </tr>
         {% for article in articles %}
         <tr>
             <td>{{ article.pk}}</td>
             <td>{{ article.title}}</td>
             <td>{{ article.content}}</td>
+            <td><a href="{% url 'articles:detail' article.pk %}">see details</a></td>
         </tr>
         {% endfor %}
     </table>
+     
 {% endblock  %}

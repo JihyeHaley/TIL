@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>DETAIL</h1>
+    <h2>{{ article.pk }}번 문서 입니다.</h2>
+    <table style="width:100%;">
+        <tr>
+            <th>ID</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성시간</th>
+            <th>수정시간</th>
+        </tr>
+        <tr>
+            <td>{{ article.pk }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.content }}</td>
+            <td>{{ article.created_at }}</td>
+            <td>{{ article.updated_at }}</td>
+        </tr>
+    </table>
+    <hr>
+    <a href="{% url 'articles:index' %}">see all</a>
+{% endblock  %}
