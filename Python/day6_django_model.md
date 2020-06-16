@@ -45,7 +45,7 @@ model 이 db를 관리해줄 뿐 !!
 
 
 
-## Django shell에서 하기 위해서
+## 📭Django shell에서 하기 위해서
 
 ```python
 pip install ipython

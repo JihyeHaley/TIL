@@ -125,7 +125,7 @@ python manage.py [앱 이름](복수형)
 
    :honey_pot: **tips**
 
-   `python manage.py articles` = 강사님 말씀대로 했다. :)
+   `python manage.py articles` 
 
    **/articles** 파일이 만들어졌을 거고 그 안에 **/templates** 파일을 만들어야 한다.
 
