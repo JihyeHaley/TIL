@@ -20,5 +20,11 @@
         </tr>
     </table>
     <hr>
-    <a href="{% url 'articles:index' %}">see all</a>
+    <form action="{% url 'articles:delete' article.pk%}" method="POST">
+        {% csrf_token %}
+        <button type="button" class="btn btn-warning">삭제하기</button>
+    </form>
+    <a href="{% url 'articles:edit' article.pk %}"><button type="button" class="btn btn-primary">수정하기</button></a>
+    <!--<a href="{% url 'articles:delete' article.pk%}">delete</a>-->
+    <a href="{% url 'articles:index' %}"><button class="btn btn-info">처음으로</button></a>
 {% endblock  %}
