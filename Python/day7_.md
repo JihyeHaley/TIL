@@ -1,4 +1,4 @@
-# day6_Django_model(장고)
+# day7_Django_model(장고)
 
 [from django.db import models](https://github.com/django/django/tree/master/django/db/models)
 

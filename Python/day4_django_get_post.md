@@ -85,7 +85,9 @@ def catch(request):
 
 [http method **mdn**](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods)
 
-#### GET 
+### 💎 GET
+
+* url에 직접 노출되고 접근하는 방식은 모두 get
 
 * HTTP method 중 GET 요청은 서버로부터 정보를 조회하는데 사요된다.
 * `GET` 메서드는 특정 리소스의 표시를 요청합니다. `GET`을 사용하는 요청은 오직 데이터를 받기만 합니다
@@ -94,6 +96,42 @@ def catch(request):
 
 
 
-#### POST
+### 💎 POST
 
-* post : 
+#### ▪︎ 사용자는 DJANGO 에게 'html파일을 줘 !(GET)가 아니라 '~한 레코드(글)을 생성해줘! (POST)' 이기 때문에 http method POST 를 사용해야한다.
+
+#### ▪︎ 데이터는 URL에 직접 노출되면 안된다. (우리가 URL에 접근하는 방식은 모두 GET이다.)
+
+#### ▪︎ Query의 형태를 통해 DB구조(schema)를 유추할 수 있고 이는 보안적인 측면에서 매우 취약하다.
+
+#### ▪︎ DB를 조작하는 친구는 GET이 아닌 POST! 왜? 중요한 요청이기 때문에 최소한의 신원 확인이 필요!
+
+#### ▪︎ 조회 하지 않으면 모두 POST로 보낼 거다아
+
+
+
+
+
+new.html
+
+```python
+<form action="{% url 'articles:create' %}" method="POST">
+	{% csrf_token %}
+```
+
+
+
+views.py
+
+```python
+return redirect('articles:index')
+```
+
+
+
+### 🧪 READ (DEATAIL) 
+
+#### /articles/
+
+#### /articles/1/
+
