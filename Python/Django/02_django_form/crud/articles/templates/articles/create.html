@@ -6,7 +6,8 @@
   {% csrf_token %}
   <h3>Version 1</h3>
   <h4>없다 ~~~</h4>
-  {{ form.as_p }}
+  {{ form.as_p }} <!--원래 input이 있던 자리-->
+  {% comment %} {{ form }} 이었는데,,,, form을 p 태그로 감싸준거 :) {% endcomment %}
   <br>
   <hr>
   <br>
