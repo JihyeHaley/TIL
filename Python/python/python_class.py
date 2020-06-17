@@ -17,7 +17,7 @@ your_dog = Dog1('namu')
 print(my_dog.kind)
 print(your_dog.kind)
 
-print(my_dog.name)
+print(my_dog.name) 
 print(your_dog.name)
 
 class Dog2:
@@ -38,6 +38,7 @@ my_dog.add_trick('hello')
 your_dog.add_trick('hihi')
 
 #클래스변수는 모든 인스턴스가 참조한다.
+print(my_dog)
 print(my_dog.name)
 print(your_dog.name)
 print(my_dog.tricks)
@@ -64,6 +65,8 @@ your_dog.add_trick('hihi')
 #클래스변수는 모든 인스턴스가 참조한다.
 print(my_dog.tricks)
 print(your_dog.tricks)
+print(my_dog.name)
+print(your_dog.name)
 
 variable = 'apple'
 # 단축형
@@ -104,6 +107,8 @@ class Hello:
     
     def hihi(self):
         return f'hello, {self.name}'
+
+
 print('--hello--')
 my_name = Hello('haley')
 print(my_name.hihi())
