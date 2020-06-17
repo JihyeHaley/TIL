@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>NEW</h1>
+<form action="{% url 'articles:create' %}" method="POST">
+  {% csrf_token %}
+  <h3>Version 1</h3>
+  <h4>없다 ~~~</h4>
+  {{ form.as_p }}
+  <br>
+  <hr>
+  <br>
+  {% comment %} <h3>Version 2</h3>
+  <div class="container">
+    {{ form.title.erros }} 
+    {{ form.title.label_tag }} <!--   <label for=""></label>   -->
+    {{ form.title }} <!--   <input>   -->
+  </div>
+  <div class="container">
+    {{ form.content.erros }} 
+    {{ form.content.label_tag }} <!--   <label for=""></label>   -->
+    {{ form.content }} <!--   <input>   -->
+  </div>{% endcomment %}
+  <br>
+  <hr>
+  <br>
+  <h3>Version 3</h3>
+  {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {{ field }}
+    </div>
+  {% endfor %} 
+  <button class="btn btn-primary">작성</button>
+</form>
+{% endblock %}
