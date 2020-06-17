@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>create page입니다.</h1>
+    <p>번호: {{ article.pk}}</p>
+    <p>제목: {{ article.title}}</p>
+    <p>내용: {{ article.content}}</p>
+    <p>생성일: {{ article.created_at}}</p>
+    <p>수정일: {{ article.updated_at}}</p>
+{% endblock  %}
