@@ -43,15 +43,14 @@ def delete(request, pk):
     article = Article.objects.get(pk=pk)
     if request.method == 'POST' :
         article.delete()
+        return redirect('articles:index')
     else:
         return redirect('articles:detail', article.pk)
-
-    return redirect('articles:index')
+    
 
 
 def edit(request, pk):
     article = Article.objects.get(pk=pk)
-
     context = {
         'article' : article,
     }
