@@ -15,9 +15,9 @@ It is super fun to study Python and Django. Happy to face this work before i gra
 
 ## :love_letter: June 12 2020 기준 
 
-#### Nowadays, I have been learning Python  and Django from basic to practice. How i cannot use this amazing skills. 
+#### 요즘은 파이썬이 제일 재밌어요. :) 어려운 점도 많지만 하나씩 도장깨기 하는 마음으로 열심히 파이썬 공부중입니다.
 
-#### Please look around my "*PYTHON*" folder in order you to search about my practice and patience. 
 
-#### I've been upgraded :) I'm sure and will be :laughing:
+
+#### 일본어 시험, 프로젝트, 대학원면접... 모두 다 해낼 수 있길 🔮
 

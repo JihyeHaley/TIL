@@ -4,10 +4,10 @@
 <h1>NEW</h1>
 <form action="{% url 'articles:create' %}" method="POST">
   {% csrf_token %}
-  <h3>Version 1</h3>
+  {% comment %} <h3>Version 1</h3>
   <h4>없다 ~~~</h4>
   {{ form.as_p }} <!--원래 input이 있던 자리-->
-  {% comment %} {{ form }} 이었는데,,,, form을 p 태그로 감싸준거 :) {% endcomment %}
+  {{ form }} 이었는데,,,, form을 p 태그로 감싸준거 :) {% endcomment %}
   <br>
   <hr>
   <br>

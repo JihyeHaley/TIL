@@ -23,7 +23,7 @@ class ArticleForm(forms.ModelForm):
             }
         )
     )
-    # Meta : ArticleFomr에 대한 정보를 작성하는 곳 
+    # Meta : ArticleForm에 대한 정보를 작성하는 곳 
     class Meta:
         model = Article
         #fields = ['title', 'content']
