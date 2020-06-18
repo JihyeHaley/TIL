@@ -1,18 +1,15 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
-    <form action="{% url 'movies:update' movie.pk %}" method="POST">
+    <h1>영화, {{ movie.title }} 수정하기</h1>
+    <form action="" method="POST">
         {% csrf_token %}
-        title: <input type="text" name ="title" value="{{ movie.title }}"><br>
-        title_en: <input type="text" name ="title_en" value="{{ movie.title_en }}"><br>
-        audience: <input type="text" name ="audience" value="{{ movie.audience }}"><br>
-        open_date: <input type="text" name ="open_date" value="{{ movie.open_date }}"><br>
-        genre: <input type="text" name ="genre" value="{{ movie.genre }}"><br>
-        watch_grade: <input type="text" name ="watch_grade" value="{{ movie.watch_grade }}"><br>
-        score: <input type="text" name ="score" value="{{ movie.score }}"><br>
-        poster_url: <input type="text" name ="poster_url" value="{{ movie.poster_url }}"><br>
-        description: <textarea name ="description">{{ movie.description }}</textarea>
-        <button class="btn btn-primary">수정 완료하기</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+            수정완료하기
+            </button>
+        {% endbuttons %}
     </form>
 {% endblock  %}
 

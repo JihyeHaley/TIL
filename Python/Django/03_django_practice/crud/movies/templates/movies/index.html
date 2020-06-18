@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>영화</h1>
-    <a href="{% url 'movies:new' %}"><h3 class="mb-4">영화 설명 쓰러 가기</h3></a>
+    <a href="{% url 'movies:create' %}"><h3 class="mb-4">영화 설명 쓰러 가기</h3></a>
     {% for movie in movies %}
         <img src="{{ movie.poster_url }}" style="width:70px; display:block;"alt="">
         <p>영화명: {{ movie.title }}</p>

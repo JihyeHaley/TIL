@@ -48,11 +48,29 @@ class MovieForm(forms.ModelForm):
         )
     )
     watch_grade = forms.CharField(
-        label = '장르',
+        label = '관람등급',
         widget = forms.TextInput(
             attrs = {
                 'class' : 'my-watch-grade form-control',
-                'placeholder' : 'Enter the watch-grade',
+                'placeholder' : 'Enter the watch_grade',
+            }
+        )
+    )
+    score = forms.CharField(
+        label = '평점',
+        widget = forms.NumberInput(
+            attrs = {
+                'class' : 'my-score form-control',
+                'placeholder' : 'Enter the score',
+            }
+        )
+    )
+    poster_url = forms.CharField(
+        label = '포스터 URL',
+        widget = forms.TextInput(
+            attrs = {
+                'class' : 'my-poster-url form-control',
+                'placeholder' : 'Enter the poster_url',
             }
         )
     )
@@ -62,6 +80,12 @@ class MovieForm(forms.ModelForm):
             attrs = {
                 'class' : 'my-description form-control',
                 'placeholder' : 'Enter the Description',
+                'rows' : 30,
+                'cols' : 50,
             }
         )
     )
+
+    class Meta:
+        model = Movie
+        fields = '__all__'

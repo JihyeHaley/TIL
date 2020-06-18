@@ -14,7 +14,7 @@
         <p>포스터 이미지 URL: <a href="{{ movie.poster_url }}">{{ movie.title }}포스터 URL</a>{{ movie.poster_url }}</p>
         <p>영화소개: {{ movie.description }}</p>
         <hr>
-        <a href="{% url 'movies:edit' movie.pk %}"><button class="btn btn-warning">수정하기</button></a>
+        <a href="{% url 'movies:update' movie.pk %}"><button class="btn btn-warning">수정하기</button></a>
         <form action="{% url 'movies:delete' movie.pk %}" method="POST">
             {% csrf_token %}
             <button class="btn btn-danger">삭제하기</button>
