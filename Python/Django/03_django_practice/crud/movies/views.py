@@ -54,11 +54,14 @@ def update(request, pk):
     movie = Movie.objects.get(pk=pk)
     if request.method == 'POST' :
         form = MovieForm(request.POST, instance=movie)
+        # 목적보어, 목적어
         if form.is_valid():
             form.save()
             return redirect('movies:detail', movie.pk)
     else :
         form = MovieForm(instance=movie)
+        #1. 데이터 받고
+        #2. 저장 (기존의 정보가 이거야)
    
     context = {
         'form' : form,

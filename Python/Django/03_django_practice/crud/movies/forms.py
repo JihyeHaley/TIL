@@ -20,7 +20,7 @@ class MovieForm(forms.ModelForm):
             }
         )
     )
-    audience = forms.CharField(
+    audience = forms.IntegerField(
         label = '누적 관객수',
         widget = forms.NumberInput(
             attrs = {
@@ -56,7 +56,7 @@ class MovieForm(forms.ModelForm):
             }
         )
     )
-    score = forms.CharField(
+    score = forms.FloatField(
         label = '평점',
         widget = forms.NumberInput(
             attrs = {
