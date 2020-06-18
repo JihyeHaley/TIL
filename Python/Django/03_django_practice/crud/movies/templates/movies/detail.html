@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>영화, {{movie.title}}의 디테일 페이지</h1>
+    <a href="{% url 'movies:index' %}">첫 페이지로 돌아가기</a>
+        <img src="{{ movie.poster_url }}" style="width:100px; display:block;" alt=""><br>
+        <p>영화명: {{ movie.title }}</p>
+        <p>영화명(영문): {{ movie.title_en }}</p>
+        <p>누적관객수:{{ movie.audience }}</p>
+        <p>개봉일: {{ movie.open_date }}</p>
+        <p>장르 : {{ movie.genre }}</p>
+        <p>관람등급: {{ movie.watch_grade }}</p>
+        <p>평점: {{ movie.score }}</p>
+        <p>포스터 이미지 URL: <a href="{{ movie.poster_url }}">{{ movie.title }}포스터 URL</a>{{ movie.poster_url }}</p>
+        <p>영화소개: {{ movie.description }}</p>
+        <hr>
+        <a href="{% url 'movies:edit' movie.pk %}"><button class="btn btn-warning">수정하기</button></a>
+        <form action="{% url 'movies:delete' movie.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger">삭제하기</button>
+        </form>
+    
+{% endblock  %}

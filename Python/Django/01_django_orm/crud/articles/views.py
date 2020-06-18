@@ -41,7 +41,7 @@ def detail(request, pk):
 def delete(request, pk):
     print(request.method)
     article = Article.objects.get(pk=pk)
-    if request.method == 'POST' :
+    if request.method == 'POST' : 
         article.delete()
         return redirect('articles:index')
     else:
