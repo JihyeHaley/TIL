@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <h1>전체페이지</h1>
+    <a href="{% url 'movies:create' %}"><h2>새로운 영화 추가하러 가기</h2></a>
+    {% for movie in movies %}
+        <p>{{ movie.pk }}</p>
+        <p>{{ movie.title }}</p>
+        <p>{{ movie.title_en }}</p>
+        <p>{{ movie.audience }}</p>
+        <p>{{ movie.open_date }}</p>
+        <p>{{ movie.genre }}</p>
+        <p>{{ movie.watch_grade }}</p>
+        <p>{{ movie.score }}</p>
+        <p>{{ movie.poster_url }}</p>
+        <p>{{ movie.description }}</p>
+    {% endfor %}
+{% endblock  %}
