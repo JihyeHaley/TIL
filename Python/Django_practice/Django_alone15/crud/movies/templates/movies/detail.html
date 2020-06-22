@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>detail 페이지</h1>
+    <p>{{ movie.pk }}</p>
+    <p>{{ movie.title }}</p>
+    <p>{{ movie.title_en }}</p>
+    <p>{{ movie.audience }}</p>
+    <a href="{% url 'movies:create' %}">create</a>
+    <hr>
+    <a href="{% url 'movies:update' movie.pk %}"><button >Update</button></a>
+    <a href="{% url 'movies:delete' movie.pk %}"><button class="btn btn-danger">Delete</button></a>
+
+    <a href="{% url 'movies:index' %}">back</a>
+{% endblock  %}
