@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
-    <h1>영화, {{ movie.title }} 수정하기</h1>
+    <h1>영화, {{ movie.title }} 내용 수정하기</h1>
     <form action="" method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}

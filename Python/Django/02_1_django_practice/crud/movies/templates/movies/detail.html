@@ -19,5 +19,22 @@
             {% csrf_token %}
             <button class="btn btn-danger">삭제하기</button>
         </form>
-    
+    <hr>
+        <form action="{% url 'movies:comment_create' movie.pk %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button class=" btn btn-primary">댓글 입력하기</button>
+        </form>
+    <hr>
+    {% for comment in movie.comment_set.all %}
+        <table>
+            <tr>
+                <td>{{ comment.content }}</td>
+                <form action="{% url 'movies:comment_delete' movie.pk comment.pk %}" method="POST">
+                    {% csrf_token %}
+                    <td><button class="btn btn-danger">댓글 삭제하기</button></td>
+                </form>
+            </tr>
+        </table>
+    {% endfor %}
 {% endblock  %}

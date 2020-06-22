@@ -1,5 +1,5 @@
 from django import forms
-from .models import Movie
+from .models import Movie, Comment
 
 class MovieForm(forms.ModelForm):
     title = forms.CharField(
@@ -80,8 +80,8 @@ class MovieForm(forms.ModelForm):
             attrs = {
                 'class' : 'my-description form-control',
                 'placeholder' : 'Enter the Description',
-                'rows' : 30,
-                'cols' : 50,
+                'rows' : 10,
+                'cols' : 9,
             }
         )
     )
@@ -89,3 +89,21 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = '__all__'
+
+
+class CommentForm(forms.ModelForm):
+    content = forms.CharField(
+        label = 'Comment',
+        widget = forms.Textarea(
+            attrs = {
+                'class' : 'my-comment form-control',
+                'placeholder' : 'Enter your comments about the movie',
+                'rows' : 2,
+                'cols' : 40,
+            }
+        )
+    )
+    class Meta:
+        model = Comment 
+        fields = '__all__'
+        exclude = ('article',)
