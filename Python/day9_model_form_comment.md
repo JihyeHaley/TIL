@@ -1,4 +1,4 @@
-# day9_model more and more
+# day0more and more
 
 `
 
@@ -31,5 +31,5 @@ for example but gon' be changeds
 
 
 
-[Model Foriegn Key 관리](https://docs.djangoproject.com/en/3.0/ref/models/fields/)
+[Model Forie](https://docs.djangoproject.com/en/3.0/ref/models/fields/)
 
