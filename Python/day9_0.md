@@ -29,3 +29,7 @@ for example but gon' be changeds
 | 2    | HELLO   |                             |
 | 3    | HELLO   |                             |
 
+
+
+[Model Foriegn Key 관리](https://docs.djangoproject.com/en/3.0/ref/models/fields/)
+

@@ -19,6 +19,7 @@ def create(request):
         form = MovieForm(request.POST)
         if form.is_valid():
             movie = form.save()
+            print(movie)
             return redirect('movies:detail', movie.pk)
     
     else:
@@ -29,6 +30,7 @@ def create(request):
     }
 
     return render(request ,'movies/create.html', context)
+
 
 def detail(request, pk):
     movie = Movie.objects.get(pk=pk)
@@ -43,7 +45,6 @@ def detail(request, pk):
 @require_POST
 def delete(request, pk):
     movie = Movie.objects.get(pk=pk)
-    comment = Comment.objects
     title = movie.title
     context = {
         'title' : title,
@@ -55,6 +56,7 @@ def delete(request, pk):
 @require_http_methods(['GET', 'POST'])
 def update(request, pk):
     movie = Movie.objects.get(pk=pk)
+    
     if request.method == 'POST' :
         form = MovieForm(request.POST, instance=movie)
         # 목적보어, 목적어
