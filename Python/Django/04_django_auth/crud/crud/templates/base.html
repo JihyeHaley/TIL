@@ -9,18 +9,24 @@
 
 </head>
 <body>
-  <div class="container mt-5">
-  {% if user.is_authenticated %}
-    <a href="{% url 'todos:index' %}">메인페이지</a>
-    <span>{{ user.username }}님 환영합니다.</span> 
-    <a href="{% url 'accounts:logout' %}">로그아웃</a>
-  {% else %}
-    <a href="{% url 'accounts:signup' %}">회원가입</a>
-    <a href="{% url 'accounts:login' %}">로그인</a>
-  {% endif %}
-  {% block body %}
-  {% endblock %}
+      {% block top %}
+      {% endblock  %}
+      <div class="text-right mt-1 container">
+        {% if user.is_authenticated %}
+          <a href="{% url 'todos:index' %}">메인페이지</a>
+          <span>{{ user.username }}님 환영합니다.</span>
+          <a href="{% url 'accounts:logout' %}"><button class="btn btn-warning">로그아웃</button></a>
+          {% else %}
+          <a href="{% url 'accounts:signup' %}"><button class="btn btn-success">회원가입</button></a>
+          <a href="{% url 'accounts:login' %}"><button class="btn bnt-primary">로그인</button></a>
+        {% endif %}
+      </div>
+
+  <div class="container">
+    {% block body %}
+    {% endblock %}
   </div>
+  
 
 
   <!-- JS, Popper.js, and jQuery -->
