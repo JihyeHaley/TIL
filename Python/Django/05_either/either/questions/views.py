@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_http_methods,  require_POST
 from .models import Question, Answer
 from .forms import QuestionForm, AnswerForm
 
@@ -7,7 +8,7 @@ from .forms import QuestionForm, AnswerForm
 def index(request):
     return render(request, 'questions/index.html')
 
-
+@require_http_methods(['GET', 'POST'])
 def create(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
@@ -35,12 +36,17 @@ def detail(request, question_pk):
     question = get_object_or_404(Question, pk=question_pk)
     answers = question.answer_set.all()
     # 답이 다 다르니깐, fitler를 적용시켜서 답 갯수 세기 전 작업을 한다.
-    answer_a = len(answers.filter(choice='a'))
     # or, answer.filter(choice='a').count()
+    answer_a = len(answers.filter(choice='a'))
     answer_b = len(answers.filter(choice='b'))
     total = answer_a + answer_b
-    width_a = round(answer_a / total * 100,2)
-    width_b = round(answer_b / total * 100,2)
+    
+    if total == 0:
+        width_a = 0
+        width_b = 0
+    else:
+        width_a = round(answer_a / total * 100, 1)
+        width_b = round(answer_b / total * 100, 1)
     answer = AnswerForm()
     context = {
         'answer_a' : answer_a,
@@ -53,7 +59,7 @@ def detail(request, question_pk):
     }
     return render(request, 'questions/detail.html', context)
 
-
+@require_POST
 def answer_create(request, question_pk):
     question = get_object_or_404(Question, pk=question_pk)
     form = AnswerForm(request.POST)

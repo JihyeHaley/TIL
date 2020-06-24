@@ -6,6 +6,20 @@
 
 
 
+
+
+google 검색 -> django substitute user 들어가서 먼저 보기
+
+User(AbstractUser) 을 먼저 만들어주고
+
+![image](https://user-images.githubusercontent.com/58539681/85523679-43370f00-b642-11ea-97fe-aee52639a4d0.png)
+
+
+
+
+
+
+
 ## 🔮 집고 넘어갈 점
 
 ##### - Login 은 Model이나 ModelForm를 만들 필요 없이 장고에서 불러와서 생성할 수 있다.
@@ -98,5 +112,65 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('accounts:login')
+```
+
+
+
+
+
+
+
+## User & CustomUser
+
+##### 새로운 User을 만들어서 대체할려고 하는데.......  그렇다면! 원래 User에서 상속받았던 것들을  다 옮겨줘야한다.
+
+`AUTH_USER_MODEL`  : 이친구는
+
+
+
+```python
+from django.contrib.auth import get_user_model
+User = get_user_model()
+```
+
+`get_user_model` => AUTH_USER_MODEL에 적용시킨 모델 클래스
+
+
+
+html 에서 `{{ request }}` 은 
+
+```
+ResolverMatch
+```
+
+
+
+get_object_or_404
+
+
+
+accounts / views.py
+
+```python
+def signup(request):
+    # session이 유효하면, 로그인 할 필요 없으니깐 :) 
+    if request.user.is_authenticated:
+        return redirect('questions:index')
+
+    # signup 할려고 button누른 후 생길 일들
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('accouts:index') # 왜 index..?
+    # signup을 해야하는 사람들
+    else:
+        form = CustomUserCreationForm()
+
+    context = {
+        'form' : form,
+    }
+    return render(request, 'accounts/signup.html', context)
 ```
 
