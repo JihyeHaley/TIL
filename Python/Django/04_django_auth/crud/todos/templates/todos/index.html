@@ -12,7 +12,11 @@
     <div class="row">
         {% for todo in user.todo_set.all %}
             <div class="col-8">
-                <p>{{ todo.content }}</p>
+                {% if todo %}
+                    <p>{{ todo.content }}</p>
+                {% else %}
+                    <p>{{ todo.content }}</p>
+                {% endif %}
             </div>
 
             <div class="col-2">

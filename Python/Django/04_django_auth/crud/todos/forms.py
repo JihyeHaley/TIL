@@ -6,6 +6,7 @@ class TodoForm(forms.ModelForm):
         widget = forms.TextInput(
             attrs = ({
                 'class' : 'my-content form-control',
+                'placeholder' : 'Enter the content:',
             })
         )
     )
@@ -13,7 +14,7 @@ class TodoForm(forms.ModelForm):
         widget = forms.TextInput(
             attrs = ({
                 'class' : 'my-due_date form-control',
-                'type' : 'date'
+                'type' : 'date',
             })
         )
     )

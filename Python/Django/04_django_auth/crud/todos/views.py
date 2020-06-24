@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
+    # index에서 입력받으니깐
     form = TodoForm()
     #todos = Todo.objects.all()
     context = {

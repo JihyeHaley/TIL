@@ -14,6 +14,7 @@ def signup(request):
             return redirect('accounts:login')
     else:
         form = UserCreationForm()
+
     context = {
         'form' : form,
     }
@@ -31,7 +32,6 @@ def login(request):
             return redirect('todos:index')
     else:
         form = AuthenticationForm()
-
     context = {
         'form' : form,
     }
