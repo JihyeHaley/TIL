@@ -1,0 +1,19 @@
+
+  
+  <div class="card">
+    <div class="m-2">
+      <h5 class="card-header">
+        <img class="rounded-circle" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.2885-19/s150x150/104372084_1934600830007823_5517973791797721718_n.jpg?_nc_ht=scontent-gmp1-1.cdninstagram.com&_nc_ohc=0SJIb-T4I9gAX_67mB6&oh=0b2038b5639b8484acf398e2dad26eea&oe=5F1DDAC2" width='30px' height='30px'>
+        {{ post.user.username }}
+      </h5>
+        <img src="{{ post.image.url }}" class="card-img-top">
+          <i class="fas fa-heart"></i>
+            <div class="card-body">
+              <p class="card-title">{{ post.content }}</p>
+              <p class="card-text">{{ post.created_at }}</p>
+              <p>{{ post.image.url }}</p><!-- image의 url을 가져온다는 뜻!?!?!-->
+            </div>
+    </div>
+  </div>
+ 
+
