@@ -18,4 +18,6 @@ ManyToManyField
 
 
 
+[imagekit 사용하기](https://gorillaz.tistory.com/10)
+
 
