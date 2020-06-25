@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Post/index.html입니다.</h1>
+    {% if request.user.is_authenticated %}
+        <a>{{ request.user }}님 반갑습니다.</a>
+        <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'accounts:signup' %}">회원가입하기</a>
+        <a href="{% url 'accounts:login' %}">로그인하기</a>
+    {% endif %}
+{% endblock  %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% if request.resolver_match.url_name == 'signup' %}
+        <h1>회원가입 페이지 입니다.</h1>
+    {% else %}
+        <h1>로그인 페이지 입니다.</h1>
+    {% endif %}
+
+    <form action="" method ="POST">
+    {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-success">
+            {% if request.resolver_match.url_name == 'signup' %}
+                회원가입하기
+            {% else %}
+                로그인하기
+            {% endif %}
+        </button>
+    </form>
+{% endblock  %}

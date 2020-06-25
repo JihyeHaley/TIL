@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <h1>accounts index성공!</h1>
+    {% if request.user.is_authenticated  %}
+        <a >{{ request.user }}님 환영해용</a>
+        <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    {% else %}
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+        <a href="{% url 'accounts:login' %}">로그인</a>
+    {% endif %}
+    
+{% endblock  %}

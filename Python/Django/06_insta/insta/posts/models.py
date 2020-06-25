@@ -14,7 +14,6 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # image = models.ImageField()
     image = ProcessedImageField(
-        upload_to='medai',
         processors=[ResizeToFit(500, 500)],
         format='JPEG',
         options={
