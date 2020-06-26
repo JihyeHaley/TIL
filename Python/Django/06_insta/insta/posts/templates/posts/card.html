@@ -6,9 +6,10 @@
       </h5>
       <img src="{{ post.image.url }}" class="card-img-top">
       {% if post in user.like_posts.all %}
-        <a href="{% url 'posts:like' post.pk %}"><i class="fas fa-heart fa-lg" style="color:red"></i></a>
+        <!-- 원래 a태그로 감싸져있는데, 이제 ajax로 액션 만들기 -->
+        <i data-id="{{ post.id }}" class="fas fa-heart fa-lg" style="color:red"></i>
       {% else %}
-        <a href="{% url 'posts:like' post.pk %}"><i class="far fa-heart fa-lg" style="color:black"></i></a>
+        <i data-id="{{ post.id }}" class="far fa-heart fa-lg" style="color:black"></i>
       {% endif %}
         <div class="card-body">
           <p class="card-title">{{ post.content }}</p>
@@ -17,5 +18,7 @@
         </div>
     </div>
   </div>
+
+ {% comment %} <a href="{% url 'posts:like' post.pk %}"> {% endcomment %}
  
 
