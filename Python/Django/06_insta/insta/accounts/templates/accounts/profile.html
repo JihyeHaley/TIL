@@ -1,31 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <!-- jumbotron start -->
     <div class="jumbotron">
         <div class="row">
             <div class="col-4">
-                이미지가 들어올 공간
+                <div class="row">
+                    <img class="col-12" src="{{ user_profile.image.url }}" >
+                </div>
             </div>
             <div class="col-8">
                 <h5>{{ user_profile.username }}Porfile</h5>
                 <h5>팔로워{{ user_profile.following.count }}명, 팔로잉 {{ user_profile.follower.count }}명 </h5>
+                    {% if user != user_profile %}  
+                        {% if user_profile in user.follow.all %}
+                            <a clsss="btn btn-danger" href="{% url 'accounts:follow' user_profile.id %}">팔로우취소</a>
+                        {% else %}
+                            <a clsss="btn btn-primary" href="{% url 'accounts:follow' user_profile.id %}">팔로우</a>
+                        {% endif %}
+                    {% endif %}
             </div>
         </div>
-        
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </div>
+    <!-- jumbotron end -->
+    <hr>
+    <div class="row row-cols-3">
+        {% for post in user_profile.post_set.all %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{ post.image.url }}">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
     
-    <!-- user_profile = you -->
-    <!-- user = me -->
-    {% if user_profile != user %}  
-        {% if user_profile in user.follow.all %}
-            <a href="{% url 'accounts:follow' user_profile.id %}">팔로우취소</a>
-        {% else %}
-            <a href="{% url 'accounts:follow' user_profile.id %}">팔로우</a>
-        {% endif %}
-    {% endif %}
     
+
 {% endblock %}
