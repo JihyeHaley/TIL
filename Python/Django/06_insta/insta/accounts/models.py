@@ -16,4 +16,4 @@ class User(AbstractUser):
             'quality': 60},
         default='default.png')
     # user_set이 새로 칼럼 생성되서 이름을 follower로 변화
-    # 필수로 넣어두고 작업을 하기 :)
+    

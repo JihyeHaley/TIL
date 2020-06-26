@@ -11,15 +11,15 @@
             </div>
             <div class="col-8">
                 <h5>{{ user_profile.username }}Porfile</h5>
-                <h5>팔로워{{ user_profile.following.count }}명, 팔로잉 {{ user_profile.follower.count }}명 </h5>
-                    {% if user != user_profile %}  
-                        {% if user_profile in user.follow.all %}
+                <h5>팔로워{{ user_profile.follower.count }}명, 팔로잉{{ user_profile.following.count }}명 </h5>
+                    {% if request.user != user_profile %}  
+                        {% if request.user in user_profile.follower.all %}
                             <a clsss="btn btn-danger" href="{% url 'accounts:follow' user_profile.id %}">팔로우취소</a>
                         {% else %}
                             <a clsss="btn btn-primary" href="{% url 'accounts:follow' user_profile.id %}">팔로우</a>
                         {% endif %}
                     {% endif %}
-            </div>
+            </div>Z
         </div>
     </div>
     <!-- jumbotron end -->

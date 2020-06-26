@@ -73,14 +73,14 @@ def follow(request, user_pk):
         return redirect('posts:index')
 
 
-    # if me in you.follower.all():
-    if you in me.follower.all():
+    if me in you.follower.all():
+    # if you in me.following.all():
         # 이미 팔로우 하고 있었음
-        # you.follower.remove(me)
-        me.following.remove(you)
+        you.follower.remove(me)
+        # me.following.remove(you)
     else:
         # 아직 팔로우 안함
-        # you.follower.add(me)
-        me.following.add(you)
+        you.follower.add(me)
+        # me.following.add(you)
 
     return redirect('accounts:profile', you.username)

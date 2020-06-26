@@ -20,8 +20,8 @@ class Post(models.Model):
             'quality': 60})
             
 
-    # user.like_posts -> 이 유저가 좋아유를 누른 "포스트들"
-    # post.like_users -> 이 포스트를 좋아하는 "유저들"
+    # user.like_posts -> 이 유저가 좋아유를 누른 "포스트들" posts liked by user 
+    # post.like_users -> 이 포스트를 좋아하는 "유저들"     users who like the posts
 
     # user = 작성한 사람을 저장하기 위한
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
