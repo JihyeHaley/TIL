@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<h1>NEW</h1>
+<div id="map" style="width:500px;height:400px;"></div>
+
+<form action="{% url 'articles:create' %}" method="POST">
+  {% csrf_token %}
+  {% bootstrap_form form%}
+  <button class="btn btn-primary">작성</button>
+</form>
+
+
+<script>
+  // *1. Container 만들어주기 위해서.. 지도를 그릴 공간 찾기
+  var container = document.querySelector('#map'); //지도를 담을 영역의 DOM 레퍼런스
+  // 문서의 어떤 부분을 잡아서 어떻게 해줘 라는 말처럼 !!! 뭔가 해봐해봐 !!!
+
+  // *2. 지도 옵션 설정
+  // options만들어 주기 위해서
+  // python에서는 Dictonary, javascript에서는 Objects
+  // 카카오에서 만든 형식 
+  var options = { //지도를 생성할 때 필요한 기본 옵션
+    center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+    level: 3, //지도의 레벨(확대, 축소 정도)
+    draggable : true, // javascript 값의 T/F 는 소문자로
+  };
+  // *3. 지도 생성
+  var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+  
+  // *마커 찍어주기 위해서
+  // *4. 마커 생성
+  var marker = new kakao.maps.Marker({ 
+    // 지도 중심좌표에 마커를 생성합니다 
+    position: map.getCenter() 
+  }); 
+
+  // *5. 마커 추가
+  // 지도에 마커를 표시합니다
+  marker.setMap(map);
+
+  // 카카오에서 만든 것에서 작동시킨다.
+  // 지도에 클릭 이벤트를 등록합니다
+  // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+  kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    
+    // 클릭한 위도, 경도 정보를 가져옵니다 
+    var latlng = mouseEvent.latLng; 
+    
+    // 마커 위치를 클릭한 위치로 옮깁니다
+    marker.setPosition(latlng);
+    
+    // 수업시간에 한 내용 (클릭하면 그게 lng/latlng.get~~~() 이 값이다. 그 위도 경도를 변수로 저장해서 컬럼에 담아주기)
+    
+    //위도
+    var latInput = document.querySelector('#id_lat')
+    latInput.value = latlng.getLat();
+
+
+    //경도
+    var lngInput = document.querySelector('#id_lng')
+    lngInput.value = latlng.getLng();
+
+    
+    /*var resultDiv = document.getElementById('clickLatlng'); 
+    resultDiv.innerHTML = message;*/
+    
+  });
+</script>
+{% endblock %}
