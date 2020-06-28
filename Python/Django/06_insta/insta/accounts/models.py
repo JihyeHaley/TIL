@@ -7,7 +7,7 @@ from imagekit.processors import ResizeToFill
 
 class User(AbstractUser):
     following = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='follower')
-    
+    # 이 유저가 갖고 있는 사람들 
     image = ProcessedImageField(
         upload_to='profile_image',
         processors=[ResizeToFill(500, 500)],
