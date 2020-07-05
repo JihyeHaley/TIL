@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!--fontawsome-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+
+<!-- ======= Portfolio Section ======= -->
+<section class="portfolio">
+  <div class="container3">
+    <h1><img src="{% static 'img/nav/all.png' %}" class="page-icon mr-2 ml-2 mt-2">전체 리뷰</h1>
+  </div>
+  <div class="container">
+      
+        <div class="row">
+          <div class="d-flex align-items-column justify-content-center mt-5 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active"><img src="{% static 'img/review_all/kindall.png' %}" class="review-all-icon "></li>
+              <li data-filter=".rice"><img src="{% static 'img/review_all/rice.png' %}" class="review-all-icon "></li>
+              <li data-filter=".noodle"><img src="{% static 'img/review_all/noodle.png' %}" class="review-all-icon "></li>
+              <li data-filter=".special"><img src="{% static 'img/review_all/special.png' %}" class="review-all-icon "></li>
+              <li data-filter=".soup"><img src="{% static 'img/review_all/soup.png' %}" class="review-all-icon "></li>
+              <li data-filter=".simple"><img src="{% static 'img/review_all/simple.png' %}" class="review-all-icon "></li>
+              <li data-filter=".snack"><img src="{% static 'img/review_all/snack.png' %}" class="review-all-icon "></li>
+              <li data-filter=".pot"><img src="{% static 'img/review_all/hotpot.png' %}" class="review-all-icon "></li>
+              <li data-filter=".bbq"><img src="{% static 'img/review_all/bbq.png' %}" class="review-all-icon "></li>
+              <li data-filter=".hangover"><img src="{% static 'img/review_all/hangover.png' %}" class="review-all-icon "></li>
+            </ul>
+          </div>
+        </div>
+      
+
+    <div class="row-cols-3 portfolio-container" data-aos="fade-up" data-aos-delay="200">
+      {% for review in reviews %}
+        <div class="col-md-4 review-all portfolio-item {{ review.food_kind }}" data-filter="filter-American">
+          <a style="color:black" href="{% url 'accounts:profile' review.user.username %}"><h6><img src="{{ review.user.user_profile_image.url }}" class="rounded-circle mr-2 all-profile" >{{ review.user.username }}</h6></a>
+            {% comment %} <a class="d-block">{{ review.restaurant_address }}</a> {% endcomment %}
+            <span class="font-bold mr-2">{{ review.food_name }}<span style="opacity:0.4">({{ review.food_kind }})</span></span>
+            {% if review.food_star == 5 %}
+              <i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i>
+            {% elif review.food_star == 4 %}
+              <i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i>
+            {% elif review.food_star == 3 %}
+              <i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i>
+            {% elif review.food_star == 2 %}
+              <i class="fas fa-star mr-1" style="color:#f5da42"></i><i class="fas fa-star mr-1" style="color:#f5da42"></i>
+            {% else %}
+              <i class="fas fa-star mr-1" style="color:#f5da42"></i>
+            {% endif %}
+            
+            {% comment %} {% for _ in review.food_star %}
+              <span>⭐️</span>
+            {% endfor %} {% endcomment %}
+            <a href="{% url 'maps:review-detail' review.user review.pk %}"><img src="{{ review.food_image.url }}" style="width:100%" class="img-fluid mt-2 mb-3"></a>
+            {% if request.user in review.like_users.all %}
+              <i role="button" class="fas fa-heart fa-lg like-button" data-id="{{ review.pk }}" style="color: red;"></i>
+            {% else %}
+              <i role="button" class="far fa-heart fa-lg like-button" data-id="{{ review.pk }}" style="color: black;"></i>
+            {% endif %}
+            <a href="#" style="color:black"><i onclick="window.open('http://127.0.0.1:8000/reviews/{{ request.user.username }}/{{ review.pk }}/comment/create', '댓글달기', 'width=700, height=500, top=200, left=400, toolbar=no, scrollbars=no, resizable=no');"class="far fa-comment fa-lg ml-2"></i></a>
+            {% if review.like_users.count == 1 %}
+              <span class="user-select-none d-block"><a href="{% url 'accounts:profile' review.like_users.all|random %}">{{ review.like_users.all|random }}</a>님이 좋아합니다.</span>
+            {% endif %}
+            {% if review.like_users.count > 1 %}
+              <span class="user-select-none d-block"><a href="{% url 'accounts:profile' review.like_users.all|random %}">{{ review.like_users.all|random }}</a>님 외 {{ review.like_users.count }} 명이 좋아합니다.</span>
+            {% endif %}
+            <div class="portfolio-info">
+                <span class="d-block mt-1 mb-1">{{ review.food_review }}</span>
+                <span class="d-block" style="font-size:0.8rem">{{ review.restaurant_name }}</span>
+                <span class="d-block font-light" style="font-size:0.7rem">{{ review.visit_date }}</span>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+
+    {% comment %} <div class="pagination">
+    <span class="step-links">
+      {% if reviews.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ reviews.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
+      </span>
+
+      {% if reviews.has_next %}
+        <a href="?page={{ reviews.next_page_number }}">next</a>
+        <a href="?page={{ review.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+</div> {% endcomment %}
+  </div>
+</section>
+
+
+
+<!--card script-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+  const likeButtonList = document.querySelectorAll('.like-button')
+  likeButtonList.forEach(likeButton => {
+    likeButton.addEventListener('click', function(event) {
+      console.log(event)
+      const reviewId = event.target.dataset.id
+
+      axios.get(`/reviews/${reviewId}/like/`)
+        .then(response => {
+          if (response.data.liked) { 
+            event.target.style.color = 'red'
+            event.target.classList.remove('far')
+            event.target.classList.add('fas')
+          } else {  
+            event.target.style.color = 'black'
+            event.target.classList.remove('fas')
+            event.target.classList.add('far')
+          }
+        })
+        .catch(error => console.log(error))
+    })
+  })
+</script>
+{% endblock  %}
