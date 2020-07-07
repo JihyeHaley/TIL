@@ -1,0 +1,79 @@
+  
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+ <div class="container3">
+ <h1 class="mb-3 font-bold"><img src="{% static 'img/nav/foodrec.png' %}" class="page-icon mr-2 ml-2">음식추천</h1>     
+    <h2 class="mb-3 ml-3 font-bold"><img src="{% static 'img/title/pink.png' %}" class="title-icon mr-2 ml-2">2단계:
+        <span class="ml-3 mr-1" style="color:red">"
+        {% if request.resolver_match.url_name == 'hangover'  %}
+        해장
+        {% else %}
+        {{ foodCategory.food_ctg }}
+        {% endif %}
+        "</span> 종류 골라보기
+    </h2>     
+        <div class="container d-flex justify-content-center mt-5 mb-5" >
+            <div class="row col-3">
+                <div class="d-flex align-items-center justify-content-center">
+                {% if request.resolver_match.url_name == 'hangover'  %}
+                    <img src="{% static 'img/ctg/hangover.png' %}" style="width:90%">
+                {% else %}
+                    <img src="{{ foodCategory.food_ctg_image.url }}" style="width:90%;">
+                {% endif %}
+                </div>
+            </div>
+            <div class="row col-9">
+                {% for food in foods %}
+                    <div class="col-4 food-ctg-box mb-3">
+                        <a href="{% url 'foods:select' food.food_name %}"><button class="btn btn-succerss font-bold"><h3>{{ food.food_name }}</h3></button></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+</div>
+
+
+<div class="container3">
+    <div class="container d-flex justify-content-center" style="width:70%">
+        <div class="row">
+            <div class="col-5">
+                <button onclick="randomMenu()" class="food-result"> 
+                    <img src="{% static 'img/nav/random.png' %}" style="width:100%" class="d-block"> 
+                </button>
+            </div>
+            <div class="col-4 d-flex flex-column justify-content-center">
+                <a href="{% url 'foods:select' randomfood.food_name %}" style="color:black">
+                    <h3 id="menu"></h3>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container3">
+    <dvi class="container d-flex justify-content-end">
+        <a href="{% url 'foother-index' %}" style="color:black"><h5><i class="fas fa-backward fa-lg" style="color:black; opacity:0.7"></i>1단계,다시하기</h5></a>
+    </dvi>
+</div>
+
+<script>
+    var flag = true;
+    function randomMenu(){
+        if(flag == true){
+            flag = false
+            var target = document.getElementById('menu') 
+            result = '{{ randomfood.food_name }}'
+            target.innerHTML = result
+        }
+        else{
+            flag = true
+            var target = document.getElementById('menu') 
+            result = ""
+            target.innerHTML = result
+            location.reload(true);
+        }
+    }
+</script>
+{% endblock %}

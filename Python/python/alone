@@ -1,0 +1,7 @@
+rankings = []
+    for user_ranking in users:
+        user_ranking_0 = user_ranking.username 
+        rankings.append(user_ranking_0)
+
+    
+    rankings = rankings[1:4]
