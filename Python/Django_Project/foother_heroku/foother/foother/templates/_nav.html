@@ -1,0 +1,58 @@
+{% load static %}
+
+<!-- ======= Header ======= -->
+  <header id="header" class="mt-2" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <div class="nav-logo-title" data-aos="zoom-in" data-aos-delay="10">
+      <a href="{% url 'foother-index' %}" style="color:black"><h1><span class="typed text-center" 
+      data-typed-items="오늘은, 뭐먹지?"></span></h1><a>
+      {% comment %}<div class="social-links"> {% endcomment %}
+      {% comment %} <a href="#" class="twitter"><i class="bx bxl-github"></i></a> {% endcomment %}
+    </div>
+    <div class="text-left ml-3 mt-2 mb-2">
+      {% if request.user.is_authenticated %}
+          <a href="{% url 'accounts:profile' request.user.username %}" style="color:black; font-size:1.4rem">
+          <img src="{{ request.user.user_profile_image.url }}" class="rounded-circle nav-user-icon mr-1">
+          {{ request.user }}</a>
+      {% else %}
+    <div class="text-center mt-4 mb-4">
+            <a href="{% url 'accounts:signup'%}" ><img src="{% static 'img/nav/signup.png' %}" class="nav-sign-icon mr-2 ml-2"></a>
+            <a href="{% url 'accounts:login'%}" ><img src="{% static 'img/nav/login.png' %}" class="nav-sign-icon mr-2 ml-2"></a>
+            {% comment %} <a href="{% url 'accounts:signup'%}" data-toggle="modal" data-target="#signup">회원가입</a>
+            <a href="{% url 'accounts:login'%}" data-toggle="modal" data-target="#login">로그인</a>
+            {% include 'accounts/form.html' %} {% endcomment %}
+      {% endif %}
+    </div>
+ 
+    <nav class="nav-menu d-flex flex-column justify-content-flex-start">
+      <ul>
+        {% comment %} <i class="bx bx-book-content mr-2 ml-2"></i> {% endcomment %}
+        <li><a href="{% url 'maps:review-all' %}"><img src="{% static 'img/nav/all.png' %}" class="nav-icon mr-2 ">전체보기</a></li>
+        <li><a href="{% url 'foother-index' %}"><img src="{% static 'img/nav/foodrec.png' %}" class="nav-icon mr-2 ">음식추천</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'maps:review-create' %}"><img src="{% static 'img/nav/upload.png' %}" class="nav-icon mr-2 ">업로드</a></li>
+        <li><a href="{% url 'accounts:profile' request.user.username  %}"><img src="{% static 'img/nav/profile.png' %}" class="nav-icon mr-2">프로필</a></li>
+        {% endif %}
+        {% comment %} <li><a><i class="bx bx-server mr-2 ml-2"></i>전체보기</a></li> {% endcomment %}
+        {% comment %} <li><a ><i class="bx bx-envelope mr-2 ml-2"></i>FAQ</a></li> {% endcomment %}
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'accounts:logout' %}"><img src="{% static 'img/nav/logout.png' %}" class="nav-icon mr-2 ">로그아웃</a></li>
+      {% endif %}
+      </ul>
+    </nav><!-- .nav-menu -->
+      {% comment %} <div class="ml-3">
+        <p class="ml-2" style="font-size:1.2em; font-weight:500"><i class="fas fa-crown fa-xs mr-1" style="color:#f5da42"></i>유저 랭킹<i class="fas fa-crown fa-xs ml-1" style="color:#f5da42"></i></p>
+          {% for user in rankings %}
+            <div class="d-block"> 
+              <span style="font-size:1.1em">
+                {{ forloop.counter }}등:
+                {{ user }}님
+              </span>
+            </div>   
+          {% endfor %}
+      </div>    {% endcomment %}
+              
+           
+    
+
+  </header><!-- End Header -->
