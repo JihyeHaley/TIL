@@ -1,0 +1,848 @@
+[
+{
+    "model": "foods.foodchoice",
+    "pk": 1,
+    "fields": {
+        "food_name": "\uce74\ub808",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 2,
+    "fields": {
+        "food_name": "\ube44\ube54\ubc25",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 3,
+    "fields": {
+        "food_name": "\uc624\ubbc0\ub77c\uc774\uc2a4",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 4,
+    "fields": {
+        "food_name": "\uae40\uce58\ubcf6\uc74c\ubc25",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 5,
+    "fields": {
+        "food_name": "\uc81c\uc721\ub36e\ubc25",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 6,
+    "fields": {
+        "food_name": "\uce58\ud0a8\ub9c8\uc694",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 7,
+    "fields": {
+        "food_name": "\ub3c8\ubd80\ub9ac",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 8,
+    "fields": {
+        "food_name": "\uc0ac\ucf00\ub3d9",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 9,
+    "fields": {
+        "food_name": "\uaddc\ub3d9",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 10,
+    "fields": {
+        "food_name": "\ucd08\ubc25",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 11,
+    "fields": {
+        "food_name": "\ud150\ub3d9",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 12,
+    "fields": {
+        "food_name": "\ubf55\ud31f\ud3ff\ucee4\ub9ac",
+        "food_ctgs": 1,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 13,
+    "fields": {
+        "food_name": "\ud31f\ud0c0\uc774",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 14,
+    "fields": {
+        "food_name": "\ub77c\uba58",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 15,
+    "fields": {
+        "food_name": "\ud1a0\ub9c8\ud1a0\ud30c\uc2a4\ud0c0",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 16,
+    "fields": {
+        "food_name": "\uae4c\ub974\ubcf4\ub098\ub77c",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 17,
+    "fields": {
+        "food_name": "\ub0c9\uba74",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 18,
+    "fields": {
+        "food_name": "\uc794\uce58\uad6d\uc218",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 19,
+    "fields": {
+        "food_name": "\ube44\ube54\uad6d\uc218",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 20,
+    "fields": {
+        "food_name": "\uce7c\uad6d\uc218",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 21,
+    "fields": {
+        "food_name": "\uc6b0\ub3d9",
+        "food_ctgs": 2,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 22,
+    "fields": {
+        "food_name": "\ucf69\uad6d\uc218",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 23,
+    "fields": {
+        "food_name": "\uc54c\ub9ac\uc624\uc62c\ub9ac\uc624",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 24,
+    "fields": {
+        "food_name": "\ubaa8\ubc00",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 25,
+    "fields": {
+        "food_name": "\uc9dc\uc7a5\uba74",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 26,
+    "fields": {
+        "food_name": "\uc9ec\ubf55",
+        "food_ctgs": 2,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 27,
+    "fields": {
+        "food_name": "\uc300\uad6d\uc218",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 28,
+    "fields": {
+        "food_name": "\ubd84\uc9dc",
+        "food_ctgs": 2,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 29,
+    "fields": {
+        "food_name": "\ubd88\uace0\uae30",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 30,
+    "fields": {
+        "food_name": "\ucc1c\ub2ed",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 31,
+    "fields": {
+        "food_name": "\ub2ed\ubcf6\uc74c\ud0d5",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 32,
+    "fields": {
+        "food_name": "\uc2a4\ud14c\uc774\ud06c",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 33,
+    "fields": {
+        "food_name": "\uc218\uc721",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 34,
+    "fields": {
+        "food_name": "\uc544\uadc0\ucc1c",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 35,
+    "fields": {
+        "food_name": "\uc308\ubc25",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 36,
+    "fields": {
+        "food_name": "\ub09a\uc9c0\ubcf6\uc74c",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 37,
+    "fields": {
+        "food_name": "\uc871\ubc1c",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 38,
+    "fields": {
+        "food_name": "\ubcf4\uc308",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 39,
+    "fields": {
+        "food_name": "\uce58\ud0a8",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 40,
+    "fields": {
+        "food_name": "\ud53c\uc790",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 41,
+    "fields": {
+        "food_name": "\uae50\ud48d\uae30",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 42,
+    "fields": {
+        "food_name": "\ub9c8\ud30c\ub450\ubd80",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 43,
+    "fields": {
+        "food_name": "\ud0d5\uc218\uc721",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 44,
+    "fields": {
+        "food_name": "\uc6d4\ub0a8\uc308",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 45,
+    "fields": {
+        "food_name": "\ub2ed\uac08\ube44",
+        "food_ctgs": 3,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 46,
+    "fields": {
+        "food_name": "\uc21c\ub300\uad6d",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 47,
+    "fields": {
+        "food_name": "\ucf69\ub098\ubb3c\uad6d\ubc25",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 48,
+    "fields": {
+        "food_name": "\ubd81\uc5c7\uad6d",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 49,
+    "fields": {
+        "food_name": "\ud64d\ud569\ud0d5",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 50,
+    "fields": {
+        "food_name": "\ubf08\ud574\uc7a5\uad6d",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 51,
+    "fields": {
+        "food_name": "\ub9e4\uc0dd\uc774\uad6d",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 52,
+    "fields": {
+        "food_name": "\uc120\uc9c0\ud574\uc7a5\uad6d",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 53,
+    "fields": {
+        "food_name": "\uc6b0\uac70\uc9c0\uad6d",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 54,
+    "fields": {
+        "food_name": "\ub5a1\uad6d",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 55,
+    "fields": {
+        "food_name": "\uc18c\uace0\uae30\ubb34\uad6d",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 56,
+    "fields": {
+        "food_name": "\uc2dc\ub798\uae43\uad6d",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 57,
+    "fields": {
+        "food_name": "\uac08\ube44\ud0d5",
+        "food_ctgs": 4,
+        "status": "\ud574\uc7a5"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 58,
+    "fields": {
+        "food_name": "\ucd94\uc5b4\ud0d5",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 59,
+    "fields": {
+        "food_name": "\uc0bc\uacc4\ud0d5",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 60,
+    "fields": {
+        "food_name": "\ub300\uad6c\ud0d5",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 61,
+    "fields": {
+        "food_name": "\ub9cc\ub450\uad6d",
+        "food_ctgs": 4,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 62,
+    "fields": {
+        "food_name": "\ud584\ubc84\uac70",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 63,
+    "fields": {
+        "food_name": "\uc2dc\ub9ac\uc5bc",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 64,
+    "fields": {
+        "food_name": "\ud3b8\uc758\uc810",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 65,
+    "fields": {
+        "food_name": "\uc0cc\ub4dc\uc704\uce58",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 66,
+    "fields": {
+        "food_name": "\uc0d0\ub7ec\ub4dc",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 67,
+    "fields": {
+        "food_name": "\ube0c\ub9ac\ub610",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 68,
+    "fields": {
+        "food_name": "\ud3ec\ucf00",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 69,
+    "fields": {
+        "food_name": "\ud504\ub80c\uce58\ud1a0\uc2a4\ud2b8",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 70,
+    "fields": {
+        "food_name": "\ubc25\ubc84\uac70",
+        "food_ctgs": 5,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 71,
+    "fields": {
+        "food_name": "\ub5a1\ubcf6\uc774",
+        "food_ctgs": 6,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 72,
+    "fields": {
+        "food_name": "\ud56b\ub3c4\uadf8",
+        "food_ctgs": 6,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 73,
+    "fields": {
+        "food_name": "\uc21c\ub300",
+        "food_ctgs": 6,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 74,
+    "fields": {
+        "food_name": "\ud280\uae40",
+        "food_ctgs": 6,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 75,
+    "fields": {
+        "food_name": "\ub9cc\ub450",
+        "food_ctgs": 6,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 76,
+    "fields": {
+        "food_name": "\uc721\uac1c\uc7a5",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 77,
+    "fields": {
+        "food_name": "\ub2ed\uac1c\uc7a5",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 78,
+    "fields": {
+        "food_name": "\ub41c\uc7a5\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 79,
+    "fields": {
+        "food_name": "\uae40\uce58\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 80,
+    "fields": {
+        "food_name": "\ubd80\ub300\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 81,
+    "fields": {
+        "food_name": "\uc21c\ub450\ubd80\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 82,
+    "fields": {
+        "food_name": "\uccad\uad6d\uc7a5\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 83,
+    "fields": {
+        "food_name": "\ub3d9\ud0dc\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 84,
+    "fields": {
+        "food_name": "\ube44\uc9c0\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 85,
+    "fields": {
+        "food_name": "\uace0\ucd94\uc7a5\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 86,
+    "fields": {
+        "food_name": "\uc624\uc9d5\uc5b4\ucc0c\uac1c",
+        "food_ctgs": 7,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 87,
+    "fields": {
+        "food_name": "\uc591\uace0\uae30",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 88,
+    "fields": {
+        "food_name": "\uc18c\uace0\uae30",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 89,
+    "fields": {
+        "food_name": "\ub3fc\uc9c0\uace0\uae30",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 90,
+    "fields": {
+        "food_name": "\ub3fc\uc9c0\uaecd\ub370\uae30",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 91,
+    "fields": {
+        "food_name": "\ub3fc\uc9c0\ub9c9\ucc3d",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 92,
+    "fields": {
+        "food_name": "\uc18c\uacf1\ucc3d",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 93,
+    "fields": {
+        "food_name": "\uc0dd\uc120\uad6c\uc774",
+        "food_ctgs": 8,
+        "status": "\uc77c\ubc18"
+    }
+},
+{
+    "model": "foods.foodchoice",
+    "pk": 94,
+    "fields": {
+        "food_name": "\ub77c\uba74",
+        "food_ctgs": 2,
+        "status": "\ud574\uc7a5"
+    }
+}
+]
