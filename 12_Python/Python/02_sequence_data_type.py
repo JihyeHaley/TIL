@@ -1,7 +1,7 @@
 ################################
 
 # 1. 리스트 (List) - 가변
-print('----Tuple----')
+print('----List----')
 my_list = [10, '문자열', True]
 print(my_list)
 print(type(my_list))

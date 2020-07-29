@@ -13,7 +13,7 @@ print(type(a)) # type 확인  -> class로 나온다. ('int', 'str', 'bool' etc..
 
 #bool
 print(type(False))
-# 0, 0.0, (), [], {}, '', None(값이 없음) - > Flase로 처리된다.
+# 0, 0.0, (), [], {}, '', None(값이 없음) - > False로 처리된다.
 
 #문자형 (한 프로젝트에서 single, double 로 할지 정하고 고대로만 가기)
 greeting = 'Hi,'

@@ -3,9 +3,13 @@
 #################and##################
 ##and는 1개만 false여도 false
 print('---- and ----')
+print('True and True')
 print(True and True)
+print('True and False')
 print(True and False)
+print('False and True')
 print(False and True)
+print('False and False')
 print(False and False)
 
 #################or##################
@@ -22,7 +26,9 @@ print(False or False)
 print('---- not ----')
 print(not True)
 print(not False)
+print('not 0=')
 print(not 0)
+print('not {}=')
 print(not {})
 
 
