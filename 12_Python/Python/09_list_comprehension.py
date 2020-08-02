@@ -11,7 +11,7 @@ print(my_newlist)
 print(my_newlist2)
 
 # list comprehension with if statements
-print('\n---list comprehension---')
+print('\n----list comprehension----')
 numbers = list (range(10, 100, 10))
 print(numbers)
 

@@ -14,11 +14,11 @@ my_dog = Dog1('gazi')
 your_dog = Dog1('namu')
 
 
-print(my_dog.kind)
-print(your_dog.kind)
+print(my_dog.kind) # kind
+print(your_dog.kind) # kind
 
-print(my_dog.name) 
-print(your_dog.name)
+print(my_dog.name) #gazi
+print(your_dog.name) # namu
 
 class Dog2:
     # 이름에 맞게 사용하는것이 가장 바람직하다
@@ -98,7 +98,7 @@ class person:
 
 my_name = person('jihye')
 
-print(my_name.greeting())
+print(my_name.greeting()) # hello jihye 출력
 
 
 class Hello:
