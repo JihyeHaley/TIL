@@ -40,6 +40,6 @@ This is called, appropriately enough, sequence unpacking
 and works for any sequence on the right-hand side. 
 
 Sequence unpacking requires that there are as many variables 
-on the left side of the equals sign as there are elements in the sequence. 
+on the left side of the equals sign as codethere are elements in the sequence. 
 Note that multiple assignment is really just a combination of tuple packing and sequence unpacking.
 ''')
