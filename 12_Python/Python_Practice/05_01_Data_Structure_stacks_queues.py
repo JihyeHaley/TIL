@@ -113,3 +113,78 @@ print([abs(x) for x in vec]) # [4, 2, 0, 2, 4]// abs() <- 이 함수는 음수�
 passionfruits = ['    bannana', '    loganberry', 'passion fruit  ']
 print([weapon.split() for weapon in passionfruits])
 print([weapon.strip() for weapon in passionfruits])
+
+# tuple in comprehension
+# tuple should be parenthesized
+print([(x, x**2) for x in range(6)])
+# otherwise error ... let's see
+print('''
+Let's what happened without parenthesize
+
+>>> [x, x**2 for x in range(6)]
+File "<stdin>", line 1, in <module>
+    [x, x**2 for x in range(6)]
+               ^
+SyntaxError: invalid syntax
+...... no way!!! don't forget what kind of type I'm using :)
+''')
+
+vec = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+[num for elem in vec for num in elem]
+print([num for elem in vec for num in elem])
+for elem in vec:
+    for num in elem:
+        print(num)
+        print('\t')
+
+from math import pi
+
+# round(a, b)는 소수점 b 자리까지 반올림
+print([str(round(pi, i)) for i in range(1,6)])
+
+matrix = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+]
+print(matrix)
+
+
+# 자.. 똑같은 얘기를 계속 해볼거에요... :)
+print([row[i] for row in matrix for i in range(4)])
+print([[row[i] for row in matrix] for i in range(4)])
+for i in range(4):
+    for row in matrix:
+        print(row[i], end=' ')
+    print('\t')
+
+
+transposed = []
+for i in range(4):
+    transposed.append([row[i] for row in matrix])
+
+print(transposed)
+
+
+transposed = []
+for i in range(4):
+    transposed_row = []
+    for row in matrix:
+        transposed_row.append(row[i]) 
+        # 1, 5, 9 / 2, 6, 10 / 3, 7, 11 / 4, 8, 12
+    transposed.append(transposed_row)
+print(transposed)
+
+
+print('''
+
+In the real world, 
+you should prefer built-in functions to complex flow statements. 
+The zip() function would do a great job for this use case:
+
+>>> list(zip(*matrix))
+[(1, 5, 9), (2, 6, 10), (3, 7, 11), (4, 8, 12)]
+
+
+zip은 좀 어렵네요..
+''')
