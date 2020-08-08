@@ -105,4 +105,5 @@ print('f(1)->', f(1))
 
 paris = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 paris.sort(key=lambda pair: pair[1])
-paris
+
+
