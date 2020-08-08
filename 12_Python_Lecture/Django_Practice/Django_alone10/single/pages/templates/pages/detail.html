@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>detail 입니다.</h1>
+    <h2>성공했다.</h2>
+        <p>no.{{ article.pk }}</p>
+        <p>title.{{ article.title }}</p>
+        <p>contnet.{{ article.content }}</p>
+        <p>create.{{ article.created_at }}</p>
+        <p>update.{{ article.updated_at }}</p>
+    <a href="{% url 'pages:edit' article.pk %}">수정하기</a><br>
+    <form action="{% url 'pages:delete' article.pk %}" method="POST">
+    {% csrf_token %}
+        <button>삭제하기</button>
+    </form>
+    <a href="{% url 'pages:index' %}">전체페이지로가기</a>
+{% endblock  %}

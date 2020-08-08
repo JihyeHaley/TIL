@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block index %}
+    <h1>Succeed! articles index</h1>
+    <table>
+        <tr>
+            <th>pk</th>
+            <th>title</th>
+            <th>content</th>
+            <th>created_at</th>
+            <th>updated_at</th>
+            <th>test</th>
+        </tr>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.pk }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.content }}</td>
+            <td>{{ article.created_at }}</td>
+            <td>{{ article.updated_at }}</td>
+            <td>{{ article.test }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>article 인덱스 이지만 pages/static에서의 사진입니다.</h2>
+    <a href="{% url 'pages:index' %}"><img src="{% static 'pages/images/pages.jpg' %}" alt=""></a>
+    <p>위 사진을 클릭하면 firstapp/static에서 가져온 사진을 pages에서 볼 수 있습니다.</p>
+
+
+{% endblock  %}

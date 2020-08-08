@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>새로쓰기</h1>
+    <form action=" {% url 'pages:create' %}" method='POST'> 
+    {% csrf_token %}
+        title:<input type="text" name="title">
+        content: <textarea name="content" cols="30" rows="10"></textarea>
+        <button>새로쓰기 전송</button>
+    </form>
+{% endblock  %}

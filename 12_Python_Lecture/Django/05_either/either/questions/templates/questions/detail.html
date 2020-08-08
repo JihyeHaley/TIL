@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>{{ question.title }}</p>
+    <p class="d-inline">{{ question.answer_a }}</p>
+    <p class="d-inline">{{ question.answer_b }}</p>
+    <hr>
+    <form action="{% url 'questions:answer_create' question.pk %}" method="POST">
+        {% csrf_token %}
+        {{ answer.as_p }}<!--얘는 폼!-->
+        <button class="btn btn-success">정답입력</button>
+    </form>
+
+    {% for answer in question.answer_set.all %} <!--answers-->
+        {{ answer.choice }}
+    {% endfor %}
+    <hr>
+    <p> a : {{ answer_a }}개 </p>
+    <p> b : {{ answer_b }}개 </p>
+    <div class="conatiner">
+    <table style="width:100%;">
+        <tr>
+            <td class="text-center" style="width:{{ width_a }}%; background-color:pink; border-radius:10px;">
+                <div>{{ question.answer_a }}<br> {{ width_a}}% </div>
+            </td>
+            <td class="text-center" style="width:{{ width_b }}%; background-color:skyblue; border-radius:10px;">
+                <div>{{ question.answer_b }}<br> {{ width_b}}%</div>
+            </td>
+        </tr>
+    </table>
+    </div>
+    
+{% endblock  %}

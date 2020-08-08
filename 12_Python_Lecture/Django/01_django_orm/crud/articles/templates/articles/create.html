@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Create</h1>
+    <h2>성공적으로 작동</h2>  
+    <table>
+        <tr>
+            <th>PK</th>
+            <th>Ttitle</th>
+            <th>Content</th>
+            <th>Created_at</th>
+            <th>Updated_at</th>
+        </tr>
+        <tr>
+            {% for article in articles %}
+                <td> {{ article.pk }}</td>
+                <td> {{ article.title }}</td>
+                <td> {{ article.content }}</td>
+                <td> {{ article.created_at }}</td>
+                <td> {{ article.updated_at }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock  %}

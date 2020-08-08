@@ -1,0 +1,66 @@
+[
+{
+    "model": "foods.foodcategory",
+    "pk": 1,
+    "fields": {
+        "food_ctg": "\ubc25",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 2,
+    "fields": {
+        "food_ctg": "\uba74",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 3,
+    "fields": {
+        "food_ctg": "\ud2b9\uc2dd",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 4,
+    "fields": {
+        "food_ctg": "\uad6d\ud0d5",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 5,
+    "fields": {
+        "food_ctg": "\uac04\ud3b8\uc2dd",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 6,
+    "fields": {
+        "food_ctg": "\ubd84\uc2dd",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 7,
+    "fields": {
+        "food_ctg": "\ucc0c\uac1c",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+},
+{
+    "model": "foods.foodcategory",
+    "pk": 8,
+    "fields": {
+        "food_ctg": "\uad6c\uc774",
+        "food_ctg_image": "/img/ctg/chicken.png"
+    }
+}
+]

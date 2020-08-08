@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Detail 페이지 입니다.</h1>
+    {
+        <p>{{ movie.pk }}</p>
+        <p>{{ movie.title }}</p>
+        <p>{{ movie.title_en }}</p>
+        <p>{{ movie.audience }}</p>
+        <p>{{ movie.open_date }}</p>
+        <p>{{ movie.genre }}</p>
+        <p>{{ movie.watch_grade }}</p>
+        <p>{{ movie.score }}</p>
+        <p>{{ movie.poster_url }}</p>
+        <p>{{ movie.description }}</p>
+{% endblock  %}

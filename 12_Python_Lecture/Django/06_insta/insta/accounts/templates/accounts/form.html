@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+  {% comment %} <h1>{{ request.resolver_match.url_name }}</h1> {% endcomment %}
+  {% if request.resolver_match.url_name == 'signup' %}
+    <h1>회원가입</h1>
+  {% else %}
+    <h1>로그인</h1>
+  {% endif %}
+  
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary">저장</button>
+  </form>
+{% endblock  %}

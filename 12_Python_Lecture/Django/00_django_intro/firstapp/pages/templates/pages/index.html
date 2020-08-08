@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'pages/stylesheets/style.css' %}">
+{% endblock  %}
+
+{% block content %}
+    <h1>두번째 앱의 인덱스입니다.</h1>
+    <h2>pages의 static에서 왔습니다.</h2>
+    <img src="{% static 'pages/images/ccobi.png' %}" alt=""> <!-- static은 기본적으로 내장이 안되어 있어서 load + tab  해줘야한다.-->
+    <h2>firstapp(main)의 static에서 왔습니다.</h2>
+    <img src="{% static 'images/ccobi2.png'%}" alt=""> <!-- 이거는 main static에서 온 사진-->
+{% endblock %}
