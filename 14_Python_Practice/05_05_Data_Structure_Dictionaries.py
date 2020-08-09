@@ -18,3 +18,13 @@ print('jack' not in tel) # False
 
 # 이렇게도 할 수 있따~~~~
 print(dict([('sape', 4139), ('guido', 1234), ('jack', 4949)]))
+
+print(tel.items())
+print(tel.keys())
+print(tel.values())
+
+print({x : x **2 for x in (2, 4, 6)})
+
+print(dict(sape=4149, guido = 4127, jack=4444))
+
+
