@@ -1,1 +1,0 @@
-from firstapp import urls

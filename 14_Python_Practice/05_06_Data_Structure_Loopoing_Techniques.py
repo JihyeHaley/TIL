@@ -33,3 +33,4 @@ for value in raw_data:
 print(filtered_data)
 
 print(float('NaN')) # nan
+
