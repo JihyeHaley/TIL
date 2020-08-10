@@ -11,9 +11,11 @@ It is super fun to study Python and Django. Happy to face this work before i gra
 
 
 
-## 🦖July 19 2020
+## 🦖August 10 2020
 
-#### Too much busy to commit.. :( Still studying Japanese for getting certificate! 
+#### Too much busy to commit.. :( 
 
-#### 일본어 시험, 자습서공부 모두 다 해낼 수 있길 🔮🙏🏻
+#### Still studying Japanese for getting certificate!  (Cancelled 😡)
+
+#### すべてがうまくいくことを願って!!!
 

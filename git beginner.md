@@ -35,4 +35,4 @@ master - 브랜치 이름
 
 
 
-`git push/pull origin --allow-unrelated-histories ` : 안올라갈때... 빡칠때 쓰기..ㅎㅎ 어지간하면 안쓰는게 죻아요.
+`git push/pull origin --allow-unrelated-histories ` : 안올라갈때... 화날 때쓰기..ㅎㅎ 어지간하면 안쓰는게 죻아요.
