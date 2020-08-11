@@ -1,3 +1,4 @@
+import fibo
 # Fibonacci numbers module
 
 def fib(n):    # write Fibonacci series up to n
@@ -17,3 +18,5 @@ def fib2(n):   # return Fibonacci series up to n
 
 # import fibo
 # print(fibo.fib(1000))
+
+dir(fibo)
