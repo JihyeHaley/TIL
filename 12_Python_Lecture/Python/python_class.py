@@ -109,7 +109,23 @@ class Hello:
         return f'hello, {self.name}'
 
 
+# 분리를 시켜야한다.
+class Greeting:
+    def __init__(self, name):
+        self.name = name
+
+    def hello(self):
+        return f'hello, {self.name}'
+
+    def bye(self):
+        return f'hello, {self.name}'
+
+
 print('--hello--')
 my_name = Hello('haley')
 print(my_name.hihi())
 
+# 객체지향 (사람의 눈의 관점에서 시각에 편리하게 프로그래밍 하는)
+
+# solid 5원칙 -> Spring이 만들어짐! 
+# SRP (Single Responsibility Principle) = 단일 책임원칙 (책임 = 변경을 위한 이유, 클래스를 분리해서)
