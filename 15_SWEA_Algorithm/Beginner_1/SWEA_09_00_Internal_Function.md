@@ -314,3 +314,86 @@ a, b, c : 시퀀스형 객체를 생성하는 함수
 ##### 현재의 *<u>지역 심볼 테이블</u>*을 보여주는 *<u>딕셔너리를 반환</u>*하는 함수
 
 ###### -> 매개변수를 포함한 지역변수와 중첩함수의 정보 포함
+
+
+
+
+
+#### 💼 id()
+
+##### 인자로 전달된 객체의 *<u>고유 주소(참조값)를 반환</u>*하는 함수
+
+* ```python
+  x = 10
+  print(f'{type(x)} x의 주소 값: {hex(id(x))}') 
+  ```
+
+* ```python
+  y = 10
+  print(f'{type(y)} x의 주소 값: {hex(id(y))}') 
+  ```
+
+* ```python
+  z = '10'
+  print(f'{type(z)} x의 주소 값: {hex(id(z))}')  
+  ```
+
+  * 보통은 **<u>*주소를 hex값*</u>**으로 갖고 있어서 hex로 변환
+
+
+
+
+
+#### 💼 isinstance(p, Parent)
+
+##### 첫 번째 인자로 전달된 객체가 두 번째 인자로 전달된 클래스의 *<u>인스턴스인지에 대한 여부를 True/False로 반환</u>*하는 함수
+
+* 상속이란?
+  * **class** 부모클래스:    ...내용... 
+  * **class** 자식클래스(부모클래스):    ...내용...
+
+
+
+#### 💼 issubclass(Child, Parent)
+
+##### 첫 번째 인자로 전달도니 클래스가 두 번째 인자로 전달된  클래스의 *<u>서브클래스인지에 대한 여부를 True/False로 반환</u>*하는 함수
+
+
+
+```python
+# isinstance(), issubclass
+class Parent:
+    pass
+
+# Child 클라스가 Parent class상속
+class Child(Parent): 
+    pass
+
+p = Parent()
+c = Child()
+
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(p, Parent)}') # True
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(c, Child)}')  # True
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(c, Parent)}') # True
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(p, Child)}') # False
+print(f'Child 클래스는 Parent 클래스의 서브클래스입니까? {issubclass(Child, Parent)}') # True
+# Child가 Parent를 상속받고 있으니깐 
+
+```
+
+p 객체는 Parent 클래스의 인스턴스입니까? True
+p 객체는 Parent 클래스의 인스턴스입니까? True
+p 객체는 Parent 클래스의 인스턴스입니까? True
+p 객체는 Parent 클래스의 인스턴스입니까? False
+Child 클래스는 Parent 클래스의 서브클래스입니까? True
+
+
+
+
+
+### 5️⃣ 실행 관련 함수
+
+#### 🎬 eval()
+
+##### 실행 가능한 표현식의 *<u>문자열</u>*을 인자로 전달받아 해당 *<u>문자열의 표현식을 실행한 결과값</u>*을 반환하는 함수
+
