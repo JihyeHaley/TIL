@@ -42,3 +42,27 @@ start, stop, step = 1, 45, 2
 print('randrange({0}, {1}) => {2}' .format(start, stop, randrange(1, 45)))
 print('randrange({0}) => {1}' .format(start, randrange(stop)))
 print(f'randranage({start} , {stop}, {step}) => {randrange(start, stop, step)}')
+
+
+# choice(data_list) // List에서 1개 반환
+# choice(data_list, k=2) // List에서 무엇을 몇개 반환 (1개 뽑고도 그 숫자를 또 뽑을 수 있다.)
+
+
+# sample() // 인자로 전달된 시퀀스 객체, 혹은 set 객체 항목 중 임의의 k개 반환, 비복원추출 기능을 가진 시뮬레이션 함수
+
+# shuffle() // 인자로 전달된 시퀀스 객체의 항목을 뒤섞는 함수, 반환값은 없고 원본 객체의 항목의 순서를 뒤섞음
+
+
+# datetime() // 날짜와 시간 정보를 확인하고 조작하는 클래스, 모듈
+
+from datetime import datetime, timezone, timedelta
+
+# datetime()
+# datetime.now()
+now = datetime.now()
+print(f'{now.year}-{now.month}-{now.day}  {now.hour}:{now.minute}:{now.second}')
+print(f'{now.year}-{now.month:02}-{now.day:02}  {now.hour:02}:{now.minute:02}:{now.second:02}')
+
+# datetime.now.strftime()
+fmt = '%Y{0} %m{1} %d{2} %H{3} %M{4} %S{5}'
+print(now.strftime(fmt).format(*'년월일시분초')) # 인자 언팩 연산자 적용
