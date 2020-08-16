@@ -156,3 +156,61 @@ print(f'16진수 표현인 문자열\'{y}\'은(는) 10진수 {int(y, 16)}로 변
 print(f'int({z})은 {type(z)} {type(int(z))}을 {type(int(z))} {int(z)}로 변환됩니다.')
 print(f'int({x})은 {type(x)} {type(int(x))}을 {type(float(x))} {float(x)}로 변환됩니다.')
 print(f'str({z})은 {type(z)} {type(int(z))}을 {type(str(z))} \'{str(z)}\'로 변환됩니다.')
+
+
+
+class MyClass:
+    pass
+
+def test_fn(param):
+    def inner_fu():
+        pass
+    val1 = 5
+    val2 = 6
+    for item in locals().items(): # Locals 함수가 반환한 딕셔너리 객체에 대해 items()함수로 리스트 객체를 얻음
+        print('\t{itme[0]} : {itme[1]}')
+
+
+value1 = 10 
+value2 = 20
+obj1 = MyClass()
+
+g = dict(globals()) # globals함수가 반환한 dict 객체의 현재 상태를 복사해 g에 저장
+
+print('globals()') # g의 items함수로 반환된 리스트 객체를 얻음
+for item in g.items():
+    print(f'\t{item[0]} : {item[1]}')
+
+print('\n\nlocals()')
+test_fn(10)
+
+# isinstance(), issubclass
+class Parent:
+    pass
+
+# Child 클라스가 Parent class상속
+class Child(Parent): 
+    pass
+
+p = Parent()
+c = Child()
+
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(p, Parent)}') # True
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(c, Child)}')  # True
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(c, Parent)}') # True
+print(f'p 객체는 Parent 클래스의 인스턴스입니까? {isinstance(p, Child)}') # False
+print(f'Child 클래스는 Parent 클래스의 서브클래스입니까? {issubclass(Child, Parent)}') # True
+# Child가 Parent를 상속받고 있으니깐 
+
+
+
+# eval()
+print('''
+eval()''')
+
+
+expr = '2 + 5 * 3'
+print(f'{expr} => {eval(expr)}')
+
+expr = "'hello, python!' .upper()"
+print(f'{expr} => {eval(expr)}')
