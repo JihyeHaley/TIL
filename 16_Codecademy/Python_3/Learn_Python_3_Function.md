@@ -412,3 +412,69 @@ Great! So far you have learned:
 
 Let’s practice these concepts again so that you won’t forget them!
 
+
+
+<hr>
+
+#### Else If Statements
+
+We have `if` statements, we have `else` statements, we can also have `elif` statements.
+
+Now you may be asking yourself, what the heck is an `elif` statement? It’s exactly what it sounds like, “else if”. An `elif` statement checks another condition after the previous `if` statements conditions aren’t met.
+
+We can use `elif` statements to control the order we want our program to check each of our conditional statements. First, the `if` statement is checked, then each `elif` statement is checked from top to bottom, then finally the `else` code is executed if none of the previous conditions have been met.
+
+Let’s take a look at this in practice. The following function will display a “thank you” message after someone donates to a charity: It takes the donation amount and prints a message based on how much was donated.
+
+```python
+def thank_you(donation):
+  if donation >= 1000:
+    print("Thank you for your donation! You have achieved platinum donation status!")
+  elif donation >= 500: 
+    print("Thank you for your donation! You have achieved gold donation status!")
+  elif donation >= 100:
+    print("Thank you for your donation! You have achieved silver donation status!")
+  else:
+    print("Thank you for your donation! You have achieved bronze donation status!")
+```
+
+Take a second to think about this function. What would happen if all of the `elif` statements were simply `if` statements? If you donated $1000.00, then the first three messages would all print because each `if` condition had been met.
+
+But because we used `elif` statements, it checks each condition sequentially and only prints one message. If I donate $600.00, the code first checks if that is over $1000.00, which it is not, then it checks if it’s over $500.00, which it is, so it prints that message, then because all of the other statements are`elif` and `else`, none of them get checked and no more messages get printed.
+
+Try your hand at some other `elif` statements.
+
+
+
+
+
+<hr>
+
+#### Try and Except Statements
+
+`if`, `elif`, and `else` statements aren’t the only way to build a control flow into your program. You can use `try` and `except` statements to check for possible errors that a user might encounter.
+
+The general syntax of a `try` and `except` statement is
+
+```python
+try:
+    # some statement
+except ErrorName:
+    # some statement
+```
+
+First, the statement under `try` will be executed. If at some point an exception is raised during this execution, such as a `NameError` or a `ValueError` and that exception matches the keyword in the `except` statement, then the `try` statement will terminate and the `except` statement will execute.
+
+Let’s take a look at this in an application. I want to write a function that takes two numbers, `a` and `b` as an input and then returns `a` divided by `b`. But, there is a possibility that `b` is zero, which will cause an error, so I want to include a `try` and `except` flow to catch this error.
+
+```python
+def divides(a,b):
+  try:
+    result = a / b
+    print (result)
+  except ZeroDivisionError:
+    print ("Can't divide by zero!")
+```
+
+Now that you see how it works, try to write one yourself.
+
