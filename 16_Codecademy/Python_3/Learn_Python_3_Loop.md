@@ -452,3 +452,41 @@ print(over_nine_thousand([8000, 900, 120, 5000]))
 
 
 
+#### Same Values
+
+```python
+same_values(lst1, lst2)
+```
+
+
+
+
+
+<hr>
+
+
+
+#### Reversed List
+
+```python
+reversed_list(lst1, lst2)
+```
+
+
+
+```python
+def reversed_list(lst1, lst2):
+	for i in range(len(lst1)):
+    if lst1[i] != lst2[len(lst2)-1-i]:
+      return False
+  return True
+```
+
+
+
+
+
+
+
+<hr>
+
