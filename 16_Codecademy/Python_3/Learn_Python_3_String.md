@@ -1120,3 +1120,63 @@ print(substring_between_letters("apple", "p", "c"))
 # should print "apple"
 ```
 
+
+
+
+
+#### X Length
+
+```python
+x_length_words()
+```
+
+
+
+```python
+# Write your x_length_words function here:
+def x_length_words(sentence, x):
+  sentence_splited = sentence.split(' ')
+  for i in sentence_splited:
+    if len(i) < x:
+      return False
+  return True
+# Uncomment these function calls to test your tip function:
+print(x_length_words("i like apples", 2))
+# should print False
+print(x_length_words("he likes apples", 2))
+# should print True
+```
+
+
+
+
+
+#### Check Name
+
+```python
+check_for_name()
+```
+
+
+
+```python
+# Write your check_for_name function here:
+def check_for_name(sentence, name):
+  sentence_splited = sentence.split(' ')
+  if sentence_splited[3].title() == name:
+    return True
+  else:
+    return False
+# Uncomment these function calls to test your  function:
+print(check_for_name("My name is Jamie", "Jamie"))
+# should print True
+print(check_for_name("My name is jamie", "Jamie"))
+# should print True
+print(check_for_name("My name is Samantha", "Jamie"))
+# should print False
+```
+
+
+
+
+
