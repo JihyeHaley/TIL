@@ -1178,5 +1178,60 @@ print(check_for_name("My name is Samantha", "Jamie"))
 
 
 
+#### Every Other Letter
 
+```
+every_other_letter()
+```
+
+```python
+# Write your every_other_letter function here:
+small = [chr(x) for x in range(65, 91)]
+large = [chr(x) for x in range(97, 113)]
+def every_other_letter(word):
+  word_return = ''
+  for i in range(0, len(word)):
+    if i % 2 == 0:
+      word_return += word[i]
+  return word_return
+
+# Uncomment these function calls to test your function:
+print(every_other_letter("Codecademy"))
+# should print Cdcdm
+print(every_other_letter("Hello world!"))
+# should print Hlowrd
+print(every_other_letter(""))
+# should print 
+```
+
+
+
+
+
+
+
+#### Reverse
+
+```
+reverse_string()
+```
+
+
+
+```python
+# Write your reverse_string function here:
+def reverse_string(word):
+  word_return = ''
+  print(list(range(len(word), 0, -1)))
+  for i in range(len(word), 0, -1):
+    word_return += word[i-1]
+  return word_return
+# Uncomment these function calls to test your  function:
+print(reverse_string("Codecademy"))
+# should print ymedacedoC
+print(reverse_string("Hello world!"))
+# should print !dlrow olleH
+print(reverse_string(""))
+# should print
+```
 
