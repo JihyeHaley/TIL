@@ -1235,3 +1235,80 @@ print(reverse_string(""))
 # should print
 ```
 
+
+
+
+
+#### Make Spoonerism
+
+```
+make_spoonerism()
+```
+
+
+
+###### real solution
+
+```python
+# Write your make_spoonerism function here:
+def make_spoonerism(word1, word2):
+  return word2[0]+word1[1:]+" "+word1[0]+word2[1:]
+
+# Uncomment these function calls to test your tip function:
+print(make_spoonerism("Codecademy", "Learn"))
+# should print Lodecademy Cearn
+print(make_spoonerism("Hello", "world!"))
+# should print wello Horld!
+print(make_spoonerism("a", "b"))
+# should print b a
+```
+
+
+
+
+
+###### my solution
+
+```python
+# Write your make_spoonerism function here:
+def make_spoonerism(word1, word2):
+  word1_spoon = word2[0] + word1[1:len(word1)]
+  word2_spoon = word1[0] + word2[1:len(word2)]
+  
+  return f'{word1_spoon}, {word2_spoon}'
+
+# Uncomment these function calls to test your function:
+print(make_spoonerism("Codecademy", "Learn"))
+# should print Lodecademy Cearn
+print(make_spoonerism("Hello", "world!"))
+# should print wello Horld!
+print(make_spoonerism("a", "b"))
+# should print b a
+```
+
+
+
+#### Add Exclamation
+
+```
+add_exclamation()
+```
+
+
+
+```python
+# Write your add_exclamation function here:
+def add_exclamation(word):
+  if len(word) >= 20:
+    return word
+  else:
+    exclamation = 20 - len(word)
+    return f'{word}'+'!'*exclamation
+
+# Uncomment these function calls to test your function:
+print(add_exclamation("Codecademy"))
+# should print Codecademy!!!!!!!!!!
+print(add_exclamation("Codecademy is the best place to learn"))
+# should print Codecademy is the best place to learn
+```
+
