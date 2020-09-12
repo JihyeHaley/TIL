@@ -544,3 +544,354 @@ for key, value in pct_women_in_occupation.items():
 
 
 
+Scrabble
+
+In this project, you will process some data from a group of friends playing scrabble. You will use dictionaries to organize players, words, and points.
+
+There are many ways you can extend this project on your own if you finish and want to get more practice!
+
+If you get stuck during this project or would like to see an experienced developer work through it, click “**Get Help**“ to see a **project walkthrough video**.
+
+
+
+### Tasks
+
+15/15 Complete
+
+Mark the tasks as complete by checking them off
+
+## Build your Point Dictionary
+
+
+
+**1.**
+
+We have provided you with two lists, `letters` and `points`. We would like to combine these two into a dictionary that would map a letter to its point value.
+
+Using a list comprehension and `zip`, create a dictionary called `letter_to_points` that has the elements of `letters` as the keys and the elements of `points` as the values.
+
+Stuck? Get a hint
+
+
+
+**2.**
+
+Our `letters` list did not take into account blank tiles. Add an element to the `letter_to_points` dictionary that has a key of `" "` and a point value of `0`.
+
+Stuck? Get a hint
+
+## Score a Word
+
+
+
+**3.**
+
+We want to create a function that will take in a word and return how many points that word is worth.
+
+Define a function called `score_word` that takes in a parameter `word`.
+
+Stuck? Get a hint
+
+
+
+**4.**
+
+Inside `score_word`, create a variable called `point_total` and set it to `0`.
+
+
+
+**5.**
+
+After defining `point_total`, create a for loop that goes through the letters in `word` and adds the point value of each letter to `point_total`.
+
+You should get the point value from the `letter_to_points` dictionary. If the letter you are checking for is not in `letter_to_points`, add 0 to the `point_total`.
+
+Stuck? Get a hint
+
+
+
+**6.**
+
+After the for loop is finished, return `point_total`.
+
+
+
+**7.**
+
+Let’s test this function! Create a variable called `brownie_points` and set it equal to the value returned by the `score_word()` function with an input of `"BROWNIE"`.
+
+
+
+**8.**
+
+We expect the word BROWNIE to earn 15 points:
+
+```
+(B + R + O + W + N + I + E)
+
+(3 + 1 + 1 + 4 + 4 + 1 + 1) = 15
+```
+
+Let’s print out `brownie_points` to make sure we got it right.
+
+## Score a Game
+
+
+
+**9.**
+
+Create a dictionary called `player_to_words` that maps players to a list of the words they have played. This table represents the data to transcribe into your dictionary:
+
+| player1 | wordNerd | Lexi Con | Prof Reader |
+| ------- | -------- | -------- | ----------- |
+| BLUE    | EARTH    | ERASER   | ZAP         |
+| TENNIS  | EYES     | BELLY    | COMA        |
+| EXIT    | MACHINE  | HUSKY    | PERIOD      |
+
+Hint
+
+A dictionary with one player, Player Lonely, who has played the three words WISHING, FOR, and FRIENDS, would look like:
+
+```py
+player_to_words = {"Player Lonely": ["WISHING", "FOR", "FRIENDS"]}
+```
+
+
+
+**10.**
+
+Create an empty dictionary called `player_to_points`.
+
+Hint
+
+To initialize an empty dictionary, use empty brackets (`{}`).
+
+
+
+**11.**
+
+Iterate through the items in `player_to_words`. Call each player `player` and each list of words `words`.
+
+Within your loop, create a variable called `player_points` and set it to 0.
+
+Hint
+
+To iterate through items in a dictionary, we can use this syntax:
+
+```py
+for key, value in my_dict.items():
+  ... do something with key or value ...
+```
+
+
+
+**12.**
+
+Within the loop, create another loop that goes through each `word` in `words` and adds the value of `score_word()` with `word` as an input.
+
+Hint
+
+Nested loops look like this:
+
+```py
+for item1 in one_list_or_dict:
+  for item2 in another_object:
+     ... do something with item1 or item2 ...
+```
+
+
+
+**13.**
+
+After the inner loop ends, set the current `player` value to be a key of `player_to_points`, with a value of `player_points`.
+
+Hint
+
+To set a key:value pair in a dictionary, use the syntax:
+
+```py
+my_dict[key_to_add] = value_to_add
+```
+
+
+
+**14.**
+
+`player_to_points` should now contain the mapping of players to how many points they’ve scored. Print this out to see the current standings for this game!
+
+If you’ve calculated correctly, wordNerd should be winning by 1 point.
+
+## Ideas for Further Practice!
+
+
+
+**15.**
+
+If you want extended practice, try to implement some of these ideas with the Python you’ve learned:
+
+- `play_word()` — a function that would take in a player and a word, and add that word to the list of words they’ve played
+- `update_point_totals()` — turn your nested loops into a function that you can call any time a word is played
+- make your `letter_to_points` dictionary able to handle lowercase inputs as well
+
+
+
+
+
+```python
+letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+points = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 4, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10]
+
+letter_to_points = {letters:points for letters, points in zip(letters, points)}
+
+letter_to_points.update({" ": 0})
+
+
+def score_word(word):
+  point_total = 0
+  for l in word:
+    point_total += letter_to_points.get(l)
+    
+  return point_total
+
+brownie_point = score_word('BROWNIE')
+
+print(brownie_point)
+
+player_to_words = {'BLUE' : ['EARTH', 'ERASE', 'ZAP'], 'TENNIS': ['EYES', 'EYES', 'BELLY', 'COMA'], 'EXIT': ['MACHINE', 'HUSKY', 'PERIOD']}
+
+player_to_points = {}
+
+for player, words in player_to_words.items():
+  plyaer_points = 0
+  for word in words:
+    plyaer_points = score_word(word)
+  player_to_points[player] = plyaer_points
+
+
+
+```
+
+
+
+
+
+Frequency Count
+
+```
+frequency_dictionary()
+```
+
+
+
+### Instructions
+
+**1.**
+
+Write a function named `frequency_dictionary` that takes a list of elements named `words` as a parameter. The function should return a dictionary containing the frequency of each element in `words`.
+
+
+
+```python
+# Write your frequency_dictionary function here:
+def frequency_dictionary(words):
+  freqs = {}
+  for word in words:
+    if word not in freqs:
+    	freqs[word] = 0
+    freqs[word] += 1
+  return freqs
+
+# Uncomment these function calls to test your  function:
+print(frequency_dictionary(["apple", "apple", "cat", 1]))
+# should print {"apple":2, "cat":1, 1:1}
+print(frequency_dictionary([0,0,0,0,0]))
+# should print {0:5}
+```
+
+
+
+
+
+Unique Values
+
+```
+unique_values()
+```
+
+
+
+### Instructions
+
+**1.**
+
+Create a function named `unique_values` that takes a dictionary named `my_dictionary` as a parameter. The function should return the number of unique values in the dictionary.
+
+
+
+```python
+# Write your unique_values function here:
+def unique_values(my_dictionary):
+  seen_values = []
+  for value in my_dictionary.values():
+    if value not in seen_values:
+      seen_values.append(value)
+  return len(seen_values)
+
+# Uncomment these function calls to test your  function:
+print(unique_values({0:3, 1:1, 4:1, 5:3}))
+# should print 2
+print(unique_values({0:3, 1:3, 4:3, 5:3}))
+# should print 1
+```
+
+
+
+
+
+Count First Letter
+
+```
+count_first_letter()
+```
+
+
+
+### Instructions
+
+**1.**
+
+Create a function named `count_first_letter` that takes a dictionary named `names` as a parameter. `names` should be a dictionary where the key is a last name and the value is a list of first names. For example, the dictionary might look like this:
+
+```py
+names = {"Stark": ["Ned", "Robb", "Sansa"], "Snow" : ["Jon"], "Lannister": ["Jaime", "Cersei", "Tywin"]}
+```
+
+The function should return a new dictionary where each key is the first letter of a last name, and the value is the number of people whose last name begins with that letter.
+
+So in example above, the function would return:
+
+```py
+{"S" : 4, "L": 3}
+```
+
+
+
+
+
+```python
+# Write your count_first_letter function here:
+def count_first_letter(names):
+  empty = {}
+  for key, value in names.items():
+    if key[0] not in empty:
+      empty[key[0]] = len(value)
+    else:
+      empty[key[0]] += len(value)
+  return empty
+# Uncomment these function calls to test your  function:
+print(count_first_letter({"Stark": ["Ned", "Robb", "Sansa"], "Snow" : ["Jon"], "Lannister": ["Jaime", "Cersei", "Tywin"]}))
+# should print {"S": 4, "L": 3}
+print(count_first_letter({"Stark": ["Ned", "Robb", "Sansa"], "Snow" : ["Jon"], "Sannister": ["Jaime", "Cersei", "Tywin"]}))
+# should print {"S": 7}
+```
+
