@@ -6,7 +6,7 @@ file_list = os.listdir(path)
 
 from pptx import Presentation
 
-results = []
+results1 = []
 
 for file_name_raw in file_list:
 
@@ -22,6 +22,6 @@ for file_name_raw in file_list:
                 continue
             for paragraph in shape.text_frame.paragraphs:
                 result.append(paragraph.text)
-    results.append(result)
+    results1.append(result)
 
-print(results)
+print(results1)
