@@ -25,7 +25,7 @@ for file_name_raw in file_list:
                 print(f'paragraph: {paragraph.text}')
                 if paragraph.text == '':
                     continue
-                # if bool(paragraph.text) == True:
+                # if  == True:
                 #     continue
                 result.append(paragraph.text)
     
