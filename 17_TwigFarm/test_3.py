@@ -7,7 +7,9 @@ import timeit
 import sys
 from itertools import zip_longest
 from pptx import Presentation
+from nltk.tokenize import sent_tokenize
 import subprocess
+import nltk
 
 
 # pattern의 regex를 text에서 찾아 지움
@@ -97,18 +99,16 @@ def file_to_excel():
 
     # dict에 잘 들어갔는지 test
     pptx_test_print_1 = ''
-    pptx_test_print_2 = ''
     # completed_log = open(f'/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/log_pptx_3' + '.txt', "w+")
 
     # ppt 추출 시작
     print('ppt 추출 시작')
     for pptx_name_list in pptx_name_lists:
         i += 1
+        print(i, end=' ')
         # 일단 다 긁어오기 위한 list
         pptx_results_pre = []
 
-        # 최종 잘 나눠진 아이를 넣을 1개 pptx의 list
-        pptx_results = []
         
         # pptx 분석 하기위해 넣어주기
         prs = Presentation(pptx_name_list)
@@ -120,55 +120,59 @@ def file_to_excel():
                     continue
                 # 전처리 및 라인별 넣어주기
                 for paragraph in shape.text_frame.paragraphs:
-                    # too interrupt한 아이들 제거
-                    # paragraph.text = re.sub(r'(\s?■\s?)|(❍)|(▶\s*)|(▸\s*)|(»\s*)|(•\s*)', '', paragraph.text)
-                    paragraph.text = re.sub(r'(\s?■\s?)|(ㅇ|□|❍|▶|▸|»|•|©|—|○|\(\)|-|\*|α|β)\s*', '', paragraph.text)
-                    paragraph.text = re.sub(r'…*\.*\s?\d{1,3}', '', paragraph.text)
-                    paragraph.text = re.sub(r'\d{1,2}\.\s*', '', paragraph.text)
-                    paragraph.text = re.sub(r'\s?\|\s?', '', paragraph.text)
-                    # space bar 너무 많으면 버리기
-                    paragraph.text = re.sub(r'\s{2,}', '', paragraph.text)
-                    # /t숫자들 라고 써있는 문자 제거
-                    paragraph.text = re.sub(r'\/t{1}/d{1,}', '', paragraph.text)
-                    #'.'뒤에 스페이스 주기 (혹시 2개 있을수도 있어서 *로 처리)
-                    paragraph.text = re.sub(r'\.\s{1,2}', '. ', paragraph.text)
-                    # 날짜 제거
-                    paragraph.text = re.sub(r'(\d{2,4}(년|\.|/)\s*)\d{1,2}(월|\.|/)\s*\d{1,2}(일|\s*)', '. ', paragraph.text)
-                    # _ (언더바) 삭제
-                    paragraph.text = re.sub(r'_', '. ', paragraph.text)
-                    # URL, EMAIL
-                    paragraph.text = remove_regex(web_regex, paragraph.text)
-                    # 전화번호 지우기
-                    paragraph.text = remove_regex(phone_regex, paragraph.text)
-                    # 시간 지우기
-                    paragraph.text = remove_regex(time_regex, paragraph.text)
-                    # 날짜 지우기
-                    paragraph.text = remove_regex(date_regex, paragraph.text)
-                    #상표 지우기
-                    paragraph.text = re.sub(r'(^㉿{1})|(^©{1})\w+', '. ', paragraph.text)
-                    # 숫자만 제일 앞에 있으면 버리기
-                    paragraph.text = re.sub(r'^\d{1,3}\.?', '', paragraph.text)
-                    # 문장과 문장사이에 . 있을때 띄어쓰기가 없다면 띄어쓰기 해줌
-                    paragraph.text = re.sub(r'([ㄱ-ㅣ가-힣|a-zA-Z|0-9])\.([ㄱ-ㅣ가-힣|a-zA-Z|0-9])', r'\1. \2', paragraph.text)
-                    if paragraph.text == '':
+                    paragraph.text = sent_tokenize(paragraph.text)
+                    if paragraph.text == '' or ', ' or ',' or '.':
                         continue
                     pptx_results_pre.append(paragraph.text)
-
+            
+        
+        # 최종 잘 나눠진 아이를 넣을 1개 pptx의 list
+        pptx_results = []
+        
+        
         # 전처리 시작
         for pptx_result_pre in pptx_results_pre:
-            if type(pptx_result_pre) == 'list':
-                for line in pptx_result_pre:
-                    pptx_results.append(line.split('. '))
-            else:
-                pptx_results.append(pptx_result_pre)
+            # too interrupt한 아이들 제거
+            # pptx_result_pre = re.sub(r'(\s?■\s?)|(❍)|(▶\s*)|(▸\s*)|(»\s*)|(•\s*)', '', pptx_result_pre)
+            pptx_result_pre = re.sub(r'(\s?■\s?)|(ㅇ|□|❍|▶|▸|»|•|©|—|○|\(\)|-|\*|α|β)\s*', '', pptx_result_pre)
+            pptx_result_pre = re.sub(r'…*\.*\s?\d{1,3}', '', pptx_result_pre)
+            pptx_result_pre = re.sub(r'\d{1,2}\.\s*', '', pptx_result_pre)
+            pptx_result_pre = re.sub(r'\s?\|\s?', '', pptx_result_pre)
+            # space bar 너무 많으면 버리기
+            pptx_result_pre = re.sub(r'\s{2,}', '', pptx_result_pre)
+            # /t숫자들 라고 써있는 문자 제거
+            pptx_result_pre = re.sub(r'\/t{1}/d{1,}', '', pptx_result_pre)
+            #'.'뒤에 스페이스 주기 (혹시 2개 있을수도 있어서 *로 처리)
+            pptx_result_pre = re.sub(r'\.\s{1,2}', '. ', pptx_result_pre)
+            # 날짜 제거
+            pptx_result_pre = re.sub(r'(\d{2,4}(년|\.|/)\s*)\d{1,2}(월|\.|/)\s*\d{1,2}(일|\s*)', '. ', pptx_result_pre)
+            # _ (언더바) 삭제
+            pptx_result_pre = re.sub(r'_', '. ', pptx_result_pre)
+            # URL, EMAIL
+            pptx_result_pre = remove_regex(web_regex, pptx_result_pre)
+            # 전화번호 지우기
+            pptx_result_pre = remove_regex(phone_regex, pptx_result_pre)
+            # 시간 지우기
+            pptx_result_pre = remove_regex(time_regex, pptx_result_pre)
+            # 날짜 지우기
+            pptx_result_pre = remove_regex(date_regex, pptx_result_pre)
+            #상표 지우기
+            pptx_result_pre = re.sub(r'(^㉿{1})|(^©{1})\w+', '. ', pptx_result_pre)
+            # 숫자만 제일 앞에 있으면 버리기
+            pptx_result_pre = re.sub(r'^\d{1,3}\.?', '', pptx_result_pre)
+            # 문장과 문장사이에 . 있을때 띄어쓰기가 없다면 띄어쓰기 해줌
+            pptx_result_pre = re.sub(r'([ㄱ-ㅣ가-힣|a-zA-Z|0-9])\.([ㄱ-ㅣ가-힣|a-zA-Z|0-9])', r'\1. \2', pptx_result_pre)                
+            
+            pptx_results.append(pptx_result_pre)
         pptx_results = list(filter(None, pptx_results)) 
     
         if i == 1:
-            pptx_test_print_1 = pptx_name_list[92:-5]
+            pptx_test_print_1 = pptx_name_list[:-5]
         else:
             print(i, end=' ')
 
-        file_lists_pptx[pptx_name_list[92:-5]] = pptx_results
+        file_lists_pptx[pptx_name_list[:-5]] = pptx_results
+        print(file_lists_pptx[pptx_name_list[:-5]])
     #     completed_log.write(str(i) + ' \n' + str(pptx_results) + ' \n ')
     # completed_log.close()
     print(f'done, file_lists_pptx : is {len(file_lists_pptx)}')
@@ -203,15 +207,15 @@ def file_to_excel():
         docx_results = list(filter(None, docx_results))
 
         if i == 1:
-            docx_test_print_1 = docx_name_list[92:-5]
+            docx_test_print_1 = docx_name_list[40:-5]
         else:
             print(i, end=' ')
 
-        file_lists_docx[docx_name_list[92:-5]] = docx_results
+        file_lists_docx[docx_name_list[40:-5]] = docx_results
 
     print(f'done, file_lists_docx : is {len(file_lists_docx)}')
     print(file_lists_docx.get(docx_test_print_1))
-    print(f'docx는 {i}개 가져왔습')
+    print(f'docx는 {i}개 가져왔어요')
     
     
     
@@ -225,32 +229,34 @@ def file_to_excel():
     # print(list(file_lists_all.keys()))
     
     
-    # ------------------------------------------------------------------------------------
-    # 한글, 영어 구분해서 각각의 dict에 넣어주기
-    ko_files = {}
-    en_files = {}
     
 
     # ------------------------------------------------------------------------------------
     # log 출력 (파일명 확인하기 위해서)
     completed_log = open(f'/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/log_stabdard_27' + '.txt', "w+")
     
+
+    # ------------------------------------------------------------------------------------
+    # 한글, 영어 구분해서 각각의 dict에 넣어주기
+    ko_files = {}
+    en_files = {}
     
+
     i = 0
     j = 1
     for key, value in file_lists_all.items():
-        i += 1 
+        # i += 1 
         language = key[-1]
-        key_name = key[:-1]
-        print(key[-1])
+        key_name = key[:-5]
+        print(key_name)
         
-        if language == '한':
+        if language == '한':
             ko_files.update({key_name : value})
-            print(key_name)
+            print(f'{key[:-5]}, {key_name}, {language}')
             completed_log.write(str(i) + '_[한. DONE READING]' + key_name + ' \n')
-        elif language == '영':
+        elif language == '영':
             en_files.update({key_name : value})
-            print(key_name)
+            print(f'{key[:-5]}, {key_name}, {language}')
             completed_log.write(str(i) + '_[영. DONE READING]' + key_name + ' \n')
         elif language == '병':
             j += 1 
@@ -285,6 +291,7 @@ def file_to_excel():
             if ko_key == en_key:
                 i += 1
                 print(f'{i}-{ko_key}')
+                print(f'{i}-{en_key}')
                 worksheet.write('A' + str(row_idx), '>'*10 + ko_key)
                 row_idx += 1
                 for ko, en in zip_longest(ko_value, en_value, fillvalue=' '):
