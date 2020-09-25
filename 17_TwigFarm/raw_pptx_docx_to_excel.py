@@ -127,7 +127,7 @@ def file_to_excel():
 
     # dict에 잘 들어갔는지 test
     pptx_test_print_1 = ''
-    # completed_log = open(f'/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/log_pptx_3' + '.txt', "w+")
+    # completed_log = open(f'/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/log_31' + '.txt', "w+")
 
     # ppt 추출 시작
     print('ppt 추출 시작')
@@ -225,7 +225,7 @@ def file_to_excel():
 
     # ------------------------------------------------------------------------------------
     # log 출력 (파일명 확인하기 위해서)
-    completed_log = open(f'/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/log_stabdard_31' + '.txt', "w+")
+    completed_log = open(f'/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/log_stabdard_32' + '.txt', "w+")
     
 
     # ------------------------------------------------------------------------------------
@@ -268,7 +268,7 @@ def file_to_excel():
     
     # ------------------------------------------------------------------------------------
     # excel 밖으로 빼내기
-    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/4_xlsx/standard31_.xlsx')
+    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/Farm/4_2019한국표준협회/4_xlsx/standard32_.xlsx')
     print('excel 빼내기 파일생성 성공!')
     worksheet = workbook.add_worksheet()
     worksheet.write('B1', 'ko')
