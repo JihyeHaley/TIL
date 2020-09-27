@@ -54,6 +54,10 @@ np_chunk_grammar = 'NP: {<DT>?<JJ>*<NN>}'
 # create noun phrase RegexpParser object here
 np_chunk_parser = RegexpParser(np_chunk_grammar)
 
+np_chunk_text = list()
+for ppt in pos_tagged_text:
+  np_chunk_text.append(np_chunk_parser.parse(ppt))
+
 # define verb phrase chunk grammar here
 vp_chunk_grammar = 'VP: {<DT>?<JJ>*<NN><VB.*><RB.?>?}'
 
@@ -72,11 +76,11 @@ for ptt in pos_tagged_text:
 
 # store and print the most common NP-chunks here
 
-most_commom_vp_chunks = vp_chunk_counter(vp_chunked_text)
-
+most_commom_np_chunks = np_chunk_counter(np_chunk_text)
 
 # store and print the most common VP-chunks here
 
+most_commom_vp_chunks = vp_chunk_counter(vp_chunked_text)
 
 ```
 
