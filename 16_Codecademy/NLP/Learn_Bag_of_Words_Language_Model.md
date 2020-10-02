@@ -574,7 +574,190 @@ Meanwhile, '2p per min to call germany 08448350055 from your bt line just 2p per
 
 
 
+## BoW Wow
 
+As you can see, bag-of-words is pretty useful! BoW also has several advantages over other language models. For one, it’s an easier model to get started with and a few Python libraries already have built-in support for it.
+
+Because bag-of-words relies on single words, rather than sequences of words, there are more examples of each unit of language in the training corpus. More examples means the model has less ***data sparsity\*** (i.e., it has more training knowledge to draw from) than other statistical models.
+
+Imagine you want to make a shirt to sell to people. If you have the shirt exactly tailored to someone’s body, it probably won’t fit that many people. But if you make a shirt that is just a giant bag with arm holes, you know that no one will buy it. What do you do? You loosely fit the shirt to someone’s body, leaving some extra room for different body shapes.
+
+***Overfitting\*** (adapting a model too strongly to training data, akin to our highly tailored shirt) is a common problem for statistical language models. While BoW still suffers from overfitting in terms of vocabulary, it overfits less than other statistical models, allowing for more flexibility in grammar and word choice.
+
+The combination of low data sparsity and less overfitting makes the bag-of-words model more reliable with smaller training data sets than other statistical models.
+
+
+
+**1.**
+
+The bigrams model is another statistical model that is helpful for tasks like text prediction. However, it’s not always ideal when you want to determine the topic of a given text.
+
+Read the short `text` in the code and then run the code as is to see the most common bigrams.
+
+
+
+**2.**
+
+Because of data sparsity, each bigram only has a single occurrence. As a result, the bigram model alone is not great at making predictions about topic or sentiment. Let’s see how the bag-of-words model does…
+
+Define `bag_of_words` in the code editor as `Counter()` called on `tokens`.
+
+
+
+**3.**
+
+At the end of **script.py**, let’s print out the three most frequently occurring words in the text. You can find the most common words by calling the `Counter` method `.most_common()` on `bag_of_words` and passing in a number — in this case `3` — as an argument. Save the result to `most_common_three` and print the result.
+
+Can you tell what the topic is by looking at the bag of words model?
+
+```python
+from preprocessing import preprocess_text
+from nltk.util import ngrams
+from collections import Counter
+
+text = "It's exciting to watch flying fish after a hard day's work. I don't know why some fish prefer flying and other fish would rather swim. It seems like the fish just woke up one day and decided, 'hey, today is the day to fly away.'"
+tokens = preprocess_text(text)
+
+# Bigram approach:
+bigrams_prepped = ngrams(tokens, 2)
+bigrams = Counter(bigrams_prepped)
+print("Three most frequent word sequences and the number of occurrences according to Bigrams:")
+print(bigrams.most_common(3))
+
+# Bag-of-Words approach:
+# Define bag_of_words here:
+bag_of_words = Counter(tokens)
+print("\nThree most frequent words and number of occurrences according to Bag-of-Words:")
+
+most_common_three = bag_of_words.most_common(3)
+print(most_common_three)
+
+print(tokens)
+```
+
+```
+Three most frequent word sequences and the number of occurrences according to Bigrams:
+[(('it', 's'), 1), (('s', 'excite'), 1), (('excite', 'to'), 1)]
+
+Three most frequent words and number of occurrences according to Bag-of-Words:
+[('fish', 4), ('fly', 3), ('day', 3)]
+```
+
+<hr>
+
+
+
+## BoW Ow
+
+Alas, there is a trade-off for all the brilliance BoW brings to the table.
+
+Unless you want sentences that look like “the a but for the”, BoW is NOT a great primary model for text prediction. If that sort of “sentence” isn’t your bag, it’s because bag-of-words has high ***perplexity\***, meaning that it’s not a very accurate model for language prediction. The probability of the following word is always just the most frequently used words.
+
+If your BoW model finds “good” frequently occurring in a text sample, you might assume there’s a positive sentiment being communicated in that text… but if you look at the original text you may find that in fact every “good” was preceded by a “not.”
+
+Hmm, that would have been helpful to know. The BoW model’s word tokens lack context, which can make a word’s intended meaning unclear.
+
+Perhaps you are wondering, “What happens if the model comes across a new word that wasn’t in the training data?” As mentioned, like all statistical models, BoW suffers from overfitting when it comes to vocabulary.
+
+There are several ways that NLP developers have tackled this issue. A common approach is through ***language smoothing\*** in which some probability is siphoned from the known words and given to unknown words.
+
+
+
+### Instructions
+
+**1.**
+
+Run the code as is to see a made-up Oscar Wilde passage using a training text written by him. The tool currently uses the *n*-gram statistical model with a word sequence length of `3` (e.g., “I made the”) to make predictions.
+
+Checkpoint 2 Passed
+
+
+
+**2.**
+
+Change `sequence_length` to `1` so that we use the bag-of-words model. For the purposes of this function, we’ll pick each next word randomly from the 20 most common words.
+
+Run the code again to see how bag of words compares with the *n*-gram model on language prediction. Not so great, right?
+
+```python
+import nltk, re, random
+from nltk.tokenize import word_tokenize
+from collections import defaultdict, deque, Counter
+from document import oscar_wilde_thoughts
+
+# Change sequence_length:
+sequence_length = 1
+
+class MarkovChain:
+  def __init__(self):
+    self.lookup_dict = defaultdict(list)
+    self.most_common = []
+    self._seeded = False
+    self.__seed_me()
+
+  def __seed_me(self, rand_seed=None):
+    if self._seeded is not True:
+      try:
+        if rand_seed is not None:
+          random.seed(rand_seed)
+        else:
+          random.seed()
+        self._seeded = True
+      except NotImplementedError:
+        self._seeded = False
+    
+  def add_document(self, str):
+    preprocessed_list = self._preprocess(str)
+    self.most_common = Counter(preprocessed_list).most_common(50)
+    pairs = self.__generate_tuple_keys(preprocessed_list)
+    for pair in pairs:
+      self.lookup_dict[pair[0]].append(pair[1])
+  
+  def _preprocess(self, str):
+    cleaned = re.sub(r'\W+', ' ', str).lower()
+    tokenized = word_tokenize(cleaned)
+    return tokenized
+
+  def __generate_tuple_keys(self, data):
+    if len(data) < sequence_length:
+      return
+
+    for i in range(len(data) - 1):
+      yield [ data[i], data[i + 1] ]
+      
+  def generate_text(self, max_length=50):
+    context = deque()
+    output = []
+    if len(self.lookup_dict) > 0:
+      self.__seed_me(rand_seed=len(self.lookup_dict))
+      chain_head = [list(self.lookup_dict)[0]]
+      context.extend(chain_head)
+      if sequence_length > 1:
+        while len(output) < (max_length - 1):
+          next_choices = self.lookup_dict[context[-1]]
+          if len(next_choices) > 0:
+            next_word = random.choice(next_choices)
+            context.append(next_word)
+            output.append(context.popleft())
+          else:
+            break
+        output.extend(list(context))
+      else:
+        while len(output) < (max_length - 1):
+          next_choices = [word[0] for word in self.most_common]
+          next_word = random.choice(next_choices)
+          output.append(next_word)
+    return " ".join(output)
+
+my_markov = MarkovChain()
+my_markov.add_document(oscar_wilde_thoughts)
+random_oscar_wilde = my_markov.generate_text()
+print(random_oscar_wilde)
+```
+
+```
+at you must nothing i more what all art of all is will of art will was which made on you we we his which and have made with was be be think are at not can as but is not not your great your i will more was
+```
 
 
 
