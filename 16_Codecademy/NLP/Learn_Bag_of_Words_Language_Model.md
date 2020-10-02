@@ -1,583 +1,308 @@
-## Noise Removal
+## Intro to Bag-of-Words
 
-Text cleaning is a technique that developers use in a variety of domains. Depending on the goal of your project and where you get your data from, you may want to remove unwanted information, such as:
+“A bag-of-words is all you need,” some NLPers have decreed.
 
-- punctuation and accents
-- special characters
-- numeric digits
-- leading, ending, and vertical whitespace
-- HTML formatting
+The bag-of-words language model is a simple-yet-powerful tool to have up your sleeve when working on natural language processing (NLP). The model has many, many use cases including:
 
-The type of noise that you need to remove from text usually depends on its source. For example, you could access data via the Twitter API, scraping a webpage, or voice recognition software. Fortunately, you can use the `.sub()` method in Python’s regular expression (`re`) library for most of your noise removal needs.
-
-The `.sub()` method has three required arguments:
-
-1. `pattern` – a regular expression that is searched for in the input string. There must be an `r` preceding the string to indicate it is a raw string, which treats backslashes as literal characters.
-2. `replacement_text` – text that replaces all matches in the input string
-3. `input` – the input string that will be edited by the `.sub()` method
-
-The method returns a string with all instances of the `pattern` replaced by the `replacement_text`. Let’s see a few examples of using this method to remove and replace text from a string.
-
-#### Examples
-
-First, let’s consider how to remove HTML `<p>` tags from a string:
-
-```python
-import re 
-
-text = "<p>    This is a paragraph</p>" 
-
-result = re.sub(r'<.?p>', '', text)
-
-print(result) 
-#    This is a paragraph
-```
-
-Notice, we replace the tags with an empty string `''`. This is a common approach for removing text.
-
-------
-
-Next, let’s remove the whitespace from the beginning of the text. The whitespace consists of four spaces.
-
-```python
-import re 
-
-text = "    This is a paragraph" 
-
-result = re.sub(r'\s{4}', '', text)
-
-print(result) 
-# This is a paragraph
-```
-
-Take a look at Codecademy’s [Parsing with Regular Expressions](https://www.codecademy.com/learn/natural-language-processing/modules/nlp-regex-parsing-module) lesson if you want to learn more regular expression syntax and tricks.
+- determining topics in a song
+- filtering spam from your inbox
+- finding out if a tweet has positive or negative sentiment
+- creating word clouds
 
 
 
-
+### Instructions
 
 **1.**
 
-At the top of **script.py**, import the regular expression library.
+In the code editor, we’ve created a spam filter using bag-of-words. Test it out!
 
-Checkpoint 2 Passed
+Replace the text in `test_text` with the text from a marketing email you’ve received and run the code. Was the result what you expected?
 
-**2.**
 
-We used a package called Beautiful Soup to scrape [The Onion website](https://www.theonion.com/) from October of 2019. We saved one of the headlines to a variable called `onion_headline`.
-
-Remove the opening and closing `h1` tags from `onion_headline`. Save the value to `headline_no_tag`.
-
-**3.**
-
-We also saved a Tweet to the variable `tweet`. Remove all `@` characters. Save the result to `tweet_no_at`
 
 ```python
-import re
+from spam_data import training_spam_docs, training_doc_tokens, training_labels
+from sklearn.naive_bayes import MultinomialNB
+from preprocessing import preprocess_text
 
-headline_one = '<h1>Nation\'s Top Pseudoscientists Harness High-Energy Quartz Crystal Capable Of Reversing Effects Of Being Gemini</h1>'
+# Add your email text to test_text between the triple quotes:
+test_text = """
+Have you ever wondered how an email ends up in the spam folder? Or how customer service phone systems are able to understand what you're saying? From a cleaner inbox to faster customer service and virtual assistants that can tell you the weather, the number of applications using natural language processing (NLP) is rapidly growing. NLP is all about how computers work with human language. Learn how to create your own powerful NLP programs with this new course!
 
-tweet = '@fat_meats, veggies are better than you think.'
-onion_headline = r'<h1>|</h1>'
-headline_no_tag = re.sub(onion_headline, '', headline_one)
-tweet_no_at = re.sub(r'@', '', tweet)
+Start Now
+ 
+Happy coding,
+Codecademy
+"""
+test_tokens = preprocess_text(test_text)
 
-try:
-  print(headline_no_tag)
-except:
-  print('No variable called `headline_no_tag`')
-try:
-  print(tweet_no_at)
-except:
-  print('No variable called `tweet_no_at`')
+def create_features_dictionary(document_tokens):
+  features_dictionary = {}
+  index = 0
+  for token in document_tokens:
+    if token not in features_dictionary:
+      features_dictionary[token] = index
+      index += 1
+  return features_dictionary
+
+def tokens_to_bow_vector(document_tokens, features_dictionary):
+  bow_vector = [0] * len(features_dictionary)
+  for token in document_tokens:
+    if token in features_dictionary:
+      feature_index = features_dictionary[token]
+      bow_vector[feature_index] += 1
+  return bow_vector
+
+bow_sms_dictionary = create_features_dictionary(training_doc_tokens)
+training_vectors = [tokens_to_bow_vector(training_doc, bow_sms_dictionary) for training_doc in training_spam_docs]
+test_vectors = [tokens_to_bow_vector(test_tokens, bow_sms_dictionary)]
+
+spam_classifier = MultinomialNB()
+spam_classifier.fit(training_vectors, training_labels)
+
+predictions = spam_classifier.predict(test_vectors)
+
+print("Looks like a normal email!" if predictions[0] == 0 else "You've got spam!")
 ```
-
-
 
 
 
 <hr>
 
+## Bag-of-What?
 
+***Bag-of-words (BoW)\*** is a statistical language model based on word count. Say what?
 
-## Tokenization
+Let’s start with that first part: a ***statistical language model\*** is a way for computers to make sense of language based on probability. For example, let’s say we have the text:
 
-For many natural language processing tasks, we need access to each word in a string. To access each word, we first have to break the text into smaller components. The method for breaking text into smaller components is called *tokenization* and the individual components are called *tokens*.
+“Five fantastic fish flew off to find faraway functions. Maybe find another five fantastic fish?”
 
-A few common operations that require tokenization include:
+A statistical language model focused on the starting letter for words might take this text and predict that words are most likely to start with the letter “f” because 11 out of 15 words begin that way. A different statistical model that pays attention to word order might tell us that the word “fish” tends to follow the word “fantastic.”
 
-- Finding how many words or sentences appear in text
-- Determining how many times a specific word or phrase exists
-- Accounting for which terms are likely to co-occur
+Bag-of-words does not give a flying fish about word starts or word order though; its sole concern is ***word count\*** — how many times each word appears in a document.
 
-While tokens are usually individual words or terms, they can also be sentences or other size pieces of text.
+If you’re already familiar with statistical language models, you may also have heard BoW referred to as the ***unigram model\***. It’s technically a special case of another statistical model, the *n*-gram model, with *n* (the number of words in a sequence) set to `1`.
 
-To tokenize individual words, we can use `nltk`‘s `word_tokenize()` function. The function accepts a string and returns a list of words:
+If you have no idea what *n*-grams are, don’t worry — we’ll dive deeper into them in another lesson.
 
-```python
-from nltk.tokenize import word_tokenize
+### Instructions
 
-text = "Tokenize this text"
-tokenized = word_tokenize(text)
-
-print(tokenized)
-# ["Tokenize", "this", "text"]
-```
-
-------
-
-To tokenize at the sentence level, we can use `sent_tokenize()` from the same module.
-
-```python
-from nltk.tokenize import sent_tokenize
-
-text = "Tokenize this sentence. Also, tokenize this sentence."
-tokenized = sent_tokenize(text)
-
-print(tokenized)
-# ['Tokenize this sentence.', 'Also, tokenize this sentence.']
-```
-
-
-
-**1.**
-
-Import the `word_tokenize()` and `sent_tokenize()` functions from Python’s NLTK package.
-
-Checkpoint 2 Passed
-
-**2.**
-
-Tokenize `ecg_text` by word and save the result to `tokenized_by_word`.
-
-**3.**
-
-Tokenize `ecg_text` by sentence and save the result to `tokenized_by_sentence`.
-
-
-
-```python
-from nltk.tokenize import word_tokenize, sent_tokenize
-
-ecg_text = 'An electrocardiogram is used to record the electrical conduction through a person\'s heart. The readings can be used to diagnose cardiac arrhythmias.'
-
-
-tokenized_by_word = word_tokenize(ecg_text)
-tokenized_by_sentence = sent_tokenize(ecg_text)
-
-
-
-try:
-  print('Word Tokenization:')
-  print(tokenized_by_word)
-except:
-  print('Expected a variable called `tokenized_by_word`')
-try:
-  print('Sentence Tokenization:')
-  print(tokenized_by_sentence)
-except:
-  print('Expected a variable called `tokenized_by_sentence`')
-```
-
-
+Try out a few word combinations in the applet to see how the bag-of-words model works. What happens if you add the same word a few times?
 
 
 
 <hr>
 
+## BoW Dictionaries
+
+One of the most common ways to implement the BoW model in Python is as a dictionary with each key set to a word and each value set to the number of times that word appears. Take the example below:
+
+![The squids jumped out of the suitcases.](https://content.codecademy.com/courses/NLP/bag-of-words.gif)
+
+The words from the sentence go into the bag-of-words and come out as a dictionary of words with their corresponding counts. For statistical models, we call the text that we use to build the model our ***training data\***. Usually, we need to prepare our text data by breaking it up into `documents` (shorter strings of text, generally sentences).
+
+Let’s build a function that converts a given training text into a bag-of-words!
 
 
-## Normalization
 
-Tokenization and noise removal are staples of almost all text pre-processing pipelines. However, some data may require further processing through text normalization. Text *normalization* is a catch-all term for various text pre-processing tasks. In the next few exercises, we’ll cover a few of them:
-
-- Upper or lowercasing
-- Stopword removal
-- *Stemming* – bluntly removing prefixes and suffixes from a word
-- *Lemmatization* – replacing a single-word token with its root
-
-The simplest of these approaches is to change the case of a string. We can use Python’s built-in String methods to make a string all uppercase or lowercase:
-
-```python
-my_string = 'tHiS HaS a MiX oF cAsEs'
-
-print(my_string.upper())
-# 'THIS HAS A MIX OF CASES'
-
-print(my_string.lower())
-# 'this has a mix of cases'
-```
+### Instructions
 
 **1.**
 
-Make all the characters in `brands` lowercase and save the results to `brands_lower`.
-
-**2.**
-
-Make all the letters in `brands` uppercase and save the results to `brands_upper`.
-
-```python
-brands = 'Salvation Army, YMCA, Boys & Girls Club of America'
-
-
-brands_lower = brands.lower()
-brands_upper = brands.upper()
-
-try:
-  print(f'Lowercased brands: {brands_lower}')
-except:
-  print('Expected a variable called `brands_lower`')
-try:
-  print(f'Uppercased brands: {brands_upper}')
-except:
-  print('Expected a variable called `brands_upper`')
-```
-
-
-
-
-
-
-<hr>
-
-
-
-## Stopword Removal
-
-Stopwords are words that we remove during preprocessing when we don’t care about sentence structure. They are usually the most common words in a language and don’t provide any information about the tone of a statement. They include words such as “a”, “an”, and “the”.
-
-NLTK provides a built-in library with these words. You can import them using the following statement:
-
-```python
-from nltk.corpus import stopwords 
-stop_words = set(stopwords.words('english')) 
-```
-
-We create a set with the stop words so we can check if the words are in a list below.
-
-Now that we have the words saved to `stop_words`, we can use tokenization and a list comprehension to remove them from a sentence:
-
-```python
-nbc_statement = "NBC was founded in 1926 making it the oldest major broadcast network in the USA"
-
-word_tokens = word_tokenize(nbc_statement) 
-# tokenize nbc_statement
-
-statement_no_stop = [word for word in word_tokens if word not in stop_words]
-
-print(statement_no_stop)
-# ['NBC', 'founded', '1926', 'making', 'oldest', 'major', 'broadcast', 'network', 'USA']
-```
-
-In this code, we first tokenized our string, `nbc_statement`, then used a list comprehension to return a list with all of the stopwords removed.
-
-
-
-**1.**
-
-At the top of your script, import stopwords from NLTK. Save all English stopwords, as a set, to a variable called `stop_words`.
-
-**2.**
-
-Tokenize the text in `survey_text` and save the result to `tokenized_survey`.
-
-**3.**
-
-Remove stop words from `tokenized_survey` and save the result to `text_no_stops`.
-
-
-
-```python
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-
-survey_text = 'A YouGov study found that American\'s like Italian food more than any other country\'s cuisine.'
-
-stop_words = set(stopwords.words('english'))
-
-
-tokenized_survey = word_tokenize(survey_text)
-text_no_stops = [f for f in tokenized_survey if f not in stop_words]
-
-
-
-try:
-  print(f'Stopwords type: {type(stop_words)}')
-except:
-  print('Expected a variable called `stop_words`')
-try:
-  print(f'Words Tokenized: {tokenized_survey}')
-except:
-  print('Expected a variable called `tokenized_survey`')
-try:
-  print(f'Text without Stops: {text_no_stops}')
-except:
-  print('Expected a variable called `text_no_stops`')
-  
-```
-
-
-
-
-
-<hr>
-
-
-
-## Stemming
-
-In natural language processing, *stemming* is the text preprocessing normalization task concerned with bluntly removing word affixes (prefixes and suffixes). For example, stemming would cast the word “going” to “go”. This is a common method used by search engines to improve matching between user input and website hits.
-
-NLTK has a built-in stemmer called PorterStemmer. You can use it with a list comprehension to stem each word in a tokenized list of words.
-
-First, you must import and initialize the stemmer:
-
-```python
-from nltk.stem import PorterStemmer
-stemmer = PorterStemmer()
-```
-
-Now that we have our stemmer, we can apply it to each word in a list using a list comprehension:
-
-```python
-tokenized = ['NBC', 'was', 'founded', 'in', '1926', '.', 'This', 'makes', 'NBC', 'the', 'oldest', 'major', 'broadcast', 'network', '.']
-
-stemmed = [stemmer.stem(token) for token in tokenized]
-
-print(stemmed)
-# ['nbc', 'wa', 'found', 'in', '1926', '.', 'thi', 'make', 'nbc', 'the', 'oldest', 'major', 'broadcast', 'network', '.']
-```
-
-Notice, the words like ‘was’ and ‘founded’ became ‘wa’ and ‘found’, respectively. The fact that these words have been reduced is useful for many language processing applications. However, you need to be careful when stemming strings, because words can often be converted to something unrecognizable.
-
-
-**1.**
-
-At the top of **script.py**, import `PorterStemmer`, then initialize an instance of it and save the object to a variable called `stemmer`.
+Define a function `text_to_bow()` that accepts `some_text` as a variable. Inside the function, set `bow_dictionary` equal to an empty dictionary and return it from the function. This is where we’ll be collecting the words and their counts.
 
 
 
 **2.**
 
-Tokenize `populated_island` and save the result to `island_tokenized`.
+Above the return statement, call the `preprocess_text()` function we created for you on `some_text` and assign the result to the variable `tokens`.
+
+Text preprocessing allows us to count words like “game” and “Games” as the same word token.
 
 
 
 **3.**
 
-Use a list comprehension to stem each word in `island_tokenized`. Save the result to a variable called `stemmed`.
+Still above the `return`, iterate over each `token` in `tokens` and check if `token` is already in the `bow_dictionary`.
+
+- If it is, increment that token’s count by `1`. (Remember that each `token`‘s count is its corresponding value within the `bow_dictionary`.)
+- Otherwise, set the count equal to `1` because this is the first time the model has seen that word token.
+
+To iterate through a list in Python:
 
 ```python
-from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.stem import PorterStemmer
-
-populated_island = 'Java is an Indonesian island in the Pacific Ocean. It is the most populated island in the world, with over 140 million people.'
-
-stemmer = PorterStemmer()
-island_tokenized = word_tokenize(populated_island)
-
-stemmed = [stemmer.stem(it) for it in island_tokenized]
-
-
-
-
-try:
-  print('A stemmer exists:')
-  print(stemmer)
-except:
-  print('Expected a variable called `stemmer`')
-try:
-  print('Words Tokenized:')
-  print(island_tokenized)
-except:
-  print('Expected a variable called `island_tokenized`')
-try:
-  print('Stemmed Words:')
-  print(stemmed)
-except:
-  print('Expected a variable called `stemmed`')
-  
+for some_item in list_of_items:
+  # do something with some_item
 ```
+
+To check if an item exists as a key in a Python dictionary:
+
+```python
+if some_item in some_dictionary:
+  # execute some code
+```
+
+You can set a key-value pair in a dictionary like this:
+
+```python
+some_dictionary[some_key] = some_value
+```
+
+To increment a dictionary value in Python:
+
+```python
+some_dictionary[some_key] += 1
+```
+
+**4.**
+
+Uncomment the print statement and run the code to see your bag-of-words function in action!
+
+```python
+from preprocessing import preprocess_text
+# Define text_to_bow() below:
+
+def text_to_bow(some_text):
+  bow_dictionary = {}
+  tokens = preprocess_text(some_text)
+  for token in tokens:
+    if token in bow_dictionary:
+      bow_dictionary[token] += 1
+    else:
+      bow_dictionary[token] = 1
+  return bow_dictionary
+
+print(text_to_bow("I love fantastic flying fish. These flying fish are just ok, so maybe I will find another few fantastic fish..."))
+```
+
+
 
 <hr>
 
+## Introducing BoW Vectors
+
+Sometimes a dictionary just won’t fit the bill. Topic modelling applications, for example, require an implementation of bag-of-words that is a bit more mathematical: ***feature vectors\***.
+
+A feature vector is a numeric representation of an item’s important features. Each feature has its own column. If the feature exists for the item, you could represent that with a `1`. If the feature does not exist for that item, you could represent that with a `0`. A few monsters could be represented as vectors like so:
+
+|          | has_fangs | melts_in_water | hates_sunlight | has_fur |
+| -------- | --------- | -------------- | -------------- | ------- |
+| vampire  | 1         | 0              | 1              | 0       |
+| werewolf | 1         | 0              | 0              | 1       |
+| witch    | 0         | 1              | 0              | 0       |
 
 
-## Lemmatization
 
-*Lemmatization* is a method for casting words to their root forms. This is a more involved process than stemming, because it requires the method to know the part-of-speech for each word. Since lemmatization requires the part of speech, it is a less efficient approach than stemming.
+For bag-of-words, instead of monsters you would have documents and the features would be different words. And we don’t just care if a word is present in a document; we want to know how many times it occurred! Turning text into a BoW vector is known as ***feature extraction\*** or ***vectorization\***.
 
-In the next exercise, we will consider how to tag each word with a part of speech. In the meantime, let’s see how to use NLTK’s lemmatize operation.
+But how do we know which vector index corresponds to which word? When building BoW vectors, we generally create a ***features dictionary\*** of all vocabulary in our training data (usually several documents) mapped to indices.
 
-We can use NLTK’s `WordNetLemmatizer` to lemmatize text:
+For example, with “Five fantastic fish flew off to find faraway functions. Maybe find another five fantastic fish?” our dictionary might be:
 
 ```python
-from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
+{'five': 0,
+'fantastic': 1,
+'fish': 2,
+'fly': 3,
+'off': 4,
+'to': 5,
+'find': 6,
+'faraway': 7,
+'function': 8,
+'maybe': 9,
+'another': 10}
 ```
 
-Once we have the `lemmatizer` initialized, we can use a list comprehension to apply the lemmatize operation to each word in a list:
+Using this dictionary, we can convert new documents into vectors using a vectorization function. For example, we can take a brand new sentence “Another five fish find another faraway fish.” — ***test data\*** — and convert it to a vector that looks like:
 
 ```python
-tokenized = ["NBC", "was", "founded", "in", "1926"]
-
-lemmatized = [lemmatizer.lemmatize(token) for token in tokenized]
-
-print(lemmatized)
-# ["NBC", "wa", "founded", "in", "1926"]
+[1, 0, 2, 0, 0, 0, 1, 1, 0, 0, 2]
 ```
 
-The result, saved to `lemmatized` contains `'wa'`, while the rest of the words remain the same. Not too useful. This happened because `lemmatize()` treats every word as a noun. To take advantage of the power of lemmatization, we need to tag each word in our text with the most likely part of speech. We’ll do that in the next exercise.
+The word ‘another’ appeared twice in the test data. If we look at the feature dictionary for ‘another’, we find that its index is `10`. So when we go back and look at our vector, we’d expect the number at index `10` to be `2`.
 
+<hr>
 
+## Building a Features Dictionary
+
+Now that you know what a bag-of-words vector looks like, you can create a function that builds them!
+
+First, we need a way of generating a features dictionary from a list of training documents. We can build a Python function to do that for us…
+
+### Instructions
 
 **1.**
 
-At the top of **script.py**, import `WordNetLemmatizer`, then initialize an instance of it and save the result to `lemmatizer`.
+Define a function `create_features_dictionary()` that takes one argument, `documents`. This will be the list of string documents that we pass in (like `["All the cool fish love to fly high.", "Nobody knows why the fish fly so high.", "Those cool fish sure are spry."]`).
 
-Stuck? Get a hint
+Inside the function, set `features_dictionary` equal to an empty dictionary. This is where we’ll map all of our terms to index numbers. For now, return `features_dictionary` from the function.
+
+
 
 **2.**
 
-Tokenize the string saved to `populated_island`. Save the result to `tokenized_string`.
+Above the return statement, merge the `documents` into a string joined together by spaces and assign the result to `merged`.
 
-Stuck? Get a hint
+Now that the documents are all in a single string, call `preprocess_text()` on `merged` and assign the result to `tokens`. Return `tokens` from the function in addition to `features_dictionary`.
+
+
 
 **3.**
 
-Use a list comprehension to lemmatize every word in `tokenized_string`. Save the result to the variable `lemmatized_words`.
+Above the return statement, assign `index` a value of `0`. This will correspond to the first word’s vector index.
 
 
+
+**4.**
+
+The words are prepared, the empty dictionary is prepared, and we have an index number we can use; it’s time to get the words into the dictionary and link each to a vector index number!
+
+- Above the `return`, loop through each `token` in `tokens`.
+- In the loop, check if `token` is **NOT** in `features_dictionary`.
+- If it’s a new word, add `token` as a key to `features_dictionary` with a value of `index`.
+
+
+
+**5.**
+
+After adding `token` to `features_dictionary`, increment `index` by `1` so that each new word has its own index.
+
+
+
+**6.**
+
+Uncomment the print statement to test out the function!
 
 ```python
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
+from preprocessing import preprocess_text
 
-populated_island = 'Indonesia was founded in 1945. It contains the most populated island in the world, Java, with over 140 million people.'
+# Define create_features_dictionary() below:
+def create_features_dictionary(documents):
+  features_dictionary = {}
+  merged = ' '.join(documents)
+  tokens = preprocess_text(merged)
+  index = 0
+  for token in tokens:
+    if token not in features_dictionary:
+      features_dictionary[token] = index
+      index += 1
+  return features_dictionary, tokens
 
+training_documents = ["Five fantastic fish flew off to find faraway functions.", "Maybe find another five fantastic fish?", "Find my fish with a function please!"]
 
-
-lemmatizer = WordNetLemmatizer()
-
-tokenized_string = word_tokenize(populated_island)
-lemmatized_words = [lemmatizer.lemmatize(ts) for ts in tokenized_string]
-
-
-
-
-try:
-  print(f'A lemmatizer exists: {lemmatizer}')
-except:
-  print('Expected a variable called `lemmatizer`')
-try:
-  print(f'Words Tokenized: {tokenized_string}')
-except:
-  print('Expected a variable called `tokenized_string`')
-try:
-  print(f'Lemmatized Words: {lemmatized_words}')
-except:
-  print('Expected a variable called `lemmatized_words`')
-  
+print(create_features_dictionary(training_documents)[0])
 ```
 
-
-
-
+`{'five': 0, 'fantastic': 1, 'fish': 2, 'fly': 3, 'off': 4, 'to': 5, 'find': 6, 'faraway': 7, 'function': 8, 'maybe': 9, 'another': 10, 'my': 11, 'with': 12, 'a': 13, 'please': 14}`
 
 <hr>
 
+<hr>
 
+<hr>
 
-## Part-of-Speech Tagging
+<hr>
 
-To improve the performance of lemmatization, we need to find the part of speech for each word in our string. In **script.py**, to the right, we created a part-of-speech tagging function. The function accepts a word, then returns the most common part of speech for that word. Let’s break down the steps:
-
-#### 1. Import wordnet and Counter
-
-```py
-from nltk.corpus import wordnet
-from collections import Counter
-```
-
-- `wordnet` is a database that we use for contextualizing words
-- `Counter` is a container that stores elements as dictionary keys
-
-#### 2. Get synonyms
-
-Inside of our function, we use the `wordnet.synsets()` function to get a set of synonyms for the word:
-
-```python
-def get_part_of_speech(word):
-  probable_part_of_speech = wordnet.synsets(word)
-```
-
-The returned synonyms come with their part of speech.
-
-#### 3. Use synonyms to determine the most likely part of speech
-
-Next, we create a `Counter()` object and set each value to the count of the number of synonyms that fall into each part of speech:
-
-```python
-pos_counts["n"] = len(  [ item for item in probable_part_of_speech if item.pos()=="n"]  )
-... 
-```
-
-This line counts the number of nouns in the synonym set.
-
-#### 4. Return the most common part of speech
-
-Now that we have a count for each part of speech, we can use the `.most_common()` counter method to find and return the most likely part of speech:
-
-```python
-most_likely_part_of_speech = pos_counts.most_common(1)[0][0]
-```
-
-------
-
-Now that we can find the most probable part of speech for a given word, we can pass this into our lemmatizer when we find the root for each word. Let’s take a look at how we would do this for a tokenized string:
-
-```python
-tokenized = ["How", "old", "is", "the", "country", "Indonesia"]
-
-lemmatized = [lemmatizer.lemmatize(token, get_part_of_speech(token)) for token in tokenized]
-
-print(lemmatized)
-# ['How', 'old', 'be', 'the', 'country', 'Indonesia']
-# Previously: ['How', 'old', 'is', 'the', 'country', 'Indonesia']
-```
-
-Because we passed in the part of speech, “is” was cast to its root, “be.” This means that words like “was” and “were” will be cast to “be”.
-
-
-
-**1.**
-
-Navigate to the file **script.py**. At the top of the file, we imported `get_part_of_speech` for you. Use `get_part_of_speech()` to improve your lemmatizer.
-
-Under the line with the `lemmatized` variable, use the `get_part_of_speech()` function in a list comprehension to lemmatize all the words in `tokenized_string`. Save the result to a new variable called `lemmatized_pos`.
-
-```python
-import nltk
-from nltk.corpus import wordnet
-from collections import Counter
-
-def get_part_of_speech(word):
-  probable_part_of_speech = wordnet.synsets(word)
-  
-  pos_counts = Counter()
-
-  pos_counts["n"] = len(  [ item for item in probable_part_of_speech if item.pos()=="n"]  )
-  pos_counts["v"] = len(  [ item for item in probable_part_of_speech if item.pos()=="v"]  )
-  pos_counts["a"] = len(  [ item for item in probable_part_of_speech if item.pos()=="a"]  )
-  pos_counts["r"] = len(  [ item for item in probable_part_of_speech if item.pos()=="r"]  )
-  
-  most_likely_part_of_speech = pos_counts.most_common(1)[0][0]
-  return most_likely_part_of_speech
-```
-
-
-
-
-
-
+<hr>
 
