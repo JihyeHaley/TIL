@@ -298,11 +298,285 @@ print(create_features_dictionary(training_documents)[0])
 
 <hr>
 
-<hr>
+
+
+## Building a BoW Vector
+
+Nice work! Time to put that dictionary of vocabulary to good use and build a bag-of-words vector from a new document.
+
+In Python, we can use a list to represent a vector. Each index in the list will correspond to a word and be set to its count.
+
+![features dictionary of words 'all, my, fish, fly, away, help, me' transforms the string 'help my fly fish fly away' into the vector [0,1,1,2,1,1,0]](https://content.codecademy.com/courses/NLP/Building_vector.gif)
+
+### Instructions
+
+**1.**
+
+Define a function `text_to_bow_vector()` with two parameters:
+
+- `some_text` (the document we pass in to vectorize)
+- `features_dictionary` (the dictionary of vocabulary we generated in the previous exercise)
+
+Create a list of `0`s the length of `features_dictionary` and assign it to the variable `bow_vector`. Each `0` represents a word’s count within the vector.
+
+Return `bow_vector` from the function.
+
+
+
+**2.**
+
+Above the return statement, preprocess the `some_text` document using the `preprocess_text()` function we built for you and assign the result to the variable `tokens`. Add `tokens` as a second return value for the function.
+
+
+
+**3.**
+
+Still above the return statement, loop through each `token` in `tokens`.
+
+- Determine which index the `token` has within `features_dictionary` and assign the value to a new variable `feature_index`. (Take a look a the gif. If `token` is the word `fish`, then we would want `feature_index` to be `2`.)
+- Now that you have the word’s index, access the word count index within the `bow_vector` and increment that count by `1`.
+
+
+
+**4.**
+
+Uncomment the print statement to test out the function!
+
+
+
+```python
+from preprocessing import preprocess_text
+# Define text_to_bow_vector() below:
+def text_to_bow_vector(some_text, features_dictionary):
+  bow_vector = [0] * len(features_dictionary)
+  tokens = preprocess_text(some_text)
+  for token in tokens:
+    feature_index = features_dictionary[token]
+    bow_vector[feature_index] += 1
+  return bow_vector, tokens
+
+features_dictionary = {'function': 8, 'please': 14, 'find': 6, 'five': 0, 'with': 12, 'fantastic': 1, 'my': 11, 'another': 10, 'a': 13, 'maybe': 9, 'to': 5, 'off': 4, 'faraway': 7, 'fish': 2, 'fly': 3}
+
+text = "Another five fish find another faraway fish."
+print(text_to_bow_vector(text, features_dictionary)[0])
+```
+
+`[1, 0, 2, 0, 0, 0, 1, 1, 0, 0, 2, 0, 0, 0, 0]`
+
+
+
+
 
 <hr>
 
+
+
+## It's All in the Bag
+
+Phew! That was a lot of work.
+
+It’s time to put `create_features_dictionary()` and `tokens_to_bow_vector()` together and use them in a spam filter we created that uses a Naive Bayes classifier. We’ve slightly modified the two functions for this use case, but they should still look familiar.
+
+Let’s see `create_features_dictionary()` and `tokens_to_bow_vector()` in action with real test data, helping fend off spam!
+
+
+
+### Instructions
+
+**1.**
+
+Below `tokens_to_bow_vector()`, call `create_features_dictionary()` on `training_doc_tokens` and assign the result to `bow_sms_dictionary`.
+
+
+
+**2.**
+
+Define `training_vectors` as a list comprehension. The list comprehension should call `tokens_to_bow_vector()` on `training_doc` and `bow_sms_dictionary` for each `training_doc` in `training_spam_docs`.
+
+
+
+**3.**
+
+Define `test_vectors` as a list comprehension that calls `tokens_to_bow_vector()` on `test_doc` and `bow_sms_dictionary` for each `test_doc` in `test_spam_docs`.
+
+
+
+**4.**
+
+Ready? Get set! Uncomment the code at the bottom of **script.py** and run the code again!
+
+The Naive Bayes classifier was pretty darn accurate in determining which messages were spam by using your bag-of-words functions!
+
+```python
+from spam_data import training_spam_docs, training_doc_tokens, training_labels, test_labels, test_spam_docs, training_docs, test_docs
+from sklearn.naive_bayes import MultinomialNB
+
+def create_features_dictionary(document_tokens):
+  features_dictionary = {}
+  index = 0
+  for token in document_tokens:
+    if token not in features_dictionary:
+      features_dictionary[token] = index
+      index += 1
+  return features_dictionary
+
+def tokens_to_bow_vector(document_tokens, features_dictionary):
+  bow_vector = [0] * len(features_dictionary)
+  for token in document_tokens:
+    if token in features_dictionary:
+      feature_index = features_dictionary[token]
+      bow_vector[feature_index] += 1
+  return bow_vector
+
+# Define bow_sms_dictionary:
+bow_sms_dictionary = create_features_dictionary(training_doc_tokens)
+
+# Define training_vectors:
+training_vectors = [tokens_to_bow_vector(training_doc, bow_sms_dictionary) for training_doc in training_spam_docs]
+
+# Define test_vectors:
+test_vectors = [tokens_to_bow_vector(test_doc, bow_sms_dictionary) for test_doc in test_spam_docs]
+
+
+spam_classifier = MultinomialNB()
+
+def spam_or_not(label):
+  return "spam" if label else "not spam"
+
+# Uncomment the code below when you're done:
+spam_classifier.fit(training_vectors, training_labels)
+
+predictions = spam_classifier.score(test_vectors, test_labels)
+
+print("The predictions for the test data were {0}% accurate.\n\nFor example, '{1}' was classified as {2}.\n\nMeanwhile, '{3}' was classified as {4}.".format(predictions * 100, test_docs[0], spam_or_not(test_labels[0]), test_docs[10], spam_or_not(test_labels[10])))
+```
+
+```
+The predictions for the test data were 99.0% accurate.
+
+For example, 'well obviously not because all the people in my cool college life go home _' was classified as not spam.
+
+Meanwhile, 'urgent we be try to contact you last weekend draw show u have win a 1000 prize guarantee call 09064017295 claim code k52 valid 12hrs 150p pm' was classified as spam.
+```
+
+
+
+
+
 <hr>
+
+
+
+## Spam A Lot No More
+
+Amazing work! As is the case with many tasks in Python, there’s already a library that can do all of that work for you.
+
+For `text_to_bow()`, you can approximate the functionality with the `collections` module’s `Counter()` function:
+
+```python
+from collections import Counter
+
+tokens = ['another', 'five', 'fish', 'find', 'another', 'faraway', 'fish']
+print(Counter(tokens))
+
+# Counter({'fish': 2, 'another': 2, 'find': 1, 'five': 1, 'faraway': 1})
+```
+
+For vectorization, you can use `CountVectorizer` from the machine learning library `scikit-learn`. You can use `fit()` to train the features dictionary and then `transform()` to transform text into a vector:
+
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+
+training_documents = ["Five fantastic fish flew off to find faraway functions.", "Maybe find another five fantastic fish?", "Find my fish with a function please!"]
+test_text = ["Another five fish find another faraway fish."]
+bow_vectorizer = CountVectorizer()
+bow_vectorizer.fit(training_documents)
+bow_vector = bow_vectorizer.transform(test_text)
+print(bow_vector.toarray())
+# [[2 0 1 1 2 1 0 0 0 0 0 0 0 0 0]]
+```
+
+
+
+### Instructions
+
+**1.**
+
+Now, let’s see how scikit-learn stacks up with the same bag-of-words functionality! Import `CountVectorizer` from `sklearn`. (Check out the example we gave for how to import `CountVectorizer`.)
+
+
+
+**2.**
+
+Define `bow_vectorizer` as our vectorizer using `CountVectorizer()`.
+
+
+
+**3.**
+
+Define `training_vectors` as `bow_vectorizer.fit_transform()` called on `training_docs`.
+
+`fit_transform()` does two things: creation of the features dictionary and the vectorization of the training data.
+
+Define `test_vectors` as `bow_vectorizer.transform()` called on `test_docs`.
+
+
+
+**4.**
+
+Uncomment the code at the bottom of **script.py**. Run the code again to see why it makes sense to use `sklearn`‘s optimized functions!
+
+```python
+from spam_data import training_spam_docs, training_doc_tokens, training_labels, test_labels, test_spam_docs, training_docs, test_docs
+from sklearn.naive_bayes import MultinomialNB
+
+# Import CountVectorizer from sklearn:
+from sklearn.feature_extraction.text import CountVectorizer
+
+
+# Define bow_vectorizer:
+bow_vectorizer = CountVectorizer()
+
+
+# Define training_vectors:
+training_vectors = bow_vectorizer.fit_transform(training_docs)
+
+
+# Define test_vectors:
+test_vectors = bow_vectorizer.transform(test_docs)
+
+spam_classifier = MultinomialNB()
+
+def spam_or_not(label):
+  return "spam" if label else "not spam"
+
+# Uncomment the code below when you're done:
+spam_classifier.fit(training_vectors, training_labels)
+
+predictions = spam_classifier.score(test_vectors, test_labels)
+
+print("The predictions for the test data were {0}% accurate.\n\nFor example, '{1}' was classified as {2}.\n\nMeanwhile, '{3}' was classified as {4}.".format(predictions * 100, test_docs[7], spam_or_not(test_labels[7]), test_docs[15], spam_or_not(test_labels[15])))
+```
+
+
+
+```
+The predictions for the test data were 100.0% accurate.
+
+For example, 'really do hope the work doesnt get stressful have a gr8 day' was classified as not spam.
+
+Meanwhile, '2p per min to call germany 08448350055 from your bt line just 2p per min check planettalkinstant com for info t s c s text stop to opt out' was classified as spam.
+```
+
+
+
+<hr>
+
+
+
+
+
+
 
 <hr>
 
