@@ -21,12 +21,14 @@ dict_b = dict()
 print(type(dict_b))
 
 print('\n---- dictionary read ----')
+a = 서울
 phone_book={
-    '서울' : '02',
+    a : '02',
     '경기' : '031'
 }
 
 print(phone_book['서울']) #접근은 대괄호로
+print(phone_book[a]) #접근은 대괄호로
 
 print('---dir 함수 사용해서 뭔가 볼 수 있다.---')
 
