@@ -8,6 +8,14 @@ It is super fun to study Python and Django. Happy to face this work before i gra
 
 
 
+## 🍭October 9 2020
+
+#### Mostly studying nltk and regular expression for parsing pptx, docx :)
+
+#### Still studying Japanese for getting certificate!  (Cancelled 😡)
+
+#### すべてがうまくいくことを願って!!!
+
 
 
 
@@ -18,4 +26,8 @@ It is super fun to study Python and Django. Happy to face this work before i gra
 #### Still studying Japanese for getting certificate!  (Cancelled 😡)
 
 #### すべてがうまくいくことを願って!!!
+
+
+
+
 
