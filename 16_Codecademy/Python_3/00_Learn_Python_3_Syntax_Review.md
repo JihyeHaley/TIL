@@ -39,3 +39,19 @@ print(f'Customer One Items: \n{customer_one_itemization}')
 print(f'Customer One Total: {customer_one_total}')
 ```
 
+
+
+
+
+### Quiz
+
+#### What is the difference between a float and an int?
+
+- A **float** represents decimal quantities. An **int** represents whole numbers.
+
+  
+
+#### Difference between SyntaxError and NameError
+
+* SyntaxError is grammarly wrong code.
+* NameError is not exactly defined
