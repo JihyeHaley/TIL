@@ -1,0 +1,10 @@
+동압(velocity pressure)
+전압(total pressure)
+확산 영역(envelope)
+도달 거리(throw)
+낙하 거리(drop)
+상당 지름(equivalent diameter)
+바나나 Banana
+치약 Toothpaste
+바구니 basket
+상자 box
