@@ -8,7 +8,8 @@ def count_En_words(match):
     en_words = list()
 
     for i in match:
-        en_words.append(i[0]) # 살릴 단어
+        alive = re.sub(r'\(|\)', '',i[0])
+        en_words.append(alive) # 살릴 단어
         en_words_len_pre = i[0].split(' ') # 단어 덩어리 개수 
         cnt = 0
         for j in en_words_len_pre:
@@ -29,6 +30,7 @@ def find_En(sent):
     
     return en_words, en_words_len
         
+
 # 영어 단어, 덩어리 개수 count 
 def count_Ko_words(match):
     ko_words = list()

@@ -21,7 +21,7 @@ test_sample_1 = '1212'
 print('test_case_1_match: ', re.match('(12)+', test_sample_1)) # meta
 print('test_case_1_search: ', re.search('(12)+', test_sample_1)) # meta
 print('test_case_1_findall: ', re.findall('(12)+', test_sample_1)) # 12 
-print('test_case_1_fullmatch: ', re.fullmatch('(12)+', test_sample_1)) #meta
+print('test_case_1_fullmatch: ', re.fullmatch('(12)+', test_sample_1).group()) #meta
 
 # 캡쳐
 print('''
