@@ -28,7 +28,7 @@ print('''
 # 캡쳐
 소괄호 ()가 가진 기능은 캡쳐.''')
 print(re.findall('A(12)+B', 'A12B'))  # 12
-print(re.findall('A(12)+B', 'A1212B')) # 12
+print(re.findall('A(12)+B', 'A12312B')) # 12
 print(re.findall('A(12)+B', 'A121212B')) # 12
 print(re.findall('A(12)+B', 'A12121212B')) # 12 
 
