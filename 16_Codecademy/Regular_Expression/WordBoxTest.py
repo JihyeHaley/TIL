@@ -126,26 +126,27 @@ def checkwhether(b):
     morphemes_str = str()
 
     for i in range(len(b)):
-        print(i+1)
+        
         # 짝수
         if i % 2 == 0:
             key = b[i]
-            print(key)
+            
             raw_words.append(key)
             raw_words_str += key
         # 홀수
         else: 
             value = b[i].split(',')
             value = value[0]
-            print(value)
+            
             morphemes.append(value)
             morphemes_str += value
-        print()
+        
         d[key] = value
     print(d)
+
     print(raw_words_str)
     print(morphemes_str)
-    pattern = '(NNG)?(NNG)?(NNG)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
+    pattern = '(NNG|)?(NNG)?(NNG)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
     seriously_pre = re.findall(pattern, morphemes_str, flags=0)
     count_dummy = len(seriously_pre)
     seriously = list()
@@ -166,6 +167,7 @@ def checkwhether(b):
 
     return morphemes_str
 
+g = '다음으로  소비자의  행동을  고관여(high  involvement),  저관여(low  involvement)로구분하여  소비자의  행동특성에  관한  연구를  제시하고  있다.'
 morphes_str = checkwhether(g)
 
 a = '적대적  M&A를  일종의  시장  규율(market  discipline)로  보는  입장에서는  적대적  M&A에  대한방어는  불가하다고  본다.'
@@ -174,7 +176,6 @@ c = '소뇌편도헤르니아(Cerebellar ton-sillar herniation)의 위험을 일
 d = '본 환자의 경우, 보호자가 전신마취(general anesthesia)를 거부하여 신경외과 의사와 수술 및 마취 방법에 대하여 상의하였다.'
 e = '간에서 일어나는 일차 대사작용(first-pass metabolism)과 뇌혈관 장벽(blood-brain barrier)을 모두 피할 수 있다.'
 f = '하지만 요추 복강 단락술 수술을 하는 경우, 요추내 압력(Lumbar spinal canal pressure)이 급격히 증가할 수있다.'
-
 # print(re.findall('(NNG)+(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?', morphes_str))  # 12
 # print(re.findall('A(12)+B', 'A12312B')) # 12
 # print(re.findall('A(12)+B', 'A121212B')) # 12
