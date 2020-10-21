@@ -29,7 +29,7 @@ def raw_sents_input_append():
     topic = str(input('어떤 주제인가요?  '))
     n = int(input(f'{topic}에 관련된 문장을 몇번 입력 받으실래요? '))
     print('입력을 멈추실려면 0을 눌러주세요')
-    append_sent_log = open(f'/Users/jihyeoh/Desktop/NIA_NER/ NIA_DICT/{topic}_raw_input.txt', 'a')
+    append_sent_log = open(f'./NIA_DICT/{topic}_raw_input.txt', 'a')
     
     for i in range(n):
         print(f'{str(i+1)}/{n}개')

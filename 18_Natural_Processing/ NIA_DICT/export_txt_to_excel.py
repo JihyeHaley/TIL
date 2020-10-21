@@ -4,7 +4,7 @@ import xlsxwriter
 
 def raw_sents_preprocessing():
     topic = str(input('어떤 주제의 파일을 list로 만들고 싶어요?'))
-    with open(f'/Users/jihyeoh/Desktop/NIA_NER/ NIA_DICT/{topic}_raw_input.txt', 'r') as raw_sents:
+    with open(f'./NIA_DICT/{topic}_raw_input.txt', 'r') as raw_sents:
         raw_sents = raw_sents.readlines()
         # raw_sentences = [print(idx, _.strip('\n')) for idx, _ in enumerate(raw_sentences)]
         raw_sents = [_.strip('\n') for _ in raw_sents]
@@ -14,7 +14,7 @@ raw_sents = raw_sents_preprocessing()
 
 def output(raw_sents):
     topic = str(input('어떤 주제의 파일을 excel로 만들고 싶어요?'))
-    workbook = xlsxwriter.Workbook(f'/Users/jihyeoh/desktop/NIA_NER/ NIA_DICT/{topic}_raw_ko_en' + '.xlsx')
+    workbook = xlsxwriter.Workbook(f'./NIA_DICT/{topic}_raw_ko_en' + '.xlsx')
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Data')
     worksheet.write('B1', 'KOR')
