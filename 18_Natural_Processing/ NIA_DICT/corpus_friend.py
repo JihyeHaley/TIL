@@ -40,7 +40,7 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀 ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/NIA_NER/NIA_DICT/공학_raw_ko_en_wecab_nosscossc' + '.xlsx')
+    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/NIA_NER/NIA_DICT/의약학_raw_ko_en_wecab' + '.xlsx')
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Data')
     worksheet.write('B1', 'KOR')
