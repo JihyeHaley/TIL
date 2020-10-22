@@ -5,7 +5,7 @@ import re
 def start_mecab(sent):
     m = MeCab.Tagger()
     te = m.parse(sent)
-    print(te)
+    # print(te)
     return te
     # tagger = Mecab()
     # print(tagger.pos('혼성단체(hybrid  entity)혼성비대칭 거래(hybrid  mismatch  arrangements)구나 2018년 5월 베이징에서 열린 ISO/TC 184 연례회의(Super Meeting)에서는 스마트 제조가 주요 화제였다.'))
@@ -49,8 +49,11 @@ def words_mors(raw_mor):
 
 # 패턴찾아서 리스트에서 찾기
 def find_mo_pattern(morphemes_str):
-    mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
-    # mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)' #괄호 포함 하지 않음
+    # mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
+    # mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)' #괄호 있어야만함
+    # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
+    # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)'#괄호 있어야만함
+    mor_pattern = '(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(JX)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SL)?'#괄호 있어야만함
     
     mor_match_pre = re.findall(mor_pattern, morphemes_str, flags=0)
     mor_match = list()
@@ -58,7 +61,6 @@ def find_mo_pattern(morphemes_str):
     for i in range(len(mor_match_pre)):
         sample = [i for i in mor_match_pre[i] if len(i) >= 1 ]
         mor_match.append(sample)
-    # print(mor_match)
     
     return mor_match
 
@@ -93,9 +95,16 @@ def find_pattern_show_words(sent):
     mor_match = find_mo_pattern(morphemes_str)
     
     # 형태소 패턴과 일치하는 단어 찾아서 추출
-    word_matched = find_word(mor_match, morphemes, words)
-
-    return word_matched
+    word_matched= find_word(mor_match, morphemes, words)
+    
+    mor_match_list_str = list()
+    for mm in mor_match:
+        mmp = ''
+        for m in range(len(mm)):
+            mmp += mm[m] + '-'
+        mor_match_list_str.append(mmp)
+    # print('mor_match_list_str: ', mor_match_list_str)
+    return word_matched, mor_match_list_str
 
 def isKorean(single_word):
     ko = re.compile('[ㄱ-ㅣ가-힣]')
@@ -120,6 +129,6 @@ def make_str(word_matched):
                 en_word += single_word + ' '
         ko_words.append(ko_word)
         en_words.append(en_word)
-    print(ko_words, '-', en_words)
+    # print(ko_words, '-', en_words)
     return ko_words, en_words
 

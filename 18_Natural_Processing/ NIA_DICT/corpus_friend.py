@@ -40,25 +40,37 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀 ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/NIA_NER/NIA_DICT/의약학_raw_ko_en_wecab' + '.xlsx')
+    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/NIA_NER/NIA_DICT/의약학_raw_ko_en_wecab4_mustbessossc_ETN' + '.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Data')
     worksheet.write('B1', 'KOR')
     worksheet.write('C1', 'ENG')
+    worksheet.write('D1', 'MOR')
+    worksheet.write('E1', '매캡')
+
     row_idx = 2
 
     for idx, sent in enumerate(raw_sents):
         a_idx = 'A' + str(row_idx)
         worksheet.write(a_idx, sent)
-        word_matched = find_pattern_show_words(sent)
+        e_idx = 'E' + str(row_idx)
+        te = start_mecab(sent)
+        worksheet.write(e_idx, te)
+        word_matched, mor_match_list_str = find_pattern_show_words(sent)
         ko_words, en_words = make_str(word_matched)
-        print(idx, en_words, '-', ko_words)
+        
         for j in range(len(ko_words)):
             b_idx = 'B' + str(row_idx)
             worksheet.write(b_idx, ko_words[j])
             c_idx = 'C' + str(row_idx)
             worksheet.write(c_idx, en_words[j])
+            d_idx = 'D' + str(row_idx)
+            print(idx, sent, '\n\t', ko_words[j], '-', en_words[j])
+            if len(ko_words) != len(mor_match_list_str):
+                continue
+            worksheet.write(d_idx, mor_match_list_str[j])
             row_idx += 1
+
     workbook.close()
 ## 작업 다 한 후 엑셀파일로 내보내기   
 mecab_output(raw_sents)
