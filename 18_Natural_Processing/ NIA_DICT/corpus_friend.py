@@ -31,18 +31,24 @@ def raw_sents_preprocessing():
 
 # 전처리 갖고놀기
 raw_sents = raw_sents_preprocessing()
+print(raw_sents)
 # out_raw_sents = [print(idx, _.strip('\n')) for idx, _ in enumerate(raw_sents)]
 
 for raw_sent in raw_sents:
     word_matched = find_pattern_show_words(raw_sent)
 
+## excel idx 
+def excel_index_creator(colum, row_idx):
+    colum_idx = colum + str(row_idx)
+    return colum_idx
+
 
 # wecab.py
 ## 엑셀 ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/NIA_NER/NIA_DICT/의약학_raw_ko_en_wecab4_mustbessossc_ETN' + '.xlsx') # _mustbessossc
+    workbook = xlsxwriter.Workbook('/Users/jihyeoh/Desktop/GIT/TIL/18_Natural_Processing/ NIA_DICT/의약학_raw_ko_en_wecab4_mustbessossc_ETN_1' + '.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
-    worksheet.write('A1', 'Raw Data')
+    worksheet.write('A1', 'Raw Sent')
     worksheet.write('B1', 'KOR')
     worksheet.write('C1', 'ENG')
     worksheet.write('D1', 'MOR')
@@ -50,25 +56,45 @@ def mecab_output(raw_sents):
 
     row_idx = 2
 
-    for idx, sent in enumerate(raw_sents):
-        a_idx = 'A' + str(row_idx)
-        worksheet.write(a_idx, sent)
-        e_idx = 'E' + str(row_idx)
-        te = start_mecab(sent)
-        worksheet.write(e_idx, te)
-        word_matched, mor_match_list_str = find_pattern_show_words(sent)
-        ko_words, en_words = make_str(word_matched)
+    for idx, raw_sent in enumerate(raw_sents):
+        # A. Raw Sent 쓰기
+        a_idx =excel_index_creator('A', row_idx)
+        worksheet.write(a_idx, raw_sent)
+        print('A확인', raw_sent)
+
+        # raw _sent 형태소 분석 시작
+        te, word_matched, mor_match_list_str = find_pattern_show_words(raw_sent)
+        print(word_matched)
         
+        # Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
+        ko_words, en_words = make_str(word_matched)
+        print(ko_words, en_words)
+
+        # E. 쓰기
+        e_idx =excel_index_creator('E', row_idx)
+        worksheet.write(e_idx, te)
+        print('E확인')
+
         for j in range(len(ko_words)):
-            b_idx = 'B' + str(row_idx)
+            # B.  ko_word 쓰기
+            b_idx =excel_index_creator('B', row_idx)
             worksheet.write(b_idx, ko_words[j])
-            c_idx = 'C' + str(row_idx)
+
+            # C.  en_word 쓰기
+            c_idx = excel_index_creator('C', row_idx)
             worksheet.write(c_idx, en_words[j])
-            d_idx = 'D' + str(row_idx)
-            print(idx, sent, '\n\t', ko_words[j], '-', en_words[j])
+
+
+            # D.  en_word 쓰기
+            d_idx = excel_index_creator('D', row_idx)
+            print(idx, raw_sent, '\n\t', ko_words[j], '-', en_words[j])
+            # 한-영 짝꿍이 안 맞으면 엑셀에 아예 raw_sent도 입력이 안되서 
+            # length가 다를때는 일단 넘어가고 
             if len(ko_words) != len(mor_match_list_str):
                 continue
+            # length가 같을때는 쓰게 만들기
             worksheet.write(d_idx, mor_match_list_str[j])
+
             row_idx += 1
 
     workbook.close()
