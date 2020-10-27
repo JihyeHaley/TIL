@@ -74,7 +74,7 @@ def find_mor_pattern(morphemes_one_str):
     # mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)' #괄호 있어야만함
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)'#괄호 있어야만함
-    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)?(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SSC)'#괄호 있어야만함
+    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SSC)'#괄호 있어야만함
     
     mor_match_pre = re.findall(mor_pattern, morphemes_one_str, flags=0)
     mor_match_list= list()
@@ -105,46 +105,7 @@ def find_word(mor_match_list, words_list, morphemes_list):
     # print('word_match_list:', word_match_list)
     return word_match_list, mor_match_list
 
-
-
-# 한글입니까?
-def isKorean(single_word):
-    ko = re.compile('[ㄱ-ㅣ가-힣]')
-    return bool(ko.match(single_word))
-
-
-
-# 영어입니까?
-def isEnglish(single_word):
-    en = re.compile('[a-zA-Z]')
-    return bool(en.match(single_word))
-  
-
-
-
-# 살릴 단어 만들기
-def make_word_str(word_matched_list):
-    ko_words = list()
-    en_words = list()
-    for single_list in word_matched_list:
-        # print(single_list)
-        ko_word = str()
-        en_word = str()
-        for single_word in single_list:
-            # 한글 만들어주기
-            if isKorean(single_word) == True:
-                if single_word in ['은', '는', '을', '를', '이', '가', '의한']:
-                    continue
-                ko_word += single_word
-            # 영어 만들어주기
-            elif isEnglish(single_word) == True:
-                en_word += single_word + ' '
-        ko_words.append(ko_word)
-        en_words.append(en_word)
-    # print(ko_words, '-', en_words)
-    return ko_words, en_words
-
-
+   
 
 def find_pattern_show_words(sent):
     # 형태소 분석
@@ -168,16 +129,46 @@ def find_pattern_show_words(sent):
     # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
     word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     
-
 	# Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
     ko_words, en_words = make_word_str(word_match_list)
 
-
     mor_match_list_str = connect_listed_str_to_one(mor_match_list)
 
-    
     return te, ko_words, en_words, mor_match_list_str
 
+
+# 한글입니까?
+def isKorean(single_word):
+    ko = re.compile('[ㄱ-ㅣ가-힣]')
+    return bool(ko.match(single_word))
+
+# 영어입니까?
+def isEnglish(single_word):
+    en = re.compile('[a-zA-Z]')
+    return bool(en.match(single_word))
+
+
+# 살릴 단어 만들기
+def make_word_str(word_matched_list):
+    ko_words = list()
+    en_words = list()
+    for single_list in word_matched_list:
+        # print(single_list)
+        ko_word = str()
+        en_word = str()
+        for single_word in single_list:
+            # 한글 만들어주기
+            if isKorean(single_word) == True:
+                if single_word in ['을', '를', '이', '가', '의한']:
+                    continue
+                ko_word += single_word
+            # 영어 만들어주기
+            elif isEnglish(single_word) == True:
+                en_word += single_word + ' '
+        ko_words.append(ko_word)
+        en_words.append(en_word)
+    # print(ko_words, '-', en_words)
+    return ko_words, en_words
 
 
 # 어떤 패턴으로 뽑혔는지 확인하기 위해서

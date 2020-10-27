@@ -41,7 +41,7 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀작업 시작합니다!!!!!!! ㄴ ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('./의약학_wecab_raw_ko_var_제발sssss' + '.xlsx') # _mustbessossc
+    workbook = xlsxwriter.Workbook('./의약학_wecab_raw_ko_var_제발' + '.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Sent')
     worksheet.write('B1', 'KOR')
@@ -59,7 +59,7 @@ def mecab_output(raw_sents):
     row_idx = 2
     # 2행부터 엑셀에 넣어주기 
     for idx, raw_sent in enumerate(raw_sents):
-
+        
         # 한글, 영어가 같이 있는게 아니라면 건너뛰기
         if isSentKoreanAndEnglish(raw_sent) == False:
             continue
@@ -73,14 +73,14 @@ def mecab_output(raw_sents):
 
         # raw _sent 형태소 분석 시작
         te, ko_words, en_words, mor_match_list_str = find_pattern_show_words(raw_sent)
-        # print('mor_match_list_str: ', mor_match_list_str)
+        print('mor_match_list_str: ', mor_match_list_str)
     
 
         # E. 쓰기
         e_idx =excel_index_creator('E', row_idx)
         worksheet.write(e_idx, te)
         
-        
+
         for j in range(len(ko_words)):
             # B.  ko_word 쓰기
             b_idx =excel_index_creator('B', row_idx)
