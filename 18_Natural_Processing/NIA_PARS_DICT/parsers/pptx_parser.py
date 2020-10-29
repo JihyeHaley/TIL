@@ -122,10 +122,12 @@ def pptx_to_excel(pptx_files_list, sub_path):
         completed_log = open(f'./results/'  + sub_path  + '/' + sub_path + '_log_pptx_' + timestamp + '.txt', "w+")
         
         try:
-            for ko_list in ko_lists:
+            for idx, ko_list in enumerate(ko_lists):
                 raw_sents = pptx_parser_pre(ko_list)
+                
                 raw_sents = set(raw_sents)
                 total_cnt += len(raw_sents)
+                
                 for idx, raw_sent in enumerate(raw_sents):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
                     if isSentKoreanAndEnglish(raw_sent) == False:
@@ -184,7 +186,7 @@ def pptx_to_excel(pptx_files_list, sub_path):
 
                 # Write Complete log
                 path = pptx_list.split('/')
-                path =  f'{path[-3]}/{path[-2]}/{path[-1]}'
+                path =  f'{path[-3]}/{path[-2]}/{path[-1]}/{idx}'
                 completed_log.write('[DONE READING]' + path + '\n')
 
 

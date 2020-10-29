@@ -1,5 +1,7 @@
 import MeCab
+# from konlpy.tag import Mecab
 import re
+import xlsxwriter
 
 #  후보군 1. 한글과 영어 둘다 있어? (10초 빠름)
 def isSentKoreanAndEnglish(sent):
@@ -8,11 +10,13 @@ def isSentKoreanAndEnglish(sent):
     return bool(ko_en.match(sent))
 
 
+
 #  후보군 2. 괄호가 있어? 
 def isSentHasSSC(sent):
     ssc = re.compile('.*\(.*\)+')
     # return bool(ko.fullmatch(text))
     return bool(ssc.match(sent))
+
 
 
 # 형태소 분석
@@ -27,9 +31,13 @@ def start_mecab(sent):
 
 #  단어, 품사 구별 [짝수(단어), 품사[0](품사)]
 def words_morph(sent):
+    # mecab = Mecab()
+    # sent = 'u'+sent
+    # sent = mecab.pos('u'+sent)
     sent = re.sub(r'(\,\*)*(\n|\t)','\n', sent)
     sent = sent.split('\n')
     return sent
+
 
 
 # 품사를 모두 모아서 String으로 만들어주기 (pattern을 잡기위해서)
@@ -42,8 +50,10 @@ def split_words_collect_mors(raw_mor):
     words_one_str = str()
     morphemes_list = list()
     morphemes_one_str = str()
-
     for i in range(len(raw_mor)):
+        # words_list.append(raw_mor[i][0])
+        # morphemes_list.append(raw_mor[i][1])
+        # morphemes_one_str += raw_mor[i][1]
         # print(i+1)
         # 짝수
         if i % 2 == 0:
@@ -62,6 +72,7 @@ def split_words_collect_mors(raw_mor):
         
         word_mor_dict[key] = value
 
+
     return words_list, morphemes_list, morphemes_one_str
 
 
@@ -74,7 +85,7 @@ def find_mor_pattern(morphemes_one_str):
     # mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)' #괄호 있어야만함
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)'#괄호 있어야만함
-    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)?(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SSC)'#괄호 있어야만함
+    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SSC)'#괄호 있어야만함
     
     mor_match_pre = re.findall(mor_pattern, morphemes_one_str, flags=0)
     mor_match_list= list()
@@ -118,7 +129,6 @@ def isKorean(single_word):
 def isEnglish(single_word):
     en = re.compile('[a-zA-Z]')
     return bool(en.match(single_word))
-  
 
 
 
@@ -130,22 +140,44 @@ def make_word_str(word_matched_list):
         # print(single_list)
         ko_word = str()
         en_word = str()
-        for single_word in single_list:
+        for single_word_idx in range(len(single_list)):
             # 한글 만들어주기
-            if isKorean(single_word) == True:
-                if single_word in ['은', '는', '을', '를', '이', '가', '의한']:
+            if isKorean(single_list[single_word_idx]) == True:
+                if single_list[single_word_idx] in ['은', '는', '을', '를', '이', '가', '의한', '경우', '이때', '이럴때']:
                     continue
-                ko_word += single_word
+                ko_word += single_list[single_word_idx] + ' '
             # 영어 만들어주기
-            elif isEnglish(single_word) == True:
-                en_word += single_word + ' '
-        ko_words.append(ko_word)
-        en_words.append(en_word)
+            elif isEnglish(single_list[single_word_idx]) == True:
+                en_word += single_list[single_word_idx] + ' '
+        
+        # 마지막에 들어가 있는 띄어쓰기 없애주기
+        ko_words.append(ko_word[:-1])
+        en_words.append(en_word[:-1])
+        
     # print(ko_words, '-', en_words)
     return ko_words, en_words
 
 
 
+# 어떤 패턴으로 뽑혔는지 확인하기 위해서
+def connect_listed_str_to_one(mor_match_list):
+    # 어떤 패턴으로 뽑혔는지 확인하기 위해서
+    mor_match_list_str = list()
+    for mm in mor_match_list:
+        mmp = ''
+        for m in range(len(mm)):
+            # if m == len(mm):  
+            #     mmp += mm[m]
+            mmp += mm[m] + '-'
+        mor_match_list_str.append(mmp)
+    
+    # 마지막에 들어가 있는 '-' 없애주기 
+    mor_match_list_str = mor_match_list_str[0][:-1]
+    return mor_match_list_str
+
+
+
+# 단어 만들기 완성판
 def find_pattern_show_words(sent):
     # 형태소 분석
     te = start_mecab(sent)
@@ -168,27 +200,68 @@ def find_pattern_show_words(sent):
     # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
     word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     
-
 	# Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
     ko_words, en_words = make_word_str(word_match_list)
 
-
     mor_match_list_str = connect_listed_str_to_one(mor_match_list)
 
-    
     return te, ko_words, en_words, mor_match_list_str
 
+    # workbook = xlsxwriter.Workbook('./표준협회돌린거_영어최종ㅓㅗ허ㅗㄹ' + '.xlsx') # _mustbessossc
+    # worksheet = workbook.add_worksheet()
+    # worksheet.write('A1', 'Raw Data')
+    # worksheet.write('B1', 'KOR')
+    # worksheet.write('C1', 'ENG')
+    # worksheet.write('D1', 'MOR')
+    # worksheet.write('E1', '매캡')
+    # row_idx = 2
+    # total_cnt = 0
+    # try:
+    #     for ko_list in ko_lists:
+    #         raw_sents = pptx_parser_pre(ko_list)
+    #         total_cnt += len(raw_sents)
+    #         for idx, raw_sent in enumerate(raw_sents):
+    #             # 한글, 영어가 같이 있는게 아니라면 건너뛰기
+    #             if isSentKoreanAndEnglish(raw_sent) == False:
+    #                 continue
+
+    #             # raw _sent 형태소 분석 시작
+    #             # A. Raw Sent 쓰기
+    #             a_idx =excel_index_creator('A', row_idx)
+    #             worksheet.write(a_idx, raw_sent)
+    #             te, ko_words, en_words, mor_match_list_str = find_pattern_show_words(raw_sent)
+    #             # print('word_matched: ', word_matched)
+
+    #             # E. 쓰기
+    #             e_idx =excel_index_creator('E', row_idx)
+    #             worksheet.write(e_idx, te)
+                
+
+    #             for j in range(len(ko_words)):
+                    
+    #                 # B.  ko_word 쓰기
+    #                 b_idx =excel_index_creator('B', row_idx)
+    #                 worksheet.write(b_idx, ko_words[j])
 
 
-# 어떤 패턴으로 뽑혔는지 확인하기 위해서
-def connect_listed_str_to_one(mor_match_list):
-    # 어떤 패턴으로 뽑혔는지 확인하기 위해서
-    mor_match_list_str = list()
-    for mm in mor_match_list:
-        mmp = ''
-        for m in range(len(mm)):
-            if m == len(mm):  
-                mmp += mm[m]
-            mmp += mm[m] + '-'
-        mor_match_list_str.append(mmp)
-    return mor_match_list_str
+    #                 # C.  en_word 쓰기
+    #                 c_idx = excel_index_creator('C', row_idx)
+    #                 worksheet.write(c_idx, en_words[j])
+                    
+
+    #                 # D.  en_word 쓰기
+    #                 d_idx = excel_index_creator('D', row_idx)
+    #                 # print(row_idx, raw_sent, '\n\t', ko_words[j], '-', en_words[j])
+    #                 # 한-영 짝꿍이 안 맞으면 엑셀에 아예 raw_sent도 입력이 안되서 
+    #                 # length가 다를때는 일단 넘어가고 
+    #                 # 형태소 어떤 패턴으로 뽑앗는지 확인하기
+
+    #                 if len(ko_words) != len(mor_match_list_str):
+    #                     continue
+    #                 # length가 같을때는 쓰게 만들기
+    #                 worksheet.write(d_idx, mor_match_list_str[j])
+                    
+
+    #                 row_idx += 1
+
+    #     workbook.close()

@@ -116,7 +116,6 @@ def find_word(mor_match_list, words_list, morphemes_list):
     # print('word_match_list:', word_match_list)
     return word_match_list, mor_match_list
 
-   
 
 # 단어 만들기 완성판
 def find_pattern_show_words(sent):
@@ -149,6 +148,7 @@ def find_pattern_show_words(sent):
     return te, ko_words, en_words, mor_match_list_str
 
 
+    
 # 한글입니까?
 def isKorean(single_word):
     ko = re.compile('[ㄱ-ㅣ가-힣]')
@@ -174,14 +174,14 @@ def make_word_str(word_matched_list):
         for single_word in single_list:
             # 한글 만들어주기
             if isKorean(single_word) == True:
-                if single_word in ['을', '를', '이', '가', '의한']:
+                if single_word in ['은', '는', '을', '를', '이', '가']:
                     continue
-                ko_word += single_word
+                ko_word += single_word + ' '
             # 영어 만들어주기
             elif isEnglish(single_word) == True:
                 en_word += single_word + ' '
-        ko_words.append(ko_word)
-        en_words.append(en_word)
+        ko_words.append(ko_word[:-1])
+        en_words.append(en_word[:-1])
     # print(ko_words, '-', en_words)
     return ko_words, en_words
 
@@ -197,68 +197,7 @@ def connect_listed_str_to_one(mor_match_list):
             if m == len(mm):  
                 mmp += mm[m]
             mmp += mm[m] + '-'
-        mor_match_list_str.append(mmp)
+        mor_match_list_str.append(mmp[:-1])
     return mor_match_list_str
 
 
-
-
-
-    # workbook = xlsxwriter.Workbook('./표준협회돌린거_영어최종ㅓㅗ허ㅗㄹ' + '.xlsx') # _mustbessossc
-    # worksheet = workbook.add_worksheet()
-    # worksheet.write('A1', 'Raw Data')
-    # worksheet.write('B1', 'KOR')
-    # worksheet.write('C1', 'ENG')
-    # worksheet.write('D1', 'MOR')
-    # worksheet.write('E1', '매캡')
-    # row_idx = 2
-    # total_cnt = 0
-    # try:
-    #     for ko_list in ko_lists:
-    #         raw_sents = pptx_parser_pre(ko_list)
-    #         total_cnt += len(raw_sents)
-    #         for idx, raw_sent in enumerate(raw_sents):
-    #             # 한글, 영어가 같이 있는게 아니라면 건너뛰기
-    #             if isSentKoreanAndEnglish(raw_sent) == False:
-    #                 continue
-
-    #             # raw _sent 형태소 분석 시작
-    #             # A. Raw Sent 쓰기
-    #             a_idx =excel_index_creator('A', row_idx)
-    #             worksheet.write(a_idx, raw_sent)
-    #             te, ko_words, en_words, mor_match_list_str = find_pattern_show_words(raw_sent)
-    #             # print('word_matched: ', word_matched)
-
-    #             # E. 쓰기
-    #             e_idx =excel_index_creator('E', row_idx)
-    #             worksheet.write(e_idx, te)
-                
-
-    #             for j in range(len(ko_words)):
-                    
-    #                 # B.  ko_word 쓰기
-    #                 b_idx =excel_index_creator('B', row_idx)
-    #                 worksheet.write(b_idx, ko_words[j])
-
-
-    #                 # C.  en_word 쓰기
-    #                 c_idx = excel_index_creator('C', row_idx)
-    #                 worksheet.write(c_idx, en_words[j])
-                    
-
-    #                 # D.  en_word 쓰기
-    #                 d_idx = excel_index_creator('D', row_idx)
-    #                 # print(row_idx, raw_sent, '\n\t', ko_words[j], '-', en_words[j])
-    #                 # 한-영 짝꿍이 안 맞으면 엑셀에 아예 raw_sent도 입력이 안되서 
-    #                 # length가 다를때는 일단 넘어가고 
-    #                 # 형태소 어떤 패턴으로 뽑앗는지 확인하기
-
-    #                 if len(ko_words) != len(mor_match_list_str):
-    #                     continue
-    #                 # length가 같을때는 쓰게 만들기
-    #                 worksheet.write(d_idx, mor_match_list_str[j])
-                    
-
-    #                 row_idx += 1
-
-    #     workbook.close()

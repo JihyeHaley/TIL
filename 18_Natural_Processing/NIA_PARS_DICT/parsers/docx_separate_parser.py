@@ -1,6 +1,5 @@
 """
     docx_separate parser
-
 """
 
 import timeit

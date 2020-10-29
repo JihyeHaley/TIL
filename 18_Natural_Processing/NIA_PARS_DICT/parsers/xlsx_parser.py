@@ -98,6 +98,7 @@ def xlsx_to_excel(xlsx_files, sub_path):
 
                 kor_sent_list = set(kor_sent_list)
                 total_cnt += len(kor_sent_list)
+                
                 for idx, kor_sent in enumerate(kor_sent_list):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
                     if isSentKoreanAndEnglish(kor_sent) == False:
@@ -125,7 +126,7 @@ def xlsx_to_excel(xlsx_files, sub_path):
                         
                         # D의 개수가 1개면 skip
                         en_words[j] = en_words[j].strip(' ')
-                        if len(en_words[j]) == 1 or en_words[j] in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']:
+                        if en_words[j] in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']:
                             continue
                         
                         else:
