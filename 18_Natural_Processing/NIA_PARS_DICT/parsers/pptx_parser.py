@@ -127,8 +127,8 @@ def pptx_to_excel(pptx_files_list, sub_path):
                 
                 raw_sents = list(set(raw_sents))
                 total_cnt += len(raw_sents)
-                print(raw_sents)
-                
+                # print(raw_sents)
+
                 for idx, raw_sent in enumerate(raw_sents):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
                     if isSentKoreanAndEnglish(raw_sent) == False:

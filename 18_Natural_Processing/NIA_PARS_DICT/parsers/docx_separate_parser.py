@@ -65,7 +65,7 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
 
                 # raw paragraphs -> sentence tokenize
                 for ko_lines in ko_contents:
-                    kor_sents = sent_tokenize(regex_cleaner(ko_lines))  # nltk
+                    kor_sents = sent_tokenize(ko_lines)  # nltk
 
                     for ko_sent in kor_sents:
 
@@ -78,7 +78,7 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
                 kor_sent_list = list(set(kor_sent_list))
                 total_cnt += len(kor_sent_list)
                 print(len(kor_sent_list))
-                
+
                 for idx, krl in enumerate(kor_sent_list):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
                     if isSentKoreanAndEnglish(krl) == False:
