@@ -21,14 +21,14 @@ test_sample_1 = '1212'
 print('test_case_1_match: ', re.match('(12)+', test_sample_1)) # meta
 print('test_case_1_search: ', re.search('(12)+', test_sample_1)) # meta
 print('test_case_1_findall: ', re.findall('(12)+', test_sample_1)) # 12 
-print('test_case_1_fullmatch: ', re.fullmatch('(12)+', test_sample_1)) #meta
+print('test_case_1_fullmatch: ', re.fullmatch('(12)+', test_sample_1).group()) #meta
 
 # 캡쳐
 print('''
 # 캡쳐
 소괄호 ()가 가진 기능은 캡쳐.''')
 print(re.findall('A(12)+B', 'A12B'))  # 12
-print(re.findall('A(12)+B', 'A1212B')) # 12
+print(re.findall('A(12)+B', 'A12312B')) # 12
 print(re.findall('A(12)+B', 'A121212B')) # 12
 print(re.findall('A(12)+B', 'A12121212B')) # 12 
 
