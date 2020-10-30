@@ -75,9 +75,10 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
 
                         kor_sent_list.append(ko_sent)
 
-                kor_sent_list = set(kor_sent_list)
+                kor_sent_list = list(set(kor_sent_list))
                 total_cnt += len(kor_sent_list)
-
+                print(len(kor_sent_list))
+                
                 for idx, krl in enumerate(kor_sent_list):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
                     if isSentKoreanAndEnglish(krl) == False:

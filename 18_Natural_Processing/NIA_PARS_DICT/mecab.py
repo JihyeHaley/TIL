@@ -6,6 +6,7 @@ import xlsxwriter
 #  후보군 1. 한글과 영어 둘다 있어? (10초 빠름)
 def isSentKoreanAndEnglish(sent):
     ko_en = re.compile('.*[a-zA-Z]+')
+    # ko_en = re.compile('.*[ㄱ-ㅣ가-힣]+\(.*[a-zA-Z]+\)')
     # return bool(ko.fullmatch(text))
     return bool(ko_en.match(sent))
 
@@ -85,7 +86,7 @@ def find_mor_pattern(morphemes_one_str):
     # mor_pattern = '(NNG|NNP)?(NNG|NNP)?(NNG|NNP)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)' #괄호 있어야만함
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)'#괄호 있어야만함
-    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SSC)'#괄호 있어야만함
+    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?'#괄호 있어야만함
     
     mor_match_pre = re.findall(mor_pattern, morphemes_one_str, flags=0)
     mor_match_list= list()
@@ -97,6 +98,18 @@ def find_mor_pattern(morphemes_one_str):
     # print('mor_match_list:', mor_match_list)
     return mor_match_list
 
+
+def find_isEnglishNKorean(morphemes_one_str):
+    sep_mor_pattern = '(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SSO)(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSC)'#괄호 있어야만함
+    sep_match_pre = re.findall(sep_mor_pattern, morphemes_one_str, flags=0)
+    sep_mor_match_list= list()
+    # ''없애주기 
+		# 캡처하지 못한 아이들은 버리기 len(i) >= 1 로 해서
+    for i in range(len(sep_match_pre)):
+        sample = [i for i in sep_match_pre[i] if len(i) >= 1 ]
+        sep_mor_match_list.append(sample)
+    # print('mor_match_list:', mor_match_list)
+    return bool(sep_mor_match_list)
 
 
 
@@ -126,7 +139,7 @@ def find_pattern_show_words(sent):
     # 단어, 품사 구별 [짝수(단어), 품사[0](품사)
     raw_mor = words_morph(te)
     
-
+    
     # dict_list에 구별해서 단어, 형태소 각각 넣어주기
 		# raw_mor 한 문장을 쪼개서 짝수 - 단어, 홀수 - 형태
 		# 품사를 모두 모아서 String으로 만들어주기 (pattern을 잡기위해서)
@@ -135,8 +148,10 @@ def find_pattern_show_words(sent):
 
     # 패턴찾아서 형태소 리스트 만들기
     mor_match_list = find_mor_pattern(morphemes_one_str)
-    
-
+    # if find_isEnglishNKorean(morphemes_one_str) == True:
+    #     print('영어(한글) 있어요')
+    #     eng_kor += 1
+    # print(mor_match_list)
     # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
     word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     

@@ -45,8 +45,8 @@ def pptx_parser_pre(pptx_list):
             
             # 전처리 및 라인별 넣어주기
             for paragraph in shape.text_frame.paragraphs:
-                paragraph.text = regex_cleaner(paragraph.text)
-                paragraph.text = pptx_extra_regex(paragraph.text)
+                # paragraph.text = regex_cleaner(paragraph.text)
+                # paragraph.text = pptx_extra_regex(paragraph.text)
 
                 if paragraph.text.strip() in ['.', '/', ',', '', '\'', '\"']:
                     continue
@@ -125,8 +125,9 @@ def pptx_to_excel(pptx_files_list, sub_path):
             for idx, ko_list in enumerate(ko_lists):
                 raw_sents = pptx_parser_pre(ko_list)
                 
-                raw_sents = set(raw_sents)
+                raw_sents = list(set(raw_sents))
                 total_cnt += len(raw_sents)
+                print(raw_sents)
                 
                 for idx, raw_sent in enumerate(raw_sents):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기

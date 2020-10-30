@@ -52,7 +52,7 @@ def xlsx_to_excel(xlsx_files, sub_path):
         worksheet.write('F1', '매캡')
         row_idx = 2
         total_cnt = 0
-
+        # eng_kor = 0
         completed_log = open(f'./results/'  + sub_path  + '/' + sub_path + '_log_xlsx_' + timestamp + '.txt', "w+")
 
         for file in xlsx_files:
@@ -92,18 +92,19 @@ def xlsx_to_excel(xlsx_files, sub_path):
 
                     # tokenizing
                     for ko_lines in kor_raw_list:
-                        kor_sents = sent_tokenize(regex_cleaner(ko_lines))
+                        kor_sents = sent_tokenize(ko_lines)
                         for ko_sent in kor_sents:
                             kor_sent_list.append(ko_sent)
 
-                kor_sent_list = set(kor_sent_list)
+                kor_sent_list = list(set(kor_sent_list))
                 total_cnt += len(kor_sent_list)
+                print(len(kor_sent_list))
                 
                 for idx, kor_sent in enumerate(kor_sent_list):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
                     if isSentKoreanAndEnglish(kor_sent) == False:
                         continue
-
+                    # print(idx, kor_sent)
                     # A. Path 쓰기
                     a_idx =excel_index_creator('A', row_idx)
                     path = file.split('/')
@@ -126,7 +127,7 @@ def xlsx_to_excel(xlsx_files, sub_path):
                         
                         # D의 개수가 1개면 skip
                         en_words[j] = en_words[j].strip(' ')
-                        if en_words[j] in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']:
+                        if len(en_words[j]) == 1 or en_words[j] in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']:
                             continue
                         
                         else:
