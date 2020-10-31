@@ -10268,3 +10268,10 @@ section.resume-section .resume-section-content {
 .img-margin-bottom-5{
   margin-bottom:5px;
 }
+
+.skills-image{
+  width: 5%;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 4px;
+}
