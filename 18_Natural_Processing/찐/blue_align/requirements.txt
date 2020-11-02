@@ -1,0 +1,8 @@
+spacy>=2.2.0,<2.3.0
+konlpy==0.5.1
+mecab-python3==0.996.2
+nltk==3.4.1
+jieba==0.39
+requests==2.22.0
+flask
+stanza
