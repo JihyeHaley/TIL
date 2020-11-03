@@ -41,7 +41,7 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀작업 시작합니다!!!!!!! ㄴ ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('./의약학_wecab_raw_ko_var_제발sssss' + '.xlsx') # _mustbessossc
+    workbook = xlsxwriter.Workbook('./제발sssss' + '.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Sent')
     worksheet.write('B1', 'KOR')
