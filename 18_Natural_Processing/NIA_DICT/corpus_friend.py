@@ -82,29 +82,33 @@ def mecab_output(raw_sents):
         
         
         for j in range(len(ko_words)):
-            # B.  ko_word 쓰기
-            b_idx =excel_index_creator('B', row_idx)
-            worksheet.write(b_idx, ko_words[j])
-
-
-            # C.  en_word 쓰기
-            c_idx = excel_index_creator('C', row_idx)
-            worksheet.write(c_idx, en_words[j])
-            
-
-            # D.  en_word 쓰기
-            d_idx = excel_index_creator('D', row_idx)
-            # print(row_idx, raw_sent, '\n\t', ko_words[j], '-', en_words[j])
-            # 한-영 짝꿍이 안 맞으면 엑셀에 아예 raw_sent도 입력이 안되서 
-            # length가 다를때는 일단 넘어가고 
-            # 형태소 어떤 패턴으로 뽑앗는지 확인하기
-
-            if len(ko_words) != len(mor_match_list_str):
+             # D의 개수가 1개면 skip
+            en_words[j] = en_words[j].strip(' ')
+            if skip_mored_word(en_words[j]) == True:
                 continue
-            # length가 같을때는 쓰게 만들기
-            worksheet.write(d_idx, mor_match_list_str[j])
-            
 
+            else:
+                # B.  ko_word 쓰기
+                b_idx =excel_index_creator('B', row_idx)
+                if ko_words[j] in [',', '.', '\'', '\"', '-']:
+                    worksheet.write(b_idx, ko_words[j][:-1])
+                    print(ko_words[j][:-1])
+                else:
+                    worksheet.write(b_idx, ko_words[j])
+                    print(ko_words[j])
+
+
+                # C.  en_word 쓰기
+                c_idx = excel_index_creator('C', row_idx)
+                if en_words[j] in [',', '.', '\'', '\"', '-']:
+                    worksheet.write(c_idx, en_words[j][:-1])
+                else:
+                    worksheet.write(c_idx, en_words[j])
+                            
+            # if len(ko_words) != len(mor_match_list_str):
+            #     continue
+            # # length가 같을때는 쓰게 만들기
+            # worksheet.write(d_idx, mor_match_list_str[j])
             row_idx += 1
 
     workbook.close()

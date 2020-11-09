@@ -60,3 +60,4 @@ JTE(Journal of Testing and Evaluation) 및 GTJ(Geotechnical Testing Journal) 모
 또한 친환경 공공조달(Green Public Procurement)에 듀라브로즈 개념을 도입하기 위한 지침도 마련될 것이다.
 저희 다우(Dow)에서 생각하는 표준’이란, 자원 효율성 면에서 개선 여부에 대한 시험과 평가뿐 아니라 상위 25%의 우수성 선점을 가능하게 하는 주요한 원리이자 결정적 성공 요인입니다.
 지식 기반의 친환경 제품 사전 표준화(Knowledge Based Biobased Products’ PreStandardization, KBBPPS) 사업은 이러한 제품에 대한 친환경 내용물 결정과 생분해성 시험체계를 다룬다.
+작게 보면, 행정정보공개 정책부터 데이터 민주주의가 시작되었고 오픈거번먼트(Open Government) 정책부터 본격화 되었다.

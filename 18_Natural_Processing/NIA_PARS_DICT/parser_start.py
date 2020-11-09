@@ -55,14 +55,14 @@ def read_directory(root_type, sub_path):
     # read and categorize file type
     xlsx_file_list = get_filename_list(root_dir, sub_path, ".xlsx")
     xls_file_list = get_filename_list(root_dir, sub_path, ".xls")
-    xlsx_files = xlsx_file_list + xls_file_list
+    xlsx_files_list = xlsx_file_list + xls_file_list
 
     pptx_files_list = get_filename_list(root_dir, sub_path, ".pptx")
     docx_files_list = get_filename_list(root_dir, sub_path, ".docx")
-    # pdf_file_list = get_filename_list(root_dir, sub_path, ".pdf")
+    pdf_file_list = get_filename_list(root_dir, sub_path, ".pdf")
 
     # return excel, pptx, docx file list
-    return (xlsx_files, pptx_files_list, docx_files_list)
+    return (xlsx_files_list, pptx_files_list, docx_files_list, pdf_file_list)
     # return pptx_files_list
 
 
@@ -79,7 +79,3 @@ docx_ko_files, docx_en_files, docx_mix_files, docx_non_lists = get_tm_doc_type(
 docx_separate_parser.docx_separate_to_excel(docx_ko_files, sub_path)
 docx_mix_parser.docx_mix_to_excel(docx_mix_files, sub_path)
 # pdf_parser.pdf_text_to_excel(all_file_lists[3], sub_path)
-
-
-#if __name__ == '__main__':
-#    html_raw_to_excel(root_path, sub_path)
