@@ -47,7 +47,7 @@ def mecab_output(raw_sents):
     worksheet.write('B1', 'KOR')
     worksheet.write('C1', 'ENG')
     worksheet.write('D1', 'MOR')
-    worksheet.write('E1', '매캡')
+    # worksheet.write('E1', '매캡')
     
 
     ## excel idx 중첩함수 선언
@@ -76,9 +76,9 @@ def mecab_output(raw_sents):
         # print('mor_match_list_str: ', mor_match_list_str)
     
 
-        # E. 쓰기
-        e_idx =excel_index_creator('E', row_idx)
-        worksheet.write(e_idx, te)
+        # # E. 쓰기
+        # e_idx =excel_index_creator('E', row_idx)
+        # worksheet.write(e_idx, te)
         
         
         for j in range(len(ko_words)):
@@ -92,10 +92,10 @@ def mecab_output(raw_sents):
                 b_idx =excel_index_creator('B', row_idx)
                 if ko_words[j] in [',', '.', '\'', '\"', '-']:
                     worksheet.write(b_idx, ko_words[j][:-1])
-                    print(ko_words[j][:-1])
+                    # print(ko_words[j][:-1])
                 else:
                     worksheet.write(b_idx, ko_words[j])
-                    print(ko_words[j])
+                    # print(ko_words[j])
 
 
                 # C.  en_word 쓰기
@@ -129,7 +129,7 @@ def regex_output(raw_sents):
     for idx, sent in enumerate(raw_sents):
         en_words, en_words_len = find_En(sent)
         ko_words = find_Ko(sent, en_words_len)
-        print(idx, sent, en_words, ko_words)
+        # print(idx, sent, en_words, ko_words)
         a_idx = 'A' + str(row_idx)
         worksheet.write(a_idx, sent)
         for j in range(len(ko_words)):

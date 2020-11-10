@@ -95,7 +95,7 @@ def find_mor_pattern(morphemes_one_str):
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)'#괄호 있어야만함
     # mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?'#괄호 있어야만함
-    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XR)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN+JX)?(VX)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(JKG)?(NNG|NNP)?(VA+ETM)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SL)?(SN)?(SN)?(SC)?(SL)?(SC)?(SN)?(SL)?'#괄호 있어야만함 처음에만
+    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XR)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN+JX)?(VX)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(JKG)?(NNG|NNP)?(VA+ETM)?(IO)?(NNG|NNP)(XSN|XSV|XSA)?(XSA+ETM)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SL)?(SN)?(SN)?(SC)?(SL)?(SC)?(SN)?(SL)?'#괄호 있어야만함 처음에만
     
     mor_match_pre = re.findall(mor_pattern, morphemes_one_str, flags=0)
     mor_match_list= list()
@@ -167,7 +167,7 @@ def find_pattern_show_words(sent):
     word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     
 	# Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
-    ko_words, en_words = make_word_str(word_match_list)
+    ko_words, en_words = make_word_str(word_match_list, sent)
 
     mor_match_list_str = connect_listed_str_to_one(mor_match_list)
 
@@ -193,16 +193,22 @@ def isNumber(single_word):
     return bool(en.match(single_word))
 
 
+# Fig 같이 필요 없는 덩어리 아예 없애기
+def skip_dirty_words(single_word):
+    if 'see Fig' in single_word  or 'Fig' in single_word or 'r . ' in single_word or 'Table' in single_word:
+        return True
+    else:
+        return False
+
 
 
 # 살릴 단어 만들기
-def make_word_str(word_matched_list):
+def make_word_str(word_matched_list, sent):
     ko_words_pre = list()
     en_words_pre = list()
     ko_words = list()
     en_words = list()
     # 대문자
-    upper = [chr(u) for u in range(65, 91, 1)] 
     for single_list in word_matched_list:
         # print(single_list)
         ko_word = str()
@@ -217,63 +223,53 @@ def make_word_str(word_matched_list):
                 break
         for d_i in range(len(single_list)):
             if d_i < check_start_en - 1 :
-                if single_list[d_i] in ['(', ')', '{', '}', '[', ']', 'Δ'] or single_list[d_i] in ['은', '는', '을', '를', '이', '가', '경우', '의한']:
+                if single_list[d_i] in ['(', ')', '{', '}', '[', ']', 'Δ', '㈜)'] or single_list[d_i] in ['은', '는', '을', '를', '이', '가', '경우', '의한']:
                     continue
-                ko_word += single_list[d_i] + ' '
+                ko_word += single_list[d_i]
             else:
                 if single_list[d_i] in ['(', ')', '{', '}', '[', ']']:
                     continue
                 en_word += single_list[d_i] + ' '
         if ko_words[:-1] =='see Fig ':
             continue
-        ko_words_pre.append(ko_word[:-1])
-        en_words_pre.append(en_word[:-1])
-        #     ## 보호구역 ## 
-        # last_idx = len(single_list) - 1
-        # for idx, single_word in enumerate(single_list):
-        #     # 한글 만들어주기
-        #     if idx != last_idx:
-        #         if isKorean(single_word) == True:
-        #             if single_word in ['은', '는', '을', '를', '이', '가', '경우', '의한']:
-        #                 continue
-        #             ko_word += single_word + ' '
-        #         # 영어 만들어주기
-        #         elif isEnglish(single_word) == True:
-        #             en_word += single_word + ' '
-        #     elif idx == last_idx and len(single_list[idx]) != 1:
-        #         if isEnglish(single_word) == False:
-        #             continue
-        #         check_comma_cnt = 0
-        #         for _ in single_list:
-        #             if isEnglish(_) == True:
-        #                 check_comma_cnt += 1
-        #         if check_comma_cnt == 1:
-        #             en_word += single_word + ' '
-        #         elif check_comma_cnt != 1:
-        #             if single_word[0] in upper:
-        #                 t_len = len(single_word)
-        #                 c_len = 0
-        #                 for _ in single_word:
-        #                     if _ in upper:
-        #                         c_len += 1
-        #                 if c_len == t_len:
-        #                     en_word += ', ' + single_word + ' '
-        #             else: 
-        #                 en_word += single_word + ' '
-        #     else:
-        #         # if isKorean(single_word) == True:
-        #         #     ko_word += single_word + ' '
-        #         if isEnglish(single_word) == True:
-        #             en_word += single_word + ' '
-        #      ## 보호구역 ## 
         
+        ko_words_pre.append(ko_word)
+        en_words_pre.append(en_word[:-1])                
 
     for ko_pre_idx in range(len(ko_words_pre)):   
-        if ko_words_pre[ko_pre_idx] not in ko_words:
-            ko_words.append(ko_words_pre[ko_pre_idx])
-            en_words.append(en_words_pre[ko_pre_idx])
+        if ko_words_pre[ko_pre_idx] not in ko_words and en_words_pre[ko_pre_idx] not in en_words:
+            if isKorean(ko_words_pre[ko_pre_idx]) == True:
+                if ko_words_pre[ko_pre_idx][-1] == ' ' or en_words_pre[ko_pre_idx][-1] == ' ':
+                    continue
+                ko_words.append(ko_words_pre[ko_pre_idx])
+                en_words.append(en_words_pre[ko_pre_idx])
+            
 
-    return ko_words, en_words
+
+    # 한국어는 띄어쓰기 이슈 해결 길이가 2 이상일때만 작동하기!!!
+    ko_words_space = list()
+    for ko_word in ko_words:
+        ko_zero, ko_last = ko_word[0], ko_word[-1] # since [-1] is space
+        ko_zero_idx, ko_last_idx = 0, 0
+        idx_cnt = 0
+        for idx in range(0, len(sent)):
+            if sent[idx] == ko_zero:
+                ko_zero_idx = idx
+                idx_cnt += 1
+                if idx_cnt == 1:
+                    break
+        jdx_cnt = 0
+        for jdx in range(idx-1, len(sent)):
+            if sent[jdx] == ko_last:
+                ko_last_idx = jdx
+                jdx_cnt += 1
+                if jdx_cnt == 1:
+                    break
+        ko_words_space.append(sent[ko_zero_idx:ko_last_idx+1])
+
+    # print(ko_words, '\n', en_words)
+    print('#'*30)
+    return ko_words_space, en_words
 
 
 # 어떤 패턴으로 뽑혔는지 확인하기 위해서
@@ -296,5 +292,3 @@ def skip_mored_word(mored_word):
         return True
     else:
         return False
-        
-
