@@ -41,8 +41,7 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀작업 시작합니다!!!!!!! ㄴ ###############################################################################
 def mecab_output(raw_sents):
-    
-    workbook = xlsxwriter.Workbook('./띄어쓰기3차전' + '.xlsx') # _mustbessossc
+    workbook = xlsxwriter.Workbook('./띄어쓰기 제발 되라되라되라' + '.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Sent')
     worksheet.write('B1', 'KOR')
@@ -64,7 +63,7 @@ def mecab_output(raw_sents):
         # 한글, 영어가 같이 있는게 아니라면 건너뛰기
         if isSentKoreanAndEnglish(raw_sent) == False:
             continue
-        find_Ko(raw_sent)
+
         # A. Raw Sent 쓰기
         a_idx =excel_index_creator('A', row_idx)
         worksheet.write(a_idx, raw_sent)

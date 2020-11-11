@@ -31,7 +31,7 @@ def isSentHasSSC(sent):
 def start_mecab(sent):
     m = MeCab.Tagger()
     te = m.parse(sent)
-    print(te)
+    # print(te)
     return te
     # tagger = Mecab()
     # print(tagger.pos('혼성단체(hybrid  entity)혼성비대칭 거래(hybrid  mismatch  arrangements)구나 2018년 5월 베이징에서 열린 ISO/TC 184 연례회의(Super Meeting)에서는 스마트 제조가 주요 화제였다.'))
@@ -104,7 +104,7 @@ def find_mor_pattern(morphemes_one_str):
     for i in range(len(mor_match_pre)):
         sample = [i for i in mor_match_pre[i] if len(i) >= 1 ]
         mor_match_list.append(sample)
-    print('mor_match_list:', mor_match_list)
+    # print('mor_match_list:', mor_match_list)
     return mor_match_list
 
 
@@ -137,8 +137,72 @@ def find_word(mor_match_list, words_list, morphemes_list):
                 word_match_list.append(words_list[i:i+len(mor_match_list[mor_match_idx])])
                 
     # print('word_match_list:', word_match_list)
-    print(f'word_match_list : {word_match_list}')
+    # print(f'word_match_list : {word_match_list}')
     return word_match_list, mor_match_list
+
+def get_right_ko_word(ko_words, en_words, sent):
+    ko_space_ko = list()
+    for idx, ko_word in enumerate(ko_words):
+        first_en = en_words[idx][:2]
+        # 영어 
+        en_scc_and_en = f'(\({first_en})'
+        # 한글 (안\붙임)
+        len_first_ko = len(ko_word)
+        allMatch = re.findall(en_scc_and_en, sent)
+        find_this_en = allMatch[0]
+        scc_en = len(find_this_en)
+
+        # (영어 를 찾아서 어디 index부터 작업할지 찾기
+        find_ko_first_index = 0
+        print(f'sent: {sent}')
+        print(f'find_this_en: {len(find_this_en)}')
+        for idx in range(0, len(sent) - scc_en):
+            # print(f'sent[idx:idx+scc_en]: {sent[idx:idx+scc_en]}')
+            if sent[idx:idx+scc_en] == find_this_en:
+                find_ko_first_index = idx
+                break
+
+        # 어디서부터 한글 탐색할지
+        which_to_find_ko_index = 0
+        if find_ko_first_index == 0:
+            which_to_find_ko_index = find_ko_first_index - (len_first_ko + 3)
+            print(which_to_find_ko_index)
+        else:
+            which_to_find_ko_index = find_ko_first_index
+        if which_to_find_ko_index < 5:
+            which_to_find_ko_index = 0
+        print(which_to_find_ko_index)
+
+
+        # 한글의 첫 글자, 한글의 마지막 글자
+        ko_first, ko_last = ko_word[0], ko_word[-1]
+
+
+        # 한글의 첫 글자 인덱스 default, 한글의 마지막 글자 인덱스 default
+        ko_first_idx, ko_last_idx = 0, 0
+
+        # 한글 첫 글자 찾으면 count 해줄 변수 아이
+        ko_first_cnt = 0
+        for index in range(which_to_find_ko_index, len(sent)):
+            for idx in range(0, len(sent)):
+                if sent[idx] == ko_first:
+                    ko_first_idx = idx
+                    ko_first_cnt += 1
+                    if ko_first_cnt == 1:
+                        break 
+        print(f'ko_first_idx: {ko_first_idx}')
+        print(sent[ko_first_idx])
+        ko_made_word = ''
+        for index in range(ko_first_idx, len(sent)):
+            if sent[index] == ko_last:
+                ko_last_idx = index
+                ko_made_word = sent[ko_first_idx:ko_last_idx+1]
+                print(sent[ko_first_idx:ko_last_idx+1])
+                ko_space_ko.append(ko_made_word)
+                break
+            
+    return ko_space_ko
+
 
 
 # 단어 만들기 완성판
@@ -167,7 +231,9 @@ def find_pattern_show_words(sent):
     word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     
 	# Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
-    ko_words, en_words = make_word_str(word_match_list, sent)
+    ko_words, en_words = make_word_str(word_match_list)
+
+    ko_words = get_right_ko_word(ko_words, en_words, sent)
 
     mor_match_list_str = connect_listed_str_to_one(mor_match_list)
 
@@ -203,9 +269,7 @@ def skip_dirty_words(single_word):
 
 
 # 살릴 단어 만들기
-def make_word_str(word_matched_list, sent):
-    ko_words_pre = list()
-    en_words_pre = list()
+def make_word_str(word_matched_list):
     ko_words = list()
     en_words = list()
     # 대문자
@@ -230,49 +294,11 @@ def make_word_str(word_matched_list, sent):
                 if single_list[d_i] in ['(', ')', '{', '}', '[', ']']:
                     continue
                 en_word += single_list[d_i] + ' '
-        if ko_words[:-1] =='see Fig ':
-            continue
-        
-        ko_words_pre.append(ko_word)
-        en_words_pre.append(en_word[:-1])                
-
-    for ko_pre_idx in range(len(ko_words_pre)):   
-        if ko_words_pre[ko_pre_idx] not in ko_words and en_words_pre[ko_pre_idx] not in en_words:
-            if isKorean(ko_words_pre[ko_pre_idx]) == True:
-                if ko_words_pre[ko_pre_idx][-1] == ' ' or en_words_pre[ko_pre_idx][-1] == ' ':
-                    continue
-                ko_words.append(ko_words_pre[ko_pre_idx])
-                en_words.append(en_words_pre[ko_pre_idx])
-            
-
-    # 한국어는 띄어쓰기 이슈 해결 길이가 2 이상일때만 작동하기!!!
-    ko_words_space = list()
-    for ko_word in ko_words:
-        ko_zero, ko_last = ko_word[0], ko_word[-1] # since [-1] is space
-        ko_zero_idx, ko_last_idx = 0, 0
-        idx_cnt = 0
-        for idx in range(0, len(sent)):
-            if sent[idx] == ko_zero:
-                ko_zero_idx = idx
-                idx_cnt += 1
-                if idx_cnt == 1:
-                    break
-        
-        ko_made_word = ''
-        for jdx in range(idx-1, len(sent)):
-            if sent[jdx] == ko_last and sent[jdx+1] == '(':
-                ko_last_idx = jdx
-                ko_made_word = sent[ko_zero_idx:ko_last_idx+1]
-                if len(ko_made_word) <= len(ko_word)+4:
-                    break
-        # if ko_made_word[-1] == ',' or ko_made_word[-1] == ' ':
-        #     ko_words_space.append(sent[ko_zero_idx:ko_last_idx+1][:-1])
-        # else:
-        #     ko_words_space.append(sent[ko_zero_idx:ko_last_idx+1])
-
+        ko_words.append(ko_word)
+        en_words.append(en_word)
     # print(ko_words, '\n', en_words)
     print('#'*30)
-    return ko_words_space, en_words
+    return ko_words, en_words
 
 
 # 어떤 패턴으로 뽑혔는지 확인하기 위해서

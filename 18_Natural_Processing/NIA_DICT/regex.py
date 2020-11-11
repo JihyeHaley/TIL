@@ -42,7 +42,7 @@ def count_Ko_words(match):
 
 
 
-def find_Ko(sent):
+def find_ko(sent):
     # print(en_words_len)
     allMatch = re.findall('((([ㄱ-ㅣ가-힣]+)\s?)\s?)(\s?\(?(([a-zA-Z]){3,}\s*)+\)?)', sent)
     ko_words = count_Ko_words(allMatch)
