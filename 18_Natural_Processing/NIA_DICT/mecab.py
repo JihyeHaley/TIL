@@ -143,61 +143,61 @@ def find_word(mor_match_list, words_list, morphemes_list):
 def get_right_ko_word(ko_words, en_words, sent):
     ko_space_ko = list()
     for idx, ko_word in enumerate(ko_words):
+        # 영어
         first_en = en_words[idx][:2]
-        # 영어 
-        en_scc_and_en = f'(\({first_en})'
-        # 한글 (안\붙임)
-        len_first_ko = len(ko_word)
-        allMatch = re.findall(en_scc_and_en, sent)
-        find_this_en = allMatch[0]
-        scc_en = len(find_this_en)
+        en_scc_and_en = f'({first_en}'
+        find_this_en = len(en_scc_and_en)
+        print(f'en_scc_and_en: {en_scc_and_en}')
 
         # (영어 를 찾아서 어디 index부터 작업할지 찾기
-        find_ko_first_index = 0
+        find_en_first_index = 0
         print(f'sent: {sent}')
-        print(f'find_this_en: {len(find_this_en)}')
-        for idx in range(0, len(sent) - scc_en):
-            # print(f'sent[idx:idx+scc_en]: {sent[idx:idx+scc_en]}')
-            if sent[idx:idx+scc_en] == find_this_en:
-                find_ko_first_index = idx
+        for idx in range(0, len(sent) - find_this_en):
+            print(f'sent[idx:idx+scc_en]: {sent[idx:idx+find_this_en]}')
+            if sent[idx:idx+find_this_en] == en_scc_and_en:
+                find_en_first_index = idx
+                print(f'find_en_first_index: {find_en_first_index}')
                 break
 
         # 어디서부터 한글 탐색할지
         which_to_find_ko_index = 0
-        if find_ko_first_index == 0:
-            which_to_find_ko_index = find_ko_first_index - (len_first_ko + 3)
-            print(which_to_find_ko_index)
-        else:
-            which_to_find_ko_index = find_ko_first_index
-        if which_to_find_ko_index < 5:
+        print(f'어디서부터 (영어 나옴 find_en_first_index: {find_en_first_index}')
+        if find_en_first_index > find_this_en + 5:
+            which_to_find_ko_index = find_en_first_index - find_this_en - 5
+        
+        if which_to_find_ko_index <= 5:
             which_to_find_ko_index = 0
-        print(which_to_find_ko_index)
+        else: 
+            which_to_find_ko_index = find_en_first_index - find_this_en - 3
+            
+        print(f'이 인데스부터 한글 찾아줄거야 which_to_find_ko_index: {which_to_find_ko_index}')
 
 
         # 한글의 첫 글자, 한글의 마지막 글자
         ko_first, ko_last = ko_word[0], ko_word[-1]
-
+        print(ko_first, ko_last)
 
         # 한글의 첫 글자 인덱스 default, 한글의 마지막 글자 인덱스 default
         ko_first_idx, ko_last_idx = 0, 0
 
         # 한글 첫 글자 찾으면 count 해줄 변수 아이
         ko_first_cnt = 0
-        for index in range(which_to_find_ko_index, len(sent)):
-            for idx in range(0, len(sent)):
-                if sent[idx] == ko_first:
-                    ko_first_idx = idx
-                    ko_first_cnt += 1
-                    if ko_first_cnt == 1:
-                        break 
-        print(f'ko_first_idx: {ko_first_idx}')
-        print(sent[ko_first_idx])
+        for index in range(which_to_find_ko_index, find_en_first_index):
+            if sent[index] == ko_first:
+                print(f'sent[index]_first: {sent[index]}')
+                ko_first_idx = index
+                ko_first_cnt += 1
+                if ko_first_cnt == 1:
+                    break 
+
+        
         ko_made_word = ''
-        for index in range(ko_first_idx, len(sent)):
+        for index in range(ko_first_idx, find_en_first_index):
             if sent[index] == ko_last:
+                print(f'sent[index]_lastt: {sent[index]}')
                 ko_last_idx = index
                 ko_made_word = sent[ko_first_idx:ko_last_idx+1]
-                print(sent[ko_first_idx:ko_last_idx+1])
+                print(f'sent[ko_first_idx:ko_last_idx+1]: {sent[ko_first_idx:ko_last_idx+1]}')
                 ko_space_ko.append(ko_made_word)
                 break
             
