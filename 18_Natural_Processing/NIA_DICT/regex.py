@@ -3,9 +3,6 @@ import re
 # from nltk import word_tokenize
 import MeCab
 
-# m = MeCab.Tagger()
-# te = m.parse('안녕하세요 haley입니다.')
-# print(te)
 
 # 영어 단어, 덩어리 개수 count 
 def count_En_words(match):
@@ -43,12 +40,14 @@ def count_Ko_words(match):
         ko_words.append(i[0]) # 살릴 단어
     return ko_words
 
-def find_Ko(sent, en_words_len):
+
+
+def find_Ko(sent):
     # print(en_words_len)
     allMatch = re.findall('((([ㄱ-ㅣ가-힣]+)\s?)\s?)(\s?\(?(([a-zA-Z]){3,}\s*)+\)?)', sent)
-    Ko_words = count_Ko_words(allMatch)
-
-    return Ko_words
+    ko_words = count_Ko_words(allMatch)
+    # print(ko_words)
+    return allMatch
 
 
 def find_pattern(sent):
@@ -59,7 +58,3 @@ def find_pattern(sent):
 
 rabbit = r'((([ㄱ-ㅣ가-힣]+)\s?)\s?){2}(\s?\(?(([a-zA-Z]){3,}\s*)\)?)'
 
-
-def mecab(sent):
-    tagger = MeCab()
-    print(tagger.nouns(sent))

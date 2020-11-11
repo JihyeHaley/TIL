@@ -245,7 +245,6 @@ def make_word_str(word_matched_list, sent):
                 en_words.append(en_words_pre[ko_pre_idx])
             
 
-
     # 한국어는 띄어쓰기 이슈 해결 길이가 2 이상일때만 작동하기!!!
     ko_words_space = list()
     for ko_word in ko_words:
@@ -258,14 +257,18 @@ def make_word_str(word_matched_list, sent):
                 idx_cnt += 1
                 if idx_cnt == 1:
                     break
-        jdx_cnt = 0
+        
+        ko_made_word = ''
         for jdx in range(idx-1, len(sent)):
-            if sent[jdx] == ko_last:
+            if sent[jdx] == ko_last and sent[jdx+1] == '(':
                 ko_last_idx = jdx
-                jdx_cnt += 1
-                if jdx_cnt == 1:
+                ko_made_word = sent[ko_zero_idx:ko_last_idx+1]
+                if len(ko_made_word) <= len(ko_word)+4:
                     break
-        ko_words_space.append(sent[ko_zero_idx:ko_last_idx+1])
+        # if ko_made_word[-1] == ',' or ko_made_word[-1] == ' ':
+        #     ko_words_space.append(sent[ko_zero_idx:ko_last_idx+1][:-1])
+        # else:
+        #     ko_words_space.append(sent[ko_zero_idx:ko_last_idx+1])
 
     # print(ko_words, '\n', en_words)
     print('#'*30)
