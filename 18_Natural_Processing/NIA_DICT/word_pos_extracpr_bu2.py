@@ -125,85 +125,18 @@ def find_isEnglishNKorean(morphemes_one_str):
 
 # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
 # morphemes_list는 words_list의 idx를 구하기 위해서
-def find_word(mor_match_list, words_list, morphemes_list, sent):
-    
-    ko_words = list()
-    en_words = list()
-
-    ko_words_pre = list()
-    en_words_pre = list()
-
+def find_word(mor_match_list, words_list, morphemes_list):
+    # print(f'words_list \n {words_list}')
     word_match_list = list()
-    find_ko_n_en = list()
-
     for mor_match_idx in range(len(mor_match_list)):
         
         for i in range(0, len(morphemes_list)-len(mor_match_list[mor_match_idx])):
             comparison = [morphemes_list[j] for j in range(i, i+len(mor_match_list[mor_match_idx]))]
            
             if comparison == mor_match_list[mor_match_idx]:
-                find_ko_n_en = words_list[i:i+len(mor_match_list[mor_match_idx])]
-                word_match_list.append(words_list[i:i+len(mor_match_list[mor_match_idx])])
-
-    for find_ko_n_en in word_match_list:
-        ko_word = str()
-        en_word = str()
-        en_sample = str()
-        # default
-        ssc_is = ''
-        # 괄호 찾기
-        for chunk_idx, chunk in enumerate(find_ko_n_en):
-            if chunk in ['(', '{', '[']:
-                en_sample = find_ko_n_en[chunk_idx] + find_ko_n_en[chunk_idx+1]
-                for idx in range(0, len(sent) - len(en_sample)):
-                    # 영어 시작 찾기
-                    if sent[idx:idx+len(en_sample)] == en_sample:
-                        for jdx in range(idx, len(sent)):
-                            if sent[jdx] == ')':
-                                en_word = sent[idx+1:jdx]
-                                break
-                                    
-                en_words.append(en_word)  
-    print(en_words) 
-              
-            
-    #           
-    # ko_word = str()
-    # en_word = str()
-    # en_sample = str()
-    # # default
-    # ssc_is = ''
-    # # 괄호 찾기
-    # for chunk_idx, chunk in enumerate(find_ko_n_en):
-    #     if chunk not in ['(', '{', '[']:
-    #         continue
-    #     en_sample = find_ko_n_en[chunk_idx] + find_ko_n_en[chunk_idx+1]
-    
-    # if en_sample[0] == '(':
-    #     ssc_is = ')'
-    # elif en_sample[0] == '{':
-    #     ssc_is = '}'
-    # elif en_sample[0] == '[':
-    #     ssc_is = ']'
-    
-    # # 영어단어 찾기
-    # for idx in range(0, len(sent) - len(en_sample)):
-    #     # 영어 시작 찾기
-    #     if sent[idx:idx+len(en_sample)] == en_sample:
-    #         # 영어 끝 찾기
-    #         stop_jdx = 0
-    #         for jdx in range(idx, idx+len(en_sample)):
-    #             if sent[jdx] == ssc_is:
-    #                 stop_jdx += 1
-    #                 # 1번만 발견해야지
-    #                 if stop_jdx == 1:
-    #                     en_word = sent[idx+1:jdx]
-    #                     break
                 
-
-
-    
-
+                word_match_list.append(words_list[i:i+len(mor_match_list[mor_match_idx])])
+                print(f'words_list[i:i+len(mor_match_list[mor_match_idx])]\n{words_list[i:i+len(mor_match_list[mor_match_idx])]}')
     # print('word_match_list:', word_match_list)
     # print(f'word_match_list : {word_match_list}')
     return word_match_list, mor_match_list
@@ -305,7 +238,7 @@ def find_pattern_show_words(sent):
     #     eng_kor += 1
     # print(mor_match_list)
     # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
-    word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list, sent)
+    word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     
 	# Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
     ko_words, en_words = make_word_str(word_match_list, sent)
