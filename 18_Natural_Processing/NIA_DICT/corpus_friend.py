@@ -4,7 +4,8 @@ from words import *
 from regex import *
 from sents import *
 from mecab import *
-
+from datetime import datetime
+import timeit
 
 ## word 실행 함수##### ###############################################################
 # 처음쓰기 새로쓰기
@@ -41,7 +42,9 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀작업 시작합니다!!!!!!! ㄴ ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('./띄어쓰기 제발 되라되라되라' + '.xlsx') # _mustbessossc
+    timestamp = datetime.now().strftime("%m%d%H%M")
+
+    workbook = xlsxwriter.Workbook('./띄어쓰기 제발 되라되라되라_' + timestamp + '_.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Sent')
     worksheet.write('B1', 'KOR')
@@ -61,14 +64,14 @@ def mecab_output(raw_sents):
     for idx, raw_sent in enumerate(raw_sents):
 
         # 한글, 영어가 같이 있는게 아니라면 건너뛰기
-        if isSentKoreanAndEnglish(raw_sent) == False:
+        if isSentKoreanAndEnglish(raw_sent) == False and doseSentHaveSSC(raw_sent) == False:
             continue
 
         # A. Raw Sent 쓰기
         a_idx =excel_index_creator('A', row_idx)
         worksheet.write(a_idx, raw_sent)
-        print(f'\n#{idx}---','#'*30,)
-        print('A열', raw_sent)
+        # print(f'\n#{idx}---')
+        # print('A열', raw_sent)
 
 
         # raw _sent 형태소 분석 시작

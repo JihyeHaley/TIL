@@ -3,6 +3,8 @@ import MeCab
 import re
 import xlsxwriter
 
+
+
 ## excel idx 
 def excel_index_creator(colum, row_idx):
     colum_idx = colum + str(row_idx)
@@ -20,7 +22,7 @@ def isSentKoreanAndEnglish(sent):
 
 
 #  후보군 2. 괄호가 있어? 
-def isSentHasSSC(sent):
+def doseSentHaveSSC(sent):
     ssc = re.compile('.*\(.*\)+')
     # return bool(ko.fullmatch(text))
     return bool(ssc.match(sent))
@@ -72,7 +74,7 @@ def split_words_collect_mors(raw_mor):
             words_one_str += key
         # 홀수
         else: 
-            # wecab으로 뽑아낸 형태소의 값 1개만 뽑아주기 위해서
+            # meecab으로 뽑아낸 형태소의 값 1개만 뽑아주기 위해서
             value = raw_mor[i].split(',')
             value = value[0]
             # print(value)
@@ -95,8 +97,7 @@ def find_mor_pattern(morphemes_one_str):
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)?(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)?'
     # mor_pattern = '(XPN|XSV)?(NNG|NNP)(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(NNG|NNP)?(XSN|XSV|XSA)?(SSO)(SL)(SY)?(SL)?(SY)?(SL)?(SY)?(SL)?(SSC)'#괄호 있어야만함
     # mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)(XSN|XSV|XSA)?(JX)?(XPN|XSV)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(NNG|NNP)?(XSN|XSV|XSA)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?'#괄호 있어야만함
-    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)?(NNG)?(XR)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN+JX)?(VX)?(ETN)?(NNB)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(JKG)?(NNG|NNP)?(VA+ETM)?(IO)?(NNG|NNP)(XSN|XSV|XSA)?(XSA+ETM)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SL)?(SN)?(SN)?(SC)?(SL)?(SC)?(SN)?(SL)?'#괄호 있어야만함 처음에만
-    
+    mor_pattern = '(VV\+ETM)?(MM)?(XPN|XSV)?(ETN)?(NNG|NNP)?(NNG|NNP)?(XR)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN+JX)?(VX)?(ETN)?(NNB)?(NNG|NNP)?(NNG|NNP)?(XSN|XSV|XSA)?(XPN|XSV)?(ETN)?(JKG)?(NNG|NNP)?(VA+ETM)?(IO)?(NNG|NNP)(XSN|XSV|XSA)?(XSA+ETM)?(JKO)?(SSO)(SL)(SY)?(SC)?(SL)?(SY)?(SL)?(SY)?(SL)?(SL)?(SL)?(SC)?(SY)?(SL)?(SL)?(SC)?(SL)?(SL)?(SN)?(SN)?(SC)?(SL)?(SC)?(SN)?(SL)?(SN)?(SL)?(SSC)'#괄호 있어야만함 처음에만    
     mor_match_pre = re.findall(mor_pattern, morphemes_one_str, flags=0)
     mor_match_list= list()
     # ''없애주기 
@@ -114,7 +115,7 @@ def find_isEnglishNKorean(morphemes_one_str):
     sep_match_pre = re.findall(sep_mor_pattern, morphemes_one_str, flags=0)
     sep_mor_match_list= list()
     # ''없애주기 ㄴ
-		# 캡처하지 못한 아이들은 버리기 len(i) >= 1 로 해서
+    # 캡처하지 못한 아이들은 버리기 len(i) >= 1 로 해서
     for i in range(len(sep_match_pre)):
         sample = [i for i in sep_match_pre[i] if len(i) >= 1 ]
         sep_mor_match_list.append(sample)
@@ -125,162 +126,150 @@ def find_isEnglishNKorean(morphemes_one_str):
 
 # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
 # morphemes_list는 words_list의 idx를 구하기 위해서
-def find_word(mor_match_list, words_list, morphemes_list, sent):
-    
-    ko_words = list()
-    en_words = list()
-
-    ko_words_pre = list()
-    en_words_pre = list()
-
+def find_word(mor_match_list, words_list, morphemes_list):
     word_match_list = list()
-    find_ko_n_en = list()
-
     for mor_match_idx in range(len(mor_match_list)):
         
         for i in range(0, len(morphemes_list)-len(mor_match_list[mor_match_idx])):
             comparison = [morphemes_list[j] for j in range(i, i+len(mor_match_list[mor_match_idx]))]
            
             if comparison == mor_match_list[mor_match_idx]:
-                find_ko_n_en = words_list[i:i+len(mor_match_list[mor_match_idx])]
-                word_match_list.append(words_list[i:i+len(mor_match_list[mor_match_idx])])
-
-    for find_ko_n_en in word_match_list:
-        ko_word = str()
-        en_word = str()
-        en_sample = str()
-        # default
-        ssc_is = ''
-        # 괄호 찾기
-        for chunk_idx, chunk in enumerate(find_ko_n_en):
-            if chunk in ['(', '{', '[']:
-                en_sample = find_ko_n_en[chunk_idx] + find_ko_n_en[chunk_idx+1]
-                for idx in range(0, len(sent) - len(en_sample)):
-                    # 영어 시작 찾기
-                    if sent[idx:idx+len(en_sample)] == en_sample:
-                        for jdx in range(idx, len(sent)):
-                            if sent[jdx] == ')':
-                                en_word = sent[idx+1:jdx]
-                                break
-                                    
-                en_words.append(en_word)  
-    print(en_words) 
-              
-            
-    #           
-    # ko_word = str()
-    # en_word = str()
-    # en_sample = str()
-    # # default
-    # ssc_is = ''
-    # # 괄호 찾기
-    # for chunk_idx, chunk in enumerate(find_ko_n_en):
-    #     if chunk not in ['(', '{', '[']:
-    #         continue
-    #     en_sample = find_ko_n_en[chunk_idx] + find_ko_n_en[chunk_idx+1]
-    
-    # if en_sample[0] == '(':
-    #     ssc_is = ')'
-    # elif en_sample[0] == '{':
-    #     ssc_is = '}'
-    # elif en_sample[0] == '[':
-    #     ssc_is = ']'
-    
-    # # 영어단어 찾기
-    # for idx in range(0, len(sent) - len(en_sample)):
-    #     # 영어 시작 찾기
-    #     if sent[idx:idx+len(en_sample)] == en_sample:
-    #         # 영어 끝 찾기
-    #         stop_jdx = 0
-    #         for jdx in range(idx, idx+len(en_sample)):
-    #             if sent[jdx] == ssc_is:
-    #                 stop_jdx += 1
-    #                 # 1번만 발견해야지
-    #                 if stop_jdx == 1:
-    #                     en_word = sent[idx+1:jdx]
-    #                     break
                 
-
-
-    
-
-    # print('word_match_list:', word_match_list)
-    # print(f'word_match_list : {word_match_list}')
+                word_match_list.append(words_list[i:i+len(mor_match_list[mor_match_idx])])
+                
     return word_match_list, mor_match_list
 
-def get_right_ko_word(ko_words, en_words, sent):
-    ko_space_ko = list()
-    for idx, ko_word in enumerate(ko_words):
-        # 영어
-        first_en = en_words[idx][:2]
-        en_scc_and_en = f'({first_en}'
-        find_this_en = len(en_scc_and_en)
-        # print(f'en_scc_and_en: {en_scc_and_en}')
 
-        # (영어 를 찾아서 어디 index부터 작업할지 찾기
-        find_en_first_index = 0
-        for idx in range(0, len(sent) - find_this_en):
-            # print(f'sent[idx:idx+scc_en]: {sent[idx:idx+find_this_en]}')
-            if sent[idx:idx+find_this_en] == en_scc_and_en:
-                find_en_first_index = idx
-                # print(f'find_en_first_index: {find_en_first_index}')
-                break
+def skip_mored_word(mored_word):
+    skip_word = ['Fig','fig', 'Fig.','fig.', 'r . ', 'Table', 'a', 'aa', 'aaa', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xi', 'xiv', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']
+    if len(mored_word) <= 2 or mored_word in skip_word:
+        return True
+    else:
+        return False  
 
-        # 어디서부터 한글 탐색할지
-        which_to_find_ko_index = 0
-        # print(f'어디서부터 (영어 나옴 find_en_first_index: {find_en_first_index}')
+
+# Fig 같이 필요 없는 덩어리 아예 없애기
+def skip_dirty_words(mored_word):
+    if 'see Fig' in mored_word  or 'Fig' in mored_word or 'r . ' in mored_word or 'Table' in mored_word:
+        return True
+    else:
+        return False
+
+
+# 제대로된 영어 찾아주기
+def find_good_korean_english(word_match_list, sent):
+    # 1차적 단어 모아주기
+    en_words_pre = list()
+    ko_words_pre = list()
+
+    # 2차적 반복되는 단어 지워서 모아주기
+    en_words = list()
+    ko_words = list()
+    # 형태소 분석으로 모은 단어들 <- 굉장히 너저분 한 세트 씩 가져오기 (한 문장에 2개 이상인 경우도 있어서 for문으로 돌려서 체크)
+    for word_match in word_match_list:
+        en_word = str() # 온전한 영어 단어 
+        en_sample = str() # [(영어]
+        sso_idx = 0 # '(' 가 리스틑에서 몇 번째 있는지,  용도=. word_match 에서 뒤에서 영어 단어 하나 가져와서 붙여서 그 앞(한글) 뒤(영어) 탐색할려고! 
+        ssc = '' # 끝 괄호의 종류 체크----- ssc = ')' <- 형태소에서 인식하는 형태 
+        btw_ko_en = 0 # sent안에서 [(영어] 시작이 어딘 idx인지 볼려고, 그거 찾아서 한글 탐색 할려고
         
-        if find_en_first_index <= 5:
-            which_to_find_ko_index = 0
-            print('case1')
-        else: 
-            which_to_find_ko_index = find_en_first_index - find_this_en - 5
-            print('case2')
-            if which_to_find_ko_index < 0:
-                which_to_find_ko_index = 0
-                print('case3')
-           
-            
-        # print(f'이 인데스부터 한글 찾아줄거야 which_to_find_ko_index: {which_to_find_ko_index}')
+        # 영어 먼저잡고 한글 잡자
+        for chunk_idx, chunk in enumerate(word_match):
+            # 괄호의 형태 찾기
+            if chunk in ['(', '{', '[']:
+                if chunk == '(':
+                    ssc = ')'
+                elif chunk == '{':
+                    ssc = '}'
+                elif chunk == '[':
+                    ssc = ']'
+                # 괄호 + 영어 한 단어  <- ex. ['재난', '관리', '(', 'disaster', 'management',')'] 
+                en_sample = word_match[chunk_idx] + word_match[chunk_idx+1] # en_sample =  '(disaster'
+                sso_idx = chunk_idx # word_match 안에서의 idx
 
-
-        # 한글의 첫 글자, 한글의 마지막 글자
-        ko_first, ko_last = ko_word[0], ko_word[-1]
-
-        # 한글의 첫 글자 인덱스 default, 한글의 마지막 글자 인덱스 default
-        ko_first_idx, ko_last_idx = 0, find_en_first_index
-
-        # 한글 첫 글자 찾으면 count 해줄 변수 아이
-        ko_first_cnt = 0
-        # 한글 첫번째 단어의 첫 index 찾기
-        for index in range(which_to_find_ko_index, find_en_first_index):
-            if sent[index] == ko_first:
-                # print(f'sent[index]_first: {sent[index]}')
-                ko_first_idx = index
-                ko_first_cnt += 1
-                if ko_first_cnt == 1:
-                    break 
-
-        # 찾은 마지막 한글 단어 넣어줄 변수
-        ko_made_word = ''
-
-        # 한글의 첫번째 index라고 찾은 아이의 단어와, ko_word[0]가 같다면 진행하기
-        if sent[ko_first_idx] == ko_first:
-            # print(f'sent[ko_first_idx:ko_last_idx]: {sent[ko_first_idx:ko_last_idx]}')
-            ko_made_word = sent[ko_first_idx:ko_last_idx]
-        # 한글의 첫번째 index라고 찾은 아이의 단어와, ko_word[0]가 같지 않다면 다시 찾아서 진행하기
+                ##################### 영어 #######################
+                # sent 안에서 en_sample와 일치하는 것을 찾아줄건데 index error 안나게 range(0, sent길이 - en_sample길이)
+                for en_start in range(0, len(sent) - len(en_sample)):
+                    # 탐색의 길이는 1 아니라 en_sample 전체의 길이만큼 이라서 sent[인덱스:인덱스+en_sample길이]
+                    if sent[en_start:en_start+len(en_sample)] == en_sample:
+                        # 정말 중요한 기준점 찾음!
+                        btw_ko_en = en_start
+                        # 첨부터 탐색해줄 필요 없음 btw_ko_en 인덱스부터 찾고 괄호 찾으면 멈추기
+                        for en_end in range(btw_ko_en, len(sent)):
+                            # 괄호 찾았니? 
+                            if sent[en_end] == ssc:
+                                # 괄호는 건너 뛰어야 하니까, btw_ko_en + 1 ~ en_end
+                                en_word = sent[btw_ko_en+1:en_end]
+                                break  
+                 
+        # print(f'sso_idx {sso_idx}')
+        ##################### 한글 #######################
+        ko_word = str()
+        # list 안에서 괄호의 index가 1 이면 한글 단어는 한 덩어리만 있는걸로 인식. 그래서 바로 한글로 넣어주기
+        if sso_idx == 1:
+            # print(f'ko_word {ko_word}')
+            ko_word = word_match[0]
+        # 그게 아니라면 할일은 많아지지...
         else:
-            for index in range(0, find_en_first_index):
-                if sent[index] == ko_first:
-                    ko_made_word = sent[index:find_en_first_index]
-                    # print(f'ko_made_word: {ko_made_word}')
-                    break
+            # ko_start - 단어의 처음, ko_end는 괄호 앞에 있는 idx 까지
+            ko_start, ko_end = word_match[0], word_match[sso_idx-1]
+            len_ko_start , len_ko_end = len(ko_start), len(ko_end)
     
-        ko_space_ko.append(ko_made_word)
+            ko_start_idx, ko_end_idx = 0, btw_ko_en 
+            
+            # 어디서부터 한글 탐색할지
+            which_to_find_ko_index = 0
+            
+            if btw_ko_en <= 5:
+                which_to_find_ko_index = 0
+                # print('c1')
+            else: 
+                which_to_find_ko_index = btw_ko_en - 10
+                # print('c2')
+                if which_to_find_ko_index < 0:
+                    which_to_find_ko_index = 0
+                    # print('c3')
+                    
 
-    return ko_space_ko
+            
+            # 한글 첫번째 단어의 첫 index 찾기
+            for find_ko_start_idx in range(which_to_find_ko_index, btw_ko_en):
+               
+                if sent[find_ko_start_idx:find_ko_start_idx+len_ko_start] == ko_start:
+                    ko_start_idx = find_ko_start_idx
+                    break
 
+            # 한글 마지막 단어의 첫 index 찾기
+            for find_ko_end_idx in range(ko_start_idx +1, btw_ko_en - len_ko_end + 1):
+                if sent[find_ko_end_idx:find_ko_end_idx + len_ko_end] == ko_end:
+                    ko_end_idx = find_ko_end_idx + len_ko_end
+                    break
+            
+            # 한글의 첫번째 index라고 찾은 아이의 단어와, ko_word[0]가 같다면 진행하기
+            if sent[ko_start_idx:ko_start_idx+len_ko_start] == ko_start:
+                ko_word = sent[ko_start_idx:ko_end_idx]
+            # 한글의 첫번째 index라고 찾은 아이의 단어와, ko_word[0]가 같지 않다면 다시 찾아서 진행하기
+            else:
+                for index in range(0, btw_ko_en):
+                    if sent[index] == ko_start:
+                        ko_word = sent[index:btw_ko_en+1]
+                        break
 
+        if skip_mored_word(en_word) == True or skip_dirty_words(en_word) == True:
+            continue
+        else:
+            en_words_pre.append(en_word)  
+            ko_words_pre.append(ko_word)
+
+        # 중복되는 단어 제거  
+        for ko_pre_idx in range(len(ko_words_pre)):   
+            if ko_words_pre[ko_pre_idx] not in ko_words and en_words_pre[ko_pre_idx] not in en_words:
+                if isKorean(ko_words_pre[ko_pre_idx]) == True:
+                    if en_words_pre[ko_pre_idx][-1] in [' ', '(', ',']:
+                        continue
+                    ko_words.append(ko_words_pre[ko_pre_idx])
+                    en_words.append(en_words_pre[ko_pre_idx])
+    return ko_words, en_words
 
 # 단어 만들기 완성판
 def find_pattern_show_words(sent):
@@ -305,10 +294,12 @@ def find_pattern_show_words(sent):
     #     eng_kor += 1
     # print(mor_match_list)
     # 형태소 패턴 (list)와 일치하는 단어(list) 찾아서 추출
-    word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list, sent)
+    word_match_list, mor_match_list = find_word(mor_match_list, words_list, morphemes_list)
     
 	# Raw Sent에 대한 수술 후 뽑혀진 한-영 짝꿍들
-    ko_words, en_words = make_word_str(word_match_list, sent)
+    # ko_words, en_words = make_word_str(word_match_list, sent)
+    
+    ko_words, en_words = find_good_korean_english(word_match_list, sent)
 
     mor_match_list_str = connect_listed_str_to_one(mor_match_list)
 
@@ -334,19 +325,9 @@ def isNumber(single_word):
     return bool(en.match(single_word))
 
 
-# Fig 같이 필요 없는 덩어리 아예 없애기
-def skip_dirty_words(single_word):
-    if 'see Fig' in single_word  or 'Fig' in single_word or 'r . ' in single_word or 'Table' in single_word:
-        return True
-    else:
-        return False
-
-
 
 # 살릴 단어 만들기
 def make_word_str(word_matched_list, sent):
-    ko_words = list()
-    en_words = list()
     ko_words_pre = list()
     en_words_pre = list()
     # 대문자
@@ -364,22 +345,22 @@ def make_word_str(word_matched_list, sent):
                 break
         for d_i in range(len(single_list)):
             if d_i < check_start_en - 1 :
-                if single_list[d_i] in ['(', ')', '{', '}', '[', ']', 'Δ', '㈜)'] or single_list[d_i] in ['은', '는', '을', '를', '이', '가', '경우', '의한']:
+                if single_list[d_i] in ['(', ')', '{', '}', '[', ']', 'Δ' ,'-'] or single_list[d_i] in ['은', '는', '을', '를', '이', '가', '경우', '그', '의한', '의']:
                     continue
                 ko_word += single_list[d_i]
             else:
-                if single_list[d_i] in ['(', ')', '{', '}', '[', ']']:
+                if single_list[d_i] in ['(', ')', '{', '}', '[', ']', 'Δ' ,'-']:
                     continue
-                en_word += single_list[d_i] + ' '
+                en_word += single_list[d_i] + ' '                
         # Fig 제거
         if skip_dirty_words(en_word[:-1]) == True:
-            # print(f'skiped this, {en_word}')
+            print(f'skiped this, {en_word}')
             continue
         elif skip_dirty_words(ko_word) == False:
             ko_words_pre.append(ko_word)
             en_words_pre.append(en_word[:-1])
-
-     # 중복되는 단어 제거
+    
+    # 중복되는 단어 제거
     ko_words = list()
     en_words = list()    
     for ko_pre_idx in range(len(ko_words_pre)):   
@@ -390,9 +371,11 @@ def make_word_str(word_matched_list, sent):
                 ko_words.append(ko_words_pre[ko_pre_idx])
                 en_words.append(en_words_pre[ko_pre_idx])
 
+
     # ko_words = get_right_ko_word(ko_words, en_words, sent)
-    # print(ko_words, '\n', en_words)
-    # print('#'*30)
+    
+    print(ko_words, '\n', en_words)
+    print('#'*30)
     return ko_words, en_words
 
 
@@ -410,9 +393,4 @@ def connect_listed_str_to_one(mor_match_list):
     return mor_match_list_str
 
 
-def skip_mored_word(mored_word):
-    skip_word = ['Fig','fig', 'Fig.','fig.', 'a', 'aa', 'aaa', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xi', 'xiv', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']
-    if len(mored_word) == 1 or mored_word in skip_word:
-        return True
-    else:
-        return False
+

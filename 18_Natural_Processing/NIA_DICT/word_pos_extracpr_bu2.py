@@ -312,7 +312,7 @@ def make_word_str(word_matched_list, sent):
             ko_words_pre.append(ko_word)
             en_words_pre.append(en_word[:-1])
 
-     # 중복되는 단어 제거
+    # 중복되는 단어 제거
     ko_words = list()
     en_words = list()    
     for ko_pre_idx in range(len(ko_words_pre)):   
