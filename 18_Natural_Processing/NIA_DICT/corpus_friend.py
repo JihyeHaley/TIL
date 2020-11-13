@@ -75,7 +75,7 @@ def mecab_output(raw_sents):
 
 
         # raw _sent 형태소 분석 시작
-        te, ko_words, en_words, mor_match_list_str = find_pattern_show_words(raw_sent)
+        ko_words, en_words = find_pattern_show_words(raw_sent)
         # print('mor_match_list_str: ', mor_match_list_str)
     
 
@@ -85,33 +85,23 @@ def mecab_output(raw_sents):
         
         
         for j in range(len(ko_words)):
-             # D의 개수가 1개면 skip
-            en_words[j] = en_words[j].strip(' ')
-            if skip_mored_word(en_words[j]) == True:
-                continue
-
+            # B.  ko_word 쓰기
+            b_idx =excel_index_creator('B', row_idx)
+            if ko_words[j] in [',', '.', '\'', '\"', '-']:
+                worksheet.write(b_idx, ko_words[j][:-1])
+                # print(ko_words[j][:-1])
             else:
-                # B.  ko_word 쓰기
-                b_idx =excel_index_creator('B', row_idx)
-                if ko_words[j] in [',', '.', '\'', '\"', '-']:
-                    worksheet.write(b_idx, ko_words[j][:-1])
-                    # print(ko_words[j][:-1])
-                else:
-                    worksheet.write(b_idx, ko_words[j])
-                    # print(ko_words[j])
+                worksheet.write(b_idx, ko_words[j])
+                # print(ko_words[j])
 
 
-                # C.  en_word 쓰기
-                c_idx = excel_index_creator('C', row_idx)
-                if en_words[j] in [',', '.', '\'', '\"', '-']:
-                    worksheet.write(c_idx, en_words[j][:-1])
-                else:
-                    worksheet.write(c_idx, en_words[j])
-                            
-            # if len(ko_words) != len(mor_match_list_str):
-            #     continue
-            # # length가 같을때는 쓰게 만들기
-            # worksheet.write(d_idx, mor_match_list_str[j])
+            # C.  en_word 쓰기
+            c_idx = excel_index_creator('C', row_idx)
+            if en_words[j] in [',', '.', '\'', '\"', '-']:
+                worksheet.write(c_idx, en_words[j][:-1])
+            else:
+                worksheet.write(c_idx, en_words[j])
+                    
             row_idx += 1
 
     workbook.close()
