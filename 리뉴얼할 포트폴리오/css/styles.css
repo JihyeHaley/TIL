@@ -10250,18 +10250,18 @@ section.resume-section .resume-section-content {
   font-weight: 300; }
 
 .img-height-12-0{
-  height: 1.2em;
+  height: 1.8em;
   margin-bottom: 0.3em;
 }
 
 .img-height-11{
-  height: 1.1em;
+  height: 1.8em;
   border-radius: 0.6rem;
   margin-bottom: 0.2em;
 }
 
 .img-height-12{
-  height: 1.2em;
+  height: 1.8em;
   border-radius: 0.6rem;
 }
 
@@ -10274,4 +10274,24 @@ section.resume-section .resume-section-content {
   display: inline-block;
   margin-right: 5px;
   margin-bottom: 4px;
+}
+
+.about-table{
+  table-layout:auto;
+  width : 80%;
+}
+
+.about-table th,
+.about-table td{
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  text-size: 1.2rem;
+}
+.about-table-center{
+  text-align:right;
+  height: 3rem;
+  width: 3rem;
+  margin-right:20px;
 }
