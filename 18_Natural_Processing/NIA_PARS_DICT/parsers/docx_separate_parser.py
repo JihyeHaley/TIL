@@ -10,17 +10,11 @@ from nltk.tokenize import sent_tokenize
 
 from utils.common_functions import *
 from utils.regex_functions import *
-from mecab import *
+from word_pos_extractor import *
 
 
 stop_word = ['구분', '영문', '국문', '-', '번역', '번역본', '원문', '번역요청', '원본', 'NO', '제목', '타이틀', 'Title',
              '덕수궁관리소', '<참고>', '<영어>', '번역요청(영,일,중간,중번)', '영어:']
-
-
-## excel idx 
-def excel_index_creator(colum, row_idx):
-    colum_idx = colum + str(row_idx)
-    return colum_idx
 
 
 def docx_separate_to_excel(docx_ko_files, sub_path):
@@ -48,14 +42,14 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
         worksheet.write('B1', 'Raw Data')
         worksheet.write('C1', 'KOR')
         worksheet.write('D1', 'ENG')
-        worksheet.write('E1', 'MOR')
-        worksheet.write('F1', '매캡')
+        # worksheet.write('E1', 'MOR')
+        # worksheet.write('F1', '매캡')
         row_idx = 2
         total_cnt = 0
 
         completed_log = open(f'./results/'  + sub_path  + '/' + sub_path + '_log_docx_' + timestamp + '.txt', "w+")
 
-        for each_file in docx_ko_files:
+        for total_idx, each_file in enumerate(docx_ko_files):
             try:
                 # Word to raw text
                 # 한글 파일, 영문 파일 나뉘어있으므로 나누는 작업은 생략. 바로 정제를 시작한다.
@@ -65,7 +59,7 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
 
                 # raw paragraphs -> sentence tokenize
                 for ko_lines in ko_contents:
-                    kor_sents = sent_tokenize(regex_cleaner(ko_lines))  # nltk
+                    kor_sents = sent_tokenize(ko_lines)  # nltk
 
                     for ko_sent in kor_sents:
 
@@ -75,8 +69,11 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
 
                         kor_sent_list.append(ko_sent)
 
-                kor_sent_list = set(kor_sent_list)
+                # 중복 제거
+                kor_sent_list = list(set(kor_sent_list))
+                # 총 몇줄인지 확인
                 total_cnt += len(kor_sent_list)
+                # print(f'{total_idx} - {len(kor_sent_list)}')
 
                 for idx, krl in enumerate(kor_sent_list):
                     # 한글, 영어가 같이 있는게 아니라면 건너뛰기
@@ -94,17 +91,19 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
                     b_idx =excel_index_creator('B', row_idx)
                     worksheet.write(b_idx, krl)
                     te, ko_words, en_words, mor_match_list_str = find_pattern_show_words(krl)
-                    
-                    # F. 쓰기
-                    f_idx =excel_index_creator('F', row_idx)
-                    worksheet.write(f_idx, te)
-                    
+                    # print('word_matched: ', word_matched)
+
+                    # F. 형태소 분석되는 세세한 것들 쓰기
+                    # f_idx =excel_index_creator('F', row_idx)
+                    # worksheet.write(f_idx, te)
+                    # print(te)
+                
 
                     for j in range(len(ko_words)):
                         
                         # D의 개수가 1개면 skip
                         en_words[j] = en_words[j].strip(' ')
-                        if len(en_words[j]) == 1 or en_words[j] in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vv', 'vii', 'viii', 'x', 'xx', 'ix', 'xiii', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VV', 'VII', 'VIII', 'X', 'XX', 'IX', 'XIII']:
+                        if skip_mored_word(en_words[j]) == True:
                             continue
 
                         else:
@@ -118,19 +117,20 @@ def docx_separate_to_excel(docx_ko_files, sub_path):
                             worksheet.write(d_idx, en_words[j])
                             
 
-                            # E.  en_word 쓰기
-                            e_idx = excel_index_creator('E', row_idx)
-                            # print(row_idx, raw_sent, '\n\t', ko_words[j], '-', en_words[j])
-                            # 한-영 짝꿍이 안 맞으면 엑셀에 아예 raw_sent도 입력이 안되서 
+                            # E.  형태소 패턴 쓰기 (확인을 원할때 사용 print or excel에 작성)
+                            # Excel 작성
+                            # e_idx = excel_index_creator('E', row_idx)
+                            
                             # length가 다를때는 일단 넘어가고 
                             # 형태소 어떤 패턴으로 뽑앗는지 확인하기
-
-                            if len(ko_words) != len(mor_match_list_str):
-                                continue
+                            # print해서 확인
+                            # if len(ko_words) != len(mor_match_list_str):
+                                # continue
                             # length가 같을때는 쓰게 만들기
-                            worksheet.write(e_idx, mor_match_list_str[j])
+                            # worksheet.write(e_idx, mor_match_list_str[j])
+                            # print(mor_match_list_str[j])
                             
-
+                            # 다음에 쓰여질 줄을 위해서 row_idx += 1
                             row_idx += 1
                 
                 path = each_file.split('/')

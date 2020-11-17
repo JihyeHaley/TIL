@@ -4,7 +4,8 @@ from words import *
 from regex import *
 from sents import *
 from mecab import *
-
+from datetime import datetime
+import timeit
 
 ## word 실행 함수##### ###############################################################
 # 처음쓰기 새로쓰기
@@ -41,13 +42,15 @@ for raw_sent in raw_sents:
 # wecab.py
 ## 엑셀작업 시작합니다!!!!!!! ㄴ ###############################################################################
 def mecab_output(raw_sents):
-    workbook = xlsxwriter.Workbook('./의약학_wecab_raw_ko_var_제발sssss' + '.xlsx') # _mustbessossc
+    timestamp = datetime.now().strftime("%m%d%H%M")
+
+    workbook = xlsxwriter.Workbook('./띄어쓰기 제발 되라되라되라_' + timestamp + '_.xlsx') # _mustbessossc
     worksheet = workbook.add_worksheet()
     worksheet.write('A1', 'Raw Sent')
     worksheet.write('B1', 'KOR')
     worksheet.write('C1', 'ENG')
     worksheet.write('D1', 'MOR')
-    worksheet.write('E1', '매캡')
+    # worksheet.write('E1', '매캡')
     
 
     ## excel idx 중첩함수 선언
@@ -61,50 +64,44 @@ def mecab_output(raw_sents):
     for idx, raw_sent in enumerate(raw_sents):
 
         # 한글, 영어가 같이 있는게 아니라면 건너뛰기
-        if isSentKoreanAndEnglish(raw_sent) == False:
+        if isSentKoreanAndEnglish(raw_sent) == False and doseSentHaveSSC(raw_sent) == False:
             continue
 
         # A. Raw Sent 쓰기
         a_idx =excel_index_creator('A', row_idx)
         worksheet.write(a_idx, raw_sent)
-        print(f'\n#{idx}---','#'*30,)
-        print('A열', raw_sent)
+        # print(f'\n#{idx}---')
+        # print('A열', raw_sent)
 
 
         # raw _sent 형태소 분석 시작
-        te, ko_words, en_words, mor_match_list_str = find_pattern_show_words(raw_sent)
+        ko_words, en_words = find_pattern_show_words(raw_sent)
         # print('mor_match_list_str: ', mor_match_list_str)
     
 
-        # E. 쓰기
-        e_idx =excel_index_creator('E', row_idx)
-        worksheet.write(e_idx, te)
+        # # E. 쓰기
+        # e_idx =excel_index_creator('E', row_idx)
+        # worksheet.write(e_idx, te)
         
         
         for j in range(len(ko_words)):
             # B.  ko_word 쓰기
             b_idx =excel_index_creator('B', row_idx)
-            worksheet.write(b_idx, ko_words[j])
+            if ko_words[j] in [',', '.', '\'', '\"', '-']:
+                worksheet.write(b_idx, ko_words[j][:-1])
+                # print(ko_words[j][:-1])
+            else:
+                worksheet.write(b_idx, ko_words[j])
+                # print(ko_words[j])
 
 
             # C.  en_word 쓰기
             c_idx = excel_index_creator('C', row_idx)
-            worksheet.write(c_idx, en_words[j])
-            
-
-            # D.  en_word 쓰기
-            d_idx = excel_index_creator('D', row_idx)
-            # print(row_idx, raw_sent, '\n\t', ko_words[j], '-', en_words[j])
-            # 한-영 짝꿍이 안 맞으면 엑셀에 아예 raw_sent도 입력이 안되서 
-            # length가 다를때는 일단 넘어가고 
-            # 형태소 어떤 패턴으로 뽑앗는지 확인하기
-
-            if len(ko_words) != len(mor_match_list_str):
-                continue
-            # length가 같을때는 쓰게 만들기
-            worksheet.write(d_idx, mor_match_list_str[j])
-            
-
+            if en_words[j] in [',', '.', '\'', '\"', '-']:
+                worksheet.write(c_idx, en_words[j][:-1])
+            else:
+                worksheet.write(c_idx, en_words[j])
+                    
             row_idx += 1
 
     workbook.close()
@@ -125,7 +122,7 @@ def regex_output(raw_sents):
     for idx, sent in enumerate(raw_sents):
         en_words, en_words_len = find_En(sent)
         ko_words = find_Ko(sent, en_words_len)
-        print(idx, sent, en_words, ko_words)
+        # print(idx, sent, en_words, ko_words)
         a_idx = 'A' + str(row_idx)
         worksheet.write(a_idx, sent)
         for j in range(len(ko_words)):

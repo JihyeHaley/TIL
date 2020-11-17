@@ -1,0 +1,51 @@
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-5. 2.Tool+Demo_HTML+#2-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-02.Nexmed_Cardio_v1.3_API_List_190207-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-3. camelliaGL_guide-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-7. UI Dev-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.4(영중)-영.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-01.Nexmed_Cardio_v1.3_Feature_List_Final-영.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-14. Anyframe Community 개발 가이드-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.10&CP-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-11. camellliaGL-양.xlsx
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex_V6.22.0_다국어-양.xlsx
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex_다국어-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-문제점(무선)-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex_다국어 표준 정의서_V6150-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-8. 사용자메뉴얼(Portal)-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.11-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-(전사_권한추출)사업부 사용자 권한 정비문의_v1.0-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-4. 1.Tool+Demo_HTML+#1-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.1(영중)-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex VD 다국어 요청-양.xlsx
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.6-영.xlsx
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex_다국어 표준 정의서_V6120-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex 다국어 요청_190617-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-문제점1(무선)-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-01.Nexmed_Cardio_v1.3_Feature_List_Final-한.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-[Android]SW_ArchitectureDesign-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex_6180_다국어-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.7-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-CPCex_V6210_다국어-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-16. aui_camellia 1.40-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-13. simon 사용자가이드-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.2(영중)-양.xlsx
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-2. api_docs-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-12. ReactNative-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-9. 사용자메뉴얼(Vue)-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-17. CamelliaJS 교육교재-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.9-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.8-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-15. opus_api-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-10. camelliajs-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-문제점(SR)_매뉴얼-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-1. aui-widgets-2.1.0-api-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-v1.9.1.3(영중)-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-자재승인-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-6. 3.Tool+Demo_Flat+UI-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/2019삼성SDS/TE-2019삼성SDS-문제점(SR)_매뉴얼2-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/렉스코드TM/TE-삼성SDS_기계기술_삼성PLM 매뉴얼-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/렉스코드TM/TE-삼성SDS_IT_시스템언어 매뉴얼-양.xlsx
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/렉스코드TM/TE-삼성SDS_기계기술_통합테스트정의서-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/렉스코드TM/TE-삼성SDS_기계기술_매뉴얼번역-양.xlsxlocal variable 'c_len' referenced before assignment
+[ERROR MESSAGE]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/렉스코드TM/TE-삼성SDS_기계기술_GAIA 관련 매뉴얼 (자원관리, 시험관리)-양.xlsxlocal variable 'c_len' referenced before assignment
+[DONE READING]/Users/jihyeoh/Lexcode/팀 채널 - 인공지능 학습 DB 구축 채널/1. 원본DB(렉스코드)/10.삼성SDS/렉스코드TM/TE-삼성SDS_IT_시스템 언어 매뉴얼-양.xlsx
