@@ -86,28 +86,44 @@ def test_excel(which_list):
                 worksheet_error.write(e_idx, tag_found_close[idx])
                 worksheet_error.write(f_idx, tag_found_close_idx[idx])
                 row_idx_error += 1
+
         # 길이가 맞을 때
         else:
-            regular_cnt += 1
-            a_idx = excel_index_creator('A', row_idx)
-            b_idx = excel_index_creator('B', row_idx)
+            regular_cnt += 1 # <span_0> </span>
+            if len(tag_found) >= 1:
+                tag_found_close_pre = list()
+                tag_found_close_idx_pre = list()
+                print(tag_found)
+                a = tag_found[0] 
+                b = tag_found_close[0]
+                if a[1:2] == b[2:3]:
+                    continue
+                elif a[1:2] != b[2:3]:
+                    for idx, _ in enumerate(tag_found):
+                        tag_found_close_pre.append(tag_found_close.pop())
+                        tag_found_close_idx_pre.append(tag_found_close_idx.pop())
 
-            worksheet_regular.write(a_idx, path_simple_list[idx])
-            worksheet_regular.write(b_idx, sent)
+                tag_found_close = tag_found_close_pre 
+                tag_found_close_idx = tag_found_close_idx_pre 
+                a_idx = excel_index_creator('A', row_idx)
+                b_idx = excel_index_creator('B', row_idx)
 
-            regular_chunk += len(tag_found)
-            for idx in range(len(tag_found)):
-                c_idx = excel_index_creator('C', row_idx)
-                d_idx = excel_index_creator('D', row_idx)
-                e_idx = excel_index_creator('E', row_idx)
-                f_idx = excel_index_creator('F', row_idx)
+                worksheet_regular.write(a_idx, path_simple_list[idx])
+                worksheet_regular.write(b_idx, sent)
+
+                regular_chunk += len(tag_found)
+                for idx in range(len(tag_found)):
+                    c_idx = excel_index_creator('C', row_idx)
+                    d_idx = excel_index_creator('D', row_idx)
+                    e_idx = excel_index_creator('E', row_idx)
+                    f_idx = excel_index_creator('F', row_idx)
+                    
+                    worksheet_regular.write(c_idx, tag_found[idx])
+                    worksheet_regular.write(d_idx, tag_found_idx[idx])
+                    worksheet_regular.write(e_idx, tag_found_close[idx])
+                    worksheet_regular.write(f_idx, tag_found_close_idx[idx])
+                    row_idx += 1
                 
-                worksheet_regular.write(c_idx, tag_found[idx])
-                worksheet_regular.write(d_idx, tag_found_idx[idx])
-                worksheet_regular.write(e_idx, tag_found_close[idx])
-                worksheet_regular.write(f_idx, tag_found_close_idx[idx])
-                row_idx += 1
-            
     workbook_error.close()
     workbook_regular.close()
     stop = timeit.default_timer()
