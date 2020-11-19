@@ -1,14 +1,3 @@
-import os
-lower = [chr(l) for l in range(97, 119, 1)] # a - v 까지
-
-
-def html_tag_creator():
-    # 꺽세 괄호 시작도 포함
-    html_tag_delegates = ['p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img', 'p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img', 'p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img', 'p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img', 'p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img', 'p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img']
-    return html_tag_delegates
-
-
-
 html_tag_list = list()
 html_tag_a = ['a', 'abbr', 'acronym', 'address', 'applet', 'area', 'article', 'aside', 'audio']
 html_tag_b = ['b', 'base', 'basefont', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button']
@@ -30,5 +19,3 @@ html_tag_s = ['s', 'samp', 'script', 'section', 'select', 'small', 'source ', 's
 html_tag_t = ['table', 'tbody', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'tt']
 html_tag_u = ['u', 'ul']
 html_tag_v = ['var', 'video', 'wbr']
-
-
