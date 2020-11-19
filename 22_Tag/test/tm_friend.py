@@ -13,13 +13,17 @@ def excel_index_creator(column, row_idx):
 
 def html_tag_creator():
     # 꺽세 괄호 시작도 포함
-    html_tag_delegates = ['p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img', 'strong']
+    html_tag_delegates = ['p', 'span', 'a', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img']
     return html_tag_delegates
 
 
 
 # test용으로 simple의 한글 먼저 받아와서 돌리기
-test = ['<span_53><a_54>스티비가 함께 합니다</a>.</span>', '귀하께서 <strong>techNeedle 테크니들</strong>에서 놓쳤을 수 있는 좋은 컨텐츠:', '<span_3><a_0>웹에서 보기</a><span_1> </span><span_1> </span><a_2>인스타그램</a></span>', '<span_5>🦔</span><span_5>고슴이: 2주 만에 완전체 모습으로 만나니 더 반갑슴! </span>']
+test = ['<span_3><a_0>웹에서 보기</a><span_1> </span><span_1> </span><a_2>인스타그램</a></span>', '<span_5>🦔</span><span_5>고슴이: 2주 만에 완전체 모습으로 만나니 더 반갑슴! </span>']
+print(len(test[0]))
+print(test[0][-1])
+print(test[0][72:76])
+
 
 
 # 시작 한 개 씩
@@ -74,7 +78,6 @@ def find_directly_close(sent, tag_lists):
         html_tag_end_idx = 0
         html_tag_end_is = ''
         html_tag_end_idx_str = ''
-        tag_end_cnt = 0
         for sdx in range(0, len(sent)):
             if sent[sdx:sdx+len(tag_end_two)] != tag_end_two:
                 continue
@@ -89,7 +92,6 @@ def find_directly_close(sent, tag_lists):
                 for idx in range(sdx, len(sent)-len_html_tag + 1):
                     # <span 같이 시작 찾기
                     if sent[idx:idx+len_html_tag] == tag_end:
-                        tag_end_cnt += 1
                         print(f'html_tag_start_idx: {idx}')
                         print(sent[idx:idx+len_html_tag])
                         html_tag_start_idx = idx
@@ -104,14 +106,14 @@ def find_directly_close(sent, tag_lists):
                                 tag_found_end.append(html_tag_end_is)
                                 tag_found_end_idx.append(html_tag_end_idx_str)
                                 break
-                    if tag_end_cnt == 0:
-                        tag_found_end.append('NA')
-                        tag_found_end_idx.append('NA')
-                    break  
-
+                    break       
                 break
-            
-            
+    tag_found_end_pre = list()
+    tag_found_end_idx_pre = list()
+    for _ in range(len(tag_found_end_pre)):
+        tag_found_end_pre.append(tag_found_end.pop())
+        tag_found_end_idx_pre.append(tag_found_end_idx.pop())        
+    print(tag_found_end_pre)      
     return tag_found_end, tag_found_end_idx
 
 

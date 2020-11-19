@@ -17,7 +17,6 @@ from extractor import find_tag
 path_simple_list, ko_list = call_tagMT_ko_simple_lan('ko')
 
  
- 
 def test_excel(which_list):
     start = timeit.default_timer()
     timestamp = datetime.now().strftime('%m%d%H%M')
