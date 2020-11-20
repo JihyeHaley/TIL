@@ -11,17 +11,18 @@ from create_raw_tm_to_list import call_tagMT_ko_simple_lan
 from common_function import excel_index_creator, html_tag_creator
 
 # 추출하는 함수
-from extractor import find_tag
+from extractor import find_tag, stack_extractor
 
 # test용으로 simple의 한글 먼저 받아와서 돌리기
-path_simple_list, ko_list = call_tagMT_ko_simple_lan('ko')
+lan = input(str())
+path_simple_list, lan_list = call_tagMT_ko_simple_lan(lan)
 
  
 def test_excel(which_list):
     start = timeit.default_timer()
     timestamp = datetime.now().strftime('%m%d%H%M')
     ########### error ###########
-    workbook_error = xlsxwriter.Workbook('./results/simple/error_simple_regex_test_ko_' + timestamp + '_.xlsx')
+    workbook_error = xlsxwriter.Workbook('./results/simple/error_simple_regex_test_'+ lan + '_' + timestamp + '_.xlsx')
     worksheet_error = workbook_error.add_worksheet()
     worksheet_error.write('A1', 'path')
     worksheet_error.write('B1', 'Raw_TM')
@@ -32,7 +33,7 @@ def test_excel(which_list):
     row_idx_error = 2
 
     ########### regular ###########
-    workbook_regular = xlsxwriter.Workbook('./results/simple/regular_simple_regex_test_ko_' + timestamp + '_.xlsx')
+    workbook_regular = xlsxwriter.Workbook('./results/simple/regular_simple_regex_test_'+ lan + '_' + timestamp + '_.xlsx')
     worksheet_regular = workbook_regular.add_worksheet()
     worksheet_regular.write('A1', 'path')
     worksheet_regular.write('B1', 'Raw_TM')
@@ -46,10 +47,10 @@ def test_excel(which_list):
     regular_cnt = 0
     error_chunk = 0
     regular_chunk = 0
-
+    
     for idx, sent in enumerate(which_list):
 
-        tag_found, tag_found_idx, tag_found_close, tag_found_close_idx= find_tag(sent)
+        tag_found, tag_found_idx, tag_found_close, tag_found_close_idx = stack_extractor(sent)
         # 길이가 안 맞을 때
         if len(tag_found) != len(tag_found_close):
             # tag_found_close가 더 작을 때
@@ -118,7 +119,7 @@ def test_excel(which_list):
     print(f'regular_cnt: {regular_cnt}')
     print(f'regular_chunk: {regular_chunk}')
 
-test_excel(ko_list)
+test_excel(lan_list)
 
 
 
