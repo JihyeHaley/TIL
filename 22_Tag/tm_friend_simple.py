@@ -120,14 +120,3 @@ def test_excel(which_list):
     print(f'regular_chunk: {regular_chunk}')
 
 test_excel(ko_list)
-
-
-
-
-                
-
-               
-                
-        
-
-
