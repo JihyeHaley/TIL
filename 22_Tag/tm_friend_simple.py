@@ -11,7 +11,7 @@ from create_raw_tm_to_list import call_tagMT_ko_simple_lan
 from common_function import excel_index_creator, html_tag_creator
 
 # 추출하는 함수
-from extractor import find_tag, stack_extractor
+from stack_extractor import stack_extractor
 
 # test용으로 simple의 한글 먼저 받아와서 돌리기
 lan = input(str())
