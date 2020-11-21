@@ -155,10 +155,8 @@ def chceck_find_list(tag_found_start, tag_found_start_idx, tag_found_close, tag_
 
 def test_excel(which_list):
 
-    error_cnt = 0
-    regular_cnt = 0
-
     for idx, sent in enumerate(which_list):
+        print(idx)
         tag_found_start, tag_found_start_idx, tag_found_close, tag_found_close_idx = find_tag(sent)
         # tag_found_start, tag_found_start_idx, tag_found_close, tag_found_close_idx = chceck_find_list(tag_found_start, tag_found_start_idx, tag_found_close, tag_found_close_idx)
         print(f'sent: {sent}')
