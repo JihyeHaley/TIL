@@ -81,7 +81,11 @@ def stack_extractor(sent):
                         tag_found_close_idx.append(tag_lists_close_idx.pop())
                         tag_found_open.append('tokenize_error')
                         tag_found_open_idx.append('tokenize_error') 
-                        
+                    # elif len(tag_lists_close) == 0:
+                    #     tag_found_close.append('tokenize_error')
+                    #     tag_found_close_idx.append('tokenize_error')
+                    #     tag_found_open.append(tag_lists_open.pop())
+                    #     tag_found_open_idx.append(tag_lists_open_idx.pop()) 
                     else:
                         tag_found_close.append(tag_lists_close.pop())
                         tag_found_close_idx.append(tag_lists_close_idx.pop())
