@@ -142,3 +142,4 @@ def test_excel(which_list):
     # print(f'regular_cnt: {regular_cnt}')
 
 test_excel(test)
+print(test[0][17:23])
