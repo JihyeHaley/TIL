@@ -6,8 +6,9 @@ import timeit
 
 
 # test용으로 simple의 한글 먼저 받아와서 돌리기
-test = ['<br><span_3><a_0>웹에서 보기</a><span_1> </span></h1><span_1> </span><a_2>인스타그램</a>']
+test = ['<span_47><span_45><a_75>FAQ</a> | </span><a_74>구독하기</a></span><span_48><span_49> </span><span_47>|</span><span_41><span_47> </span><span><a_77>협업문의</a></span></span></span>','<span_3><a_0>웹에서 보기</a><span_1> </span><span_1> </span><a_2>인스타그램</a></span>', '<span_115><span_116>🦔</span>고슴이: </span><span_116>분량 줄었다고 아쉬워하지 말라고<span_117> 재미로 하는 뉴니커 설문</span></span><span_116><span_117>, </span>부담 없이 읽을 수 있는<span_117> 가성비 뉴스 10개</span> 준비했슴! 외계인인가 고양인가 싶은... 귀여운(?) <b>나스카 그림 이야기</b>도 가져왔슴.</span>', '<br><span_3><a_0>웹에서 보기</a><span_1> </span></h1><span_1> </span><a_2>인스타그램</a>']
 test_2 =['<hr><img><hr></b><span_5>🦔</span></a><span_5>고슴이: 2주 만에 완전체 모습으로 만나니 더 반갑슴! </span>']
+
 def html_tag_creator():
     # 꺽세 괄호 시작도 포함
     html_tag_delegates = ['p', 'span', 'a', 'b', 'strong', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr', 'img']
@@ -70,11 +71,10 @@ def stack_extractor(sent):
                                 else:
                                     tag_lists_open.append(tag_is)
                                     tag_lists_open_idx.append(tag_idx_str)
-                                    
                                 break
                     break
                 
-                                
+            # 끝 태그일때                  
             elif sent[remember_this:remember_this+len(tag_end)] == tag_end:
                 for idx in range(remember_this, len(sent)-len(tag_end)):
                     tag_start_idx = idx
@@ -124,22 +124,33 @@ def find_tag(sent):
  
 
 def test_excel(which_list):
-
-    error_cnt = 0
-    regular_cnt = 0
-
     for idx, sent in enumerate(which_list):
         tag_found_start, tag_found_start_idx, tag_found_close, tag_found_close_idx = find_tag(sent)
+        print( tag_found_start)
+        print(tag_found_start_idx)
+        print(tag_found_close)
+        print(tag_found_close_idx)
         # tag_found_start, tag_found_start_idx, tag_found_close, tag_found_close_idx = chceck_find_list(tag_found_start, tag_found_start_idx, tag_found_close, tag_found_close_idx)
-        print(f'sent: {sent}')
-        print(f'tag_found: {tag_found_start}')
-        print(f'tag_found_idx: {tag_found_start_idx}')
-        print(f'tag_found_close: {tag_found_close}')
-        print(f'tag_found_close_idx: {tag_found_close_idx}')
-        print(f'{len(tag_found_start)}, {len(tag_found_close)}')
+        plain_text_list = list()
+        for jdx in range(len(tag_found_start)):
+            plain_start = tag_found_start_idx[jdx].split(':')[-1]
+            plain_end = tag_found_close_idx[jdx].split(':')[0]
+            if plain_end == 'Self_Close' or plain_start == 'tokenize_error' or plain_end == 'tokenize_error_no_close':
+                continue
+            else:
+                plain_text = sent[int(plain_start):int(plain_end)]
+                if plain_text in ['', ' ']:
+                    continue
+                plain_text_list.append(plain_text)
+        print(plain_text_list)
+        # print(f'sent: {sent}')
+        # print(f'tag_found: {tag_found_start}')
+        # print(f'tag_found_idx: {tag_found_start_idx}')
+        # print(f'tag_found_close: {tag_found_close}')
+        # print(f'tag_found_close_idx: {tag_found_close_idx}')
+        # print(f'{len(tag_found_start)}, {len(tag_found_close)}')
                 
     # print(f'error_cnt: {error_cnt}')
     # print(f'regular_cnt: {regular_cnt}')
 
 test_excel(test)
-print(test[0][17:23])

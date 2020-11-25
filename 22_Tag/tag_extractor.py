@@ -81,11 +81,11 @@ def stack_extractor(sent):
                         tag_found_close_idx.append(tag_lists_close_idx.pop())
                         tag_found_open.append('tokenize_error')
                         tag_found_open_idx.append('tokenize_error') 
-                    # elif len(tag_lists_close) == 0:
-                    #     tag_found_close.append('tokenize_error')
-                    #     tag_found_close_idx.append('tokenize_error')
-                    #     tag_found_open.append(tag_lists_open.pop())
-                    #     tag_found_open_idx.append(tag_lists_open_idx.pop()) 
+                    elif len(tag_lists_open) == 1:
+                        tag_found_close.append('tokenize_error_no_close')
+                        tag_found_close_idx.append('tokenize_error_no_close')
+                        tag_found_open.append(tag_lists_open.pop())
+                        tag_found_open_idx.append(tag_lists_open_idx.pop()) 
                     else:
                         tag_found_close.append(tag_lists_close.pop())
                         tag_found_close_idx.append(tag_lists_close_idx.pop())
@@ -96,4 +96,19 @@ def stack_extractor(sent):
     return tag_found_open, tag_found_open_idx, tag_found_close, tag_found_close_idx
 
 
-
+def plain_text_extractor(sent, tag_found_start, tag_found_start_idx, tag_found_close_idx):
+    plain_text_list = list()
+    tag_found_start_output = list()
+    for jdx in range(len(tag_found_start)):
+        plain_open = tag_found_start_idx[jdx].split(':')[-1]
+        plain_close = tag_found_close_idx[jdx].split(':')[0]
+        if plain_close == 'Self_Close' or plain_open == 'tokenize_error' or plain_close == 'tokenize_error_no_close':
+            continue
+        else:
+            plain_text = sent[int(plain_open):int(plain_close)]
+            if plain_text in ['', ' ']:
+                continue
+            plain_text_list.append(plain_text)
+            tag_found_start_output.append(tag_found_start[jdx])
+            
+    return plain_text_list, tag_found_start_output
