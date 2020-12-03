@@ -2,6 +2,7 @@ import re
 
 tags = re.compile(r'(<\w+_?\d*>)|</\w+>')
 
+
 # 문장 내에 있는 태그 모양새를 모두 추출
 def _find_all(sentence, ls=[], start_idx=0):
     global tags
@@ -14,6 +15,7 @@ def _find_all(sentence, ls=[], start_idx=0):
     ls.append((tag.group(), (start_idx, end_idx)))
     return _find_all(sentence[tag_range[1]:], ls, end_idx)    # search는 find_all이 안 되므로 재귀적으로 모두 찾는다.
 
+
 # waiting_list에서 닫힘 태그의 짝을 찾아주는 함수
 def _find_pair(waiting_list, i, close_tag_name):
     if not waiting_list:
@@ -22,6 +24,7 @@ def _find_pair(waiting_list, i, close_tag_name):
     if open_tag_name == close_tag_name:
         return True
     return False
+
 
 # main 함수
 def find_all_tag_pairs(sentence):
