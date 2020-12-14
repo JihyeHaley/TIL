@@ -32,7 +32,12 @@ def docx_to_raw_text(file_name):
         if '。' in line:
             each_line = line.split('。')
             for each_each_line in each_line:
-                contents_prep.append(each_each_line+'。')
+                if each_each_line in ['', ' ']:
+                    continue
+                else:
+                    contents_prep.append(each_each_line+'。')
+        elif '**' in line or '>>' in line or '--' in line:
+            continue
         else:
             each_line = line.strip()
             contents_prep.append(each_line)
@@ -133,3 +138,4 @@ def parsing_docx_at_once():
     print(f'total_cnt: {total_row_cnt}')
 
 parsing_docx_at_once()
+# find_which_file()
