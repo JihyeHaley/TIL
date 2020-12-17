@@ -38,10 +38,10 @@ def test():
         a = str(input())
         answer = f'\t{question} ----\t{en}'
         if a == 'pass':
-            test_result.write('Pass' + answer + '\n')
+            test_result.write('Pass' + answer)
             pass_cnt += 1
         elif a == 'fail':
-            test_result.write('Fail' + answer + '\n')
+            test_result.write('Fail' + answer)
             fail_cnt += 1
 
         print(f'A.{cnt} : {en}')
@@ -53,7 +53,7 @@ def test():
             continue
 
     result = f'\npass: {pass_cnt}, fail: {fail_cnt} / total:{len_test}'
-    test_result.write('\n' + timestamp + result)
+    test_result.write(timestamp + result)
     test_result.close()
 
 def let_begin():
