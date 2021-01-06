@@ -23,8 +23,8 @@ parser.add_argument(
     "-r",
     "--root_path",
     type=str,
-    default= str(Path.home()) + "/주식회사 트위그팜/NIA - 01_원문/",
-    help="<type: str> root directory for each category document files (Default path = $HOME/주식회사 트위그팜/NIA - 01_원문/)"
+    default= str(Path.home()) + "/Users/haley/Desktop/JPN_Parsing/",
+    help="<type: str> root directory for each category document files (Default path = $HOME/Users/haley/Desktop/JPN_Parsing/)"
 )
 
 parser.add_argument(
