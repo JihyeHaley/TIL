@@ -12,12 +12,32 @@ from pdfminer.layout import LAParams, LTTextBox, LTTextLine
 # PDFPageAggregator - Extract the decive to page aggregator to get LT object elements
 from pdfminer.converter import PDFPageAggregator
 
-from utils.regex_functions import quotes_cleaner
 import re
 import logging
 
 
-def read_pdf_to_text(pdf_file):
+# 한국어
+def _isContainKo(text):
+    ko = re.compile(r'.*[가-힇ㄱ-ㅎㅏ-ㅣ]+') 
+    # return bool(ko.fullmatch(text))
+    return bool(ko.match(text))  
+
+
+# 한자
+def _isContainKoT(text):
+    kot = re.compile(r'.*[一-龥]+') 
+    # return bool(ko.fullmatch(text))
+    return bool(kot.match(text))   
+
+
+# 영어
+def _isContainEn(text):
+    en = re.compile(r'.*[a-zA-Z]+') 
+    # return bool(ko.fullmatch(text))
+    return bool(en.match(text)) 
+
+
+def _read_pdf_to_text(pdf_file):
 
     password = ''
     extracted_text = ''
@@ -32,11 +52,11 @@ def read_pdf_to_text(pdf_file):
 
     # Create parser object to parse the pdf content
     parser = PDFParser(fp)
-    print(parser)
+    # print(parser)
 
     # Store the parsed content in PDFDocument object
     document = PDFDocument(parser)
-    print(document)
+    # print(document)
 
     # Check if document is extractable, if not abort
     if not document.is_extractable:

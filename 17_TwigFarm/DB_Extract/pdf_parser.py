@@ -6,38 +6,14 @@ from datetime import datetime
 import timeit
 import xlsxwriter
 from tqdm import tqdm
-from read_pdf import read_pdf_to_text
 import re
 
-
-# 일본어
-# [あ-んァ-ソ]
-
-
-# 한국어
-def isContainKo(text):
-    ko = re.compile(r'.*[가-힇ㄱ-ㅎㅏ-ㅣ]+') 
-    # return bool(ko.fullmatch(text))
-    return bool(ko.match(text))  
-
-
-# 한자
-def isContainKoT(text):
-    kot = re.compile(r'.*[一-龥]+') 
-    # return bool(ko.fullmatch(text))
-    return bool(kot.match(text))   
-
-
-# 영어
-def isContainEn(text):
-    en = re.compile(r'.*[a-zA-Z]+') 
-    # return bool(ko.fullmatch(text))
-    return bool(en.match(text))  
-
+from pdf_utils import _isContainKo, _isContainKoT, _isContainEn, _read_pdf_to_text
+from word_pos_test import _start_mecab
 
 
 ## excel idx 
-def excel_index_creator(colum, row_idx):
+def _excel_index_creator(colum, row_idx):
     colum_idx = colum + str(row_idx)
     return colum_idx
     
@@ -55,24 +31,25 @@ def pdf_text_to_excel(pdf_file_list, sub_path):
         timestamp = datetime.now().strftime('%m%d%H%M')
         start = timeit.default_timer()
 
-        
-        
+
 
         for each_file in tqdm(pdf_file_list):
             # Open and create each excel file
-            workbook = xlsxwriter.Workbook('./' + each_file[-11:-4]  + '_pdf_'  + timestamp +'.xlsx') 
+            workbook = xlsxwriter.Workbook('./' + each_file[-12:-4]  + '_pdf_'  + timestamp +'.xlsx') 
             worksheet = workbook.add_worksheet()
             
             # 셀 색칠 
             cell_yellow = workbook.add_format()
             cell_yellow.set_pattern(1)
             cell_yellow.set_bg_color('yellow')
-            worksheet.write('A1', 'raw', cell_yellow)
+            worksheet.write('A1', 'no')
+            worksheet.write('B1', 'Raw', cell_yellow)
+            worksheet.write('C1', 'Mecab', cell_yellow)
 
             row_idx = 2
 
             # read pdf files and get as text list
-            pdf_text_list = read_pdf_to_text(each_file)
+            pdf_text_list = _read_pdf_to_text(each_file)
             print(len(pdf_text_list))
 
             # for line in pdf_text_list:
@@ -80,14 +57,27 @@ def pdf_text_to_excel(pdf_file_list, sub_path):
                 
 
             for sent in pdf_text_list:
-
                 # 한국어, 한자, 영어 셋 중 하나라도 없으면 그냥 패스 
-                if isContainKo(sent) and isContainKoT(sent) and isContainEn(sent)== True:
-                    # A. Path 쓰기
-                    a_idx =excel_index_creator('A', row_idx)
-                    worksheet.write(a_idx, sent)
-                    print(row_idx)
-                    row_idx += 1
+                if _isContainKo(sent) and _isContainKoT(sent) and _isContainEn(sent)== True:
+                    output_sent = re.sub(r'▶', '',sent)
+                    if _isContainKoT(output_sent) == True:
+                        a_idx = _excel_index_creator('A', row_idx)
+                        b_idx = _excel_index_creator('B', row_idx)
+                        c_idx = _excel_index_creator('C', row_idx)
+                        
+                        # a. no 쓰기
+                        worksheet.write(a_idx, str(row_idx - 1))
+
+                        # b. raw 쓰기
+                        output_sent = re.sub(r'▶', '',sent)
+                        worksheet.write(b_idx, output_sent)
+                        
+                        # c. mecab 쓰기
+                        te = _start_mecab(output_sent)
+                        worksheet.write(c_idx, str(te))
+
+                        print(row_idx)
+                        row_idx += 1
          
             workbook.close()
         stop = timeit.default_timer()

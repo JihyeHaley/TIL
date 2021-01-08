@@ -51,6 +51,7 @@ def _extract_db(raw_sent):
     ko = re.findall(ko_pattern, raw_sent)
     kot = re.findall(kot_pattern, raw_sent)
     en = re.findall(en_pattern, raw_sent)
+    
     print(ko, kot, en)
     return ko, kot, en
 
