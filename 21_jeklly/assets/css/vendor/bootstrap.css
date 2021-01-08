@@ -10035,3 +10035,294 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+<<<<<<< HEAD:리뉴얼할 포트폴리오/css/styles.css
+body {
+  padding-top: 3.375rem;
+  color: #6c757d;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 0;
+    padding-left: 17rem;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
+h1 {
+  line-height: 1;
+}
+
+p.lead {
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+.subheading {
+  /* font-family: "Saira Extra Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
+  /* font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important; */
+  font-family: "SB Heading", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+#sideNav .navbar-nav .nav-item .nav-link {
+  font-weight: 800;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+#sideNav .navbar-toggler:focus {
+  outline-color: #d48a6e;
+}
+
+@media (min-width: 992px) {
+  #sideNav {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 17rem;
+    height: 100vh;
+  }
+  #sideNav .navbar-brand {
+    display: flex;
+    margin: auto auto 0;
+    padding: 0.5rem;
+  }
+  #sideNav .navbar-brand .img-profile {
+    max-width: 10rem;
+    max-height: 10rem;
+    border: 0.5rem solid rgba(255, 255, 255, 0.2);
+  }
+  #sideNav .navbar-collapse {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 0;
+    width: 100%;
+    margin-bottom: auto;
+  }
+  #sideNav .navbar-collapse .navbar-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+  #sideNav .navbar-collapse .navbar-nav .nav-item {
+    display: block;
+  }
+  #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
+    display: block;
+  }
+}
+.social-icons .social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  width: 3.5rem;
+  background-color: #495057;
+  color: #fff;
+  border-radius: 100%;
+  font-size: 1.5rem;
+  margin-right: 1.5rem;
+}
+.social-icons .social-icon:last-child {
+  margin-right: 0;
+}
+.social-icons .social-icon:hover {
+  background-color: #0063b2;
+}
+
+.dev-icons {
+  font-size: 3rem;
+}
+
+section.resume-section {
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  max-width: 75rem;
+}
+section.resume-section .resume-section-content {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  section.resume-section {
+    min-height: 100vh;
+  }
+}
+@media (min-width: 992px) {
+  section.resume-section {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* from original */
+.footer {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #02284b;
+  color: #fff; }
+
+.copyright {
+  background-color: #010e19; }
+
+#brandImage {
+  height: 2rem; }
+
+.portfolio {
+  padding-top: 6rem;
+  padding-bottom: 4.5rem; }
+
+.page-section-heading {
+  display: inline-block; }
+
+.pre {
+  white-space: pre; }
+
+.pre-wrap {
+  white-space: pre-wrap; }
+
+.icon-contact {
+  display: flex;
+  height: 5rem;
+  width: 5rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background-color: #0063b2;
+  color: #fff;
+  border-radius: 100%; }
+
+.navbar-brand img {
+  max-width: 13.5rem; }
+
+.img-port{
+  width:30.33333333%;
+}
+
+.img-experience{
+  width:25.3333333333%;
+}
+
+.img-skills{
+  width:45%; 
+  margin-bottom:30px;
+}
+
+.img-project {
+  width:24%;
+}
+
+.skill-font {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.third-background {
+  background-color:white;
+  border-radius: 10px;
+}
+
+.design-img{
+  width: 100%; 
+  border:solid; 
+  border-radius:30px;
+}
+
+.box{
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.78rem;
+}
+
+.red{
+  background-color: #ff3300;
+}
+
+.yellow{
+  background-color: #ffcc00;
+}
+
+.green{
+  background-color: #00b33c;
+}
+
+.blue{
+  background-color: #008ae6;
+}
+
+.purple{
+  background-color: #4d0099;
+}
+
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300; }
+
+.img-height-12-0{
+  height: 1.8em;
+  margin-bottom: 0.3em;
+}
+
+.img-height-11{
+  height: 1.8em;
+  border-radius: 0.6rem;
+  margin-bottom: 0.2em;
+}
+
+.img-height-12{
+  height: 1.8em;
+  border-radius: 0.6rem;
+}
+
+.img-margin-bottom-5{
+  margin-bottom:5px;
+}
+
+.skills-image{
+  width: 5%;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 4px;
+}
+
+.about-table{
+  table-layout:auto;
+  width : 80%;
+}
+
+.about-table th,
+.about-table td{
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  text-size: 1.2rem;
+}
+.about-table-center{
+  text-align:right;
+  height: 3rem;
+  width: 3rem;
+  margin-right:20px;
+}
+=======
+>>>>>>> 008ae692a74be9c9ee5e053827265dff2897cfe5:21_jeklly/assets/css/vendor/bootstrap.css
