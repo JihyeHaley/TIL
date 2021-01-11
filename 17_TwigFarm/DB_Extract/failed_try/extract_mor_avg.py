@@ -28,28 +28,8 @@ start = timeit.default_timer()
 df = pd.read_excel(xlsx_file)   
 raw_data = df['Raw'].tolist()
 
-# Open and create each excel file
-workbook = xlsxwriter.Workbook('./mecab_pattern_pdf_'  + timestamp +'.xlsx') 
-worksheet = workbook.add_worksheet()
-
-workbook_2 = xlsxwriter.Workbook('./mecab_none_contain_pdf_'  + timestamp +'.xlsx') 
-worksheet_2 = workbook_2.add_worksheet()
-
-# 셀 색칠 
-cell_yellow = workbook.add_format()
-cell_yellow.set_pattern(1)
-cell_yellow.set_bg_color('yellow')
-
-# Colum name
-worksheet.write('A1', 'Raw')
-worksheet.write('B1', 'til english', cell_yellow)
-worksheet.write('C1', 'mor count', cell_yellow)
-worksheet.write('D1', 'Ko Kot En', cell_yellow)
-
-worksheet_2.write('A1', '탈락')
-wrong_idx = 2
-row_idx = 2
-
+total_mor_dict = dict()
+cnt = 0
 # analyze and write
 for idx, sent in enumerate(raw_data):
     reg_sent = _reg_sent(sent)
@@ -67,8 +47,6 @@ for idx, sent in enumerate(raw_data):
                 if te[_][1] != 'SL':
                     stop_idx = _
                     break
-    
-    print(stop_idx) 
 
     for idx in range(stop_idx):
         key_mor = te[idx][1]
@@ -80,35 +58,17 @@ for idx, sent in enumerate(raw_data):
         elif key_mor in each_te_dict:
             each_te_dict[key_mor] += 1
 
-    if len(kokoten) == 0:
-        a_idx = _excel_index_creator('A', wrong_idx)
-        worksheet_2.write(a_idx, sent)
-        wrong_idx += 1
+    # total_mor_dict 에 넣어줘서 전체 평균 구해보기
+    print(te[0:stop_idx])
+    for idx, _ in enumerate(te[0:stop_idx]):
+        if _[1] not in total_mor_dict:
+            total_mor_dict[_[1]] = 1
+        elif _[1] in total_mor_dict:
+            total_mor_dict[_[1]] += 1
+    cnt += 1
 
-    else:
-        a_idx = _excel_index_creator('A', row_idx)
-        b_idx = _excel_index_creator('B', row_idx)
-        c_idx = _excel_index_creator('C', row_idx)
-        d_idx = _excel_index_creator('D', row_idx)
+print(f'total_mor_dict: {total_mor_dict}')
+print(f'cnt: {cnt}')
 
-        print(reg_sent)
-        # a. raw 쓰기
-        worksheet.write(a_idx, reg_sent)
-
-        # b. mecab 쓰기
-        te = _start_mecab(reg_sent)
-        worksheet.write(b_idx, str(te[0:stop_idx]))
-
-        # c. pattern 쓰기
-        worksheet.write(c_idx, str(each_te_dict))
-
-        # d. pattern 쓰기
-        worksheet.write(d_idx, kokoten)
-
-
-        row_idx += 1
-
-    
-
-workbook.close()
-workbook_2.close()
+for key, value in total_mor_dict.items():
+    print(f'{key}_avg: {round(value/cnt, 2)}')

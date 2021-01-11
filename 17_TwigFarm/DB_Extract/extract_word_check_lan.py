@@ -11,7 +11,7 @@ def _reg_sent(sent):
     # 특수기호는 빼기
     sent = re.sub(r'▶', '', sent)
     # _,_._km
-    sent = re.sub(r'[0-9]{0,},[0-9]{1,}\.[0-9]{1,}km', '', sent)
+    sent = re.sub(r'[0-9]{1,}\.[0-9]{1,}(km|m)', '', sent)
     return sent
 
 ## excel idx 
@@ -43,10 +43,13 @@ cell_yellow.set_bg_color('yellow')
 # Colum name
 worksheet.write('A1', 'Raw')
 worksheet.write('B1', 'til english', cell_yellow)
-worksheet.write('C1', 'mor count', cell_yellow)
-worksheet.write('D1', 'Ko Kot En', cell_yellow)
+worksheet.write('C1', '패턴', cell_yellow)
+worksheet.write('D1', '한글', cell_yellow)
+worksheet.write('E1', '한자', cell_yellow)
+worksheet.write('F1', '영어', cell_yellow)
 
 worksheet_2.write('A1', '탈락')
+
 wrong_idx = 2
 row_idx = 2
 
@@ -68,7 +71,31 @@ for idx, sent in enumerate(raw_data):
                     stop_idx = _
                     break
     
-    print(stop_idx) 
+    ko, kot, en = '', '', ''
+    # list에서 한글, 한자, 영어 추출해보기
+    final_raws = te[0:stop_idx]
+    for idx, raw in enumerate(final_raws):
+        raw = final_raws[idx][0]
+        mor = final_raws[idx][1]
+        # 영어
+        if mor == 'SL':
+            if raw == 'm' or raw == 'km':
+                continue
+            en = raw
+        # 한글, 한자
+        else:
+            if _isContainKoT(raw) == True:
+                if kot == '':
+                    kot = raw
+                else:
+                    kot += raw
+
+            elif _isContainKo(raw) == True:
+                if ko == '':
+                    ko = raw
+                else:
+                    ko += raw
+    print(ko, kot, en)
 
     for idx in range(stop_idx):
         key_mor = te[idx][1]
@@ -86,12 +113,19 @@ for idx, sent in enumerate(raw_data):
         wrong_idx += 1
 
     else:
+        if ko == '' or kot == '' or en =='':
+            a_idx = _excel_index_creator('A', wrong_idx)
+            worksheet_2.write(a_idx, sent)
+            wrong_idx += 1
+            continue
+
         a_idx = _excel_index_creator('A', row_idx)
         b_idx = _excel_index_creator('B', row_idx)
         c_idx = _excel_index_creator('C', row_idx)
         d_idx = _excel_index_creator('D', row_idx)
+        e_idx = _excel_index_creator('E', row_idx)
+        f_idx = _excel_index_creator('F', row_idx)
 
-        print(reg_sent)
         # a. raw 쓰기
         worksheet.write(a_idx, reg_sent)
 
@@ -99,16 +133,21 @@ for idx, sent in enumerate(raw_data):
         te = _start_mecab(reg_sent)
         worksheet.write(b_idx, str(te[0:stop_idx]))
 
-        # c. pattern 쓰기
-        worksheet.write(c_idx, str(each_te_dict))
+        # c. 패턴쓰기
+        worksheet.write(c_idx, kokoten)
 
-        # d. pattern 쓰기
-        worksheet.write(d_idx, kokoten)
+        # d. 한글 쓰기
+        worksheet.write(d_idx, ko)
 
+        # e. 한자 쓰기
+        worksheet.write(e_idx, kot)
+
+        # f. 영어 쓰기
+        worksheet.write(f_idx, en)
 
         row_idx += 1
 
-    
+        
 
 workbook.close()
 workbook_2.close()
