@@ -1,48 +1,14 @@
-'''
-    pdf parser
-'''
-
 from datetime import datetime
 import timeit
 import xlsxwriter
 from tqdm import tqdm
-from read_pdf import read_pdf_to_text
 import re
 
-
-# 일본어
-# [あ-んァ-ソ]
-
-
-# 한국어
-def isContainKo(text):
-    ko = re.compile(r'.*[가-힇ㄱ-ㅎㅏ-ㅣ]+') 
-    # return bool(ko.fullmatch(text))
-    return bool(ko.match(text))  
+from utils.common_functions import _excel_index_creator, _reg_sent
+from utils.pdf_utils import _isContainKo, _isContainKoT, _isContainEn, _read_pdf_to_text
 
 
-# 한자
-def isContainKoT(text):
-    kot = re.compile(r'.*[一-龥]+') 
-    # return bool(ko.fullmatch(text))
-    return bool(kot.match(text))   
-
-
-# 영어
-def isContainEn(text):
-    en = re.compile(r'.*[a-zA-Z]+') 
-    # return bool(ko.fullmatch(text))
-    return bool(en.match(text))  
-
-
-
-## excel idx 
-def excel_index_creator(colum, row_idx):
-    colum_idx = colum + str(row_idx)
-    return colum_idx
-    
-
-def pdf_text_to_excel(pdf_file_list, sub_path):
+def _pdf_text_to_list(pdf_file_list):
     if len(pdf_file_list) == 0:
         print('''-----------------------------------------------------------
         PDF파일 없습니다.
@@ -51,45 +17,35 @@ def pdf_text_to_excel(pdf_file_list, sub_path):
         print('''-----------------------------------------------------------
         PDF 작업 시작합니다.
         ''')
-        # for time stamp
-        timestamp = datetime.now().strftime('%m%d%H%M')
-        start = timeit.default_timer()
-
+        print(f'PDF는 총 {len(pdf_file_list)}개 입니다.')
         
-        
-
         for each_file in tqdm(pdf_file_list):
-            # Open and create each excel file
-            workbook = xlsxwriter.Workbook('./' + each_file[-11:-4]  + '_pdf_'  + timestamp +'.xlsx') 
-            worksheet = workbook.add_worksheet()
-            
-            # 셀 색칠 
-            cell_yellow = workbook.add_format()
-            cell_yellow.set_pattern(1)
-            cell_yellow.set_bg_color('yellow')
-            worksheet.write('A1', 'raw', cell_yellow)
+            start = timeit.default_timer() # 작업 시작 시점
 
-            row_idx = 2
+            # pdf 파일 읽기 as List형태
+            pdf_text_list = _read_pdf_to_text(each_file) 
 
-            # read pdf files and get as text list
-            pdf_text_list = read_pdf_to_text(each_file)
-            print(len(pdf_text_list))
+            pdf_filtered_list = list() # db 처리 리스트
+            pdf_failed_list = list() # db 비처리 리스트
 
-            # for line in pdf_text_list:
-            #     each_line = line.strip()
-                
-
+            # pdf 파일 분류(처리/비처리)
             for sent in pdf_text_list:
+                filtered_sent = _reg_sent(sent) # 특수문자, km/m 제거
 
                 # 한국어, 한자, 영어 셋 중 하나라도 없으면 그냥 패스 
-                if isContainKo(sent) and isContainKoT(sent) and isContainEn(sent)== True:
-                    # A. Path 쓰기
-                    a_idx =excel_index_creator('A', row_idx)
-                    worksheet.write(a_idx, sent)
-                    print(row_idx)
-                    row_idx += 1
-         
-            workbook.close()
-        stop = timeit.default_timer()
+                if _isContainKo(filtered_sent) and _isContainKoT(filtered_sent) and _isContainEn(filtered_sent)== True:
+                    if _isContainKoT(filtered_sent) == True:
+                        pdf_filtered_list.append(filtered_sent) # db 처리 리스트 추가
+                else:
+                    pdf_failed_list.append(filtered_sent) # db 비처리 리스트 추가
 
-        print('PDF =====> Raw text to excel DONE (Running Time: ', stop - start, "sec.)")
+        
+            stop = timeit.default_timer() # 작업 끝나는 시점
+            print(f'pdf_parser Running Time: {stop - start} sec')
+            print(f'전체 문장 수: {len(pdf_text_list)}')
+            print(f'추출 문장 수: {len(pdf_filtered_list)}')
+
+    return pdf_filtered_list, pdf_failed_list
+            
+
+        
