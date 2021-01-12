@@ -4,19 +4,19 @@ import xlsxwriter
 import pandas as pd
 import timeit
 
-from utils.word_pos_utils import _start_mecab, _find_SL_idx, _extract_db_to_string, _check_mor_dict
+from utils.word_pos_utils import _start_mecab, _find_SL_idx, _extract_db_to_string
+# from utils.word_pos_utils import _check_mor_dict # 어떤 형식으로 뽑히는지 궁금하다면 활성화
 from utils.common_functions import _excel_index_creator
 from pdf_parser import _pdf_text_to_list
 
 
 def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
-    
     timestamp = datetime.now().strftime('%m%d%H%M') # timestamp
     start = timeit.default_timer() # 작업 시작 시점
 
     ###################################
     # db 처리 엑셀 파일
-    db_workbook = xlsxwriter.Workbook('./results/한국하천지명_pdf_추출문장_'  + timestamp +'.xlsx') 
+    db_workbook = xlsxwriter.Workbook('./results/db_pdf/한국하천지명사전_pdf_추출문장_'  + timestamp +'.xlsx') 
     db_worksheet = db_workbook.add_worksheet()
 
     # 셀 색칠 
@@ -35,7 +35,7 @@ def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
 
     ###################################
     # db 비처리 엑셀 파일
-    failed_workbook = xlsxwriter.Workbook('./results/한국하천지명_pdf_비추출문장_'  + timestamp +'.xlsx') 
+    failed_workbook = xlsxwriter.Workbook('./results/db_pdf/한국하천지명사전_pdf_비추출문장_'  + timestamp +'.xlsx') 
     failed_worksheet = failed_workbook.add_worksheet()
 
     # 셀 색칠 
@@ -58,7 +58,7 @@ def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
         # SL(영어 인덱 찾기)
         stop_idx = _find_SL_idx(mor_list)
 
-        # mor[_][1] 패턴 추출 및 mor[_][0] 이어서 한글 한자 영어 패턴 확인 
+        # mor[_][1] 패턴 추출 및 mor[_][0] 이어서 한글 한자 영어 패턴 확인 (from utils.word_pos_utils import _check_mor_dict)
         # kokoten = _check_mor_dict(mor_list, stop_idx)
 
         # mor_list에서 한글, 한자, 영어 추출해보기

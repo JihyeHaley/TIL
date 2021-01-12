@@ -1,7 +1,3 @@
-"""
-    common functions
-"""
-
 from pathlib import Path
 from unicodedata import normalize
 from konlpy.tag import Mecab
@@ -85,13 +81,3 @@ def words_detect_pos(text):
 def _excel_index_creator(colum, row_idx):
     colum_idx = colum + str(row_idx)
     return colum_idx
-
-
-
-# 특수기호, km, m 삭제
-def _reg_sent(sent):
-    # 특수기호는 빼기
-    sent = re.sub(r'▶', '', sent)
-    # _,_._km
-    sent = re.sub(r'[0-9]{1,}\.[0-9]{1,}(km|m)', '', sent)
-    return sent

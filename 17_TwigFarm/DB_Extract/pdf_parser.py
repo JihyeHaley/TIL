@@ -4,8 +4,8 @@ import xlsxwriter
 from tqdm import tqdm
 import re
 
-from utils.common_functions import _excel_index_creator, _reg_sent
-from utils.pdf_utils import _read_pdf_to_text
+from utils.common_functions import _excel_index_creator
+from utils.pdf_utils import _reg_sent, _read_pdf_to_text
 from utils.word_pos_utils import _isContainKo, _isContainKoT, _isContainEn
 
 
