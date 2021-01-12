@@ -26,27 +26,10 @@ def _isContainEn(text):
     return bool(en.match(text))  
 
 
-
 # excel idx 
 def _excel_index_creator(colum, row_idx):
     colum_idx = colum + str(row_idx)
     return colum_idx
-    
-
-
-# 한국어, 한자, 영어 추출
-def _extract_db(raw_sent):
-    ko, kot, en = '', '', ''
-    ko_pattern = re.compile(r'[가-힇ㄱ-ㅎㅏ-ㅣ]')
-    kot_pattern = re.compile(r'[一-龥]')
-    en_pattern = re.compile(r'[a-zA-Z]')
-
-    ko = re.findall(ko_pattern, raw_sent)
-    kot = re.findall(kot_pattern, raw_sent)
-    en = re.findall(en_pattern, raw_sent)
-    
-    print(ko, kot, en)
-    return ko, kot, en
 
     
 # 형태소 분석
@@ -57,7 +40,7 @@ def _start_mecab(sent):
     return mor_list
 
 
-# 영어 인덱스찾기
+# 영어가 끝나는 인덱스 찾기 in 형태소 리스트의 
 def _find_SL_idx(mor_list):
     stop_idx = 0
     for idx, mor in enumerate(mor_list):
@@ -70,6 +53,7 @@ def _find_SL_idx(mor_list):
 
 
 # mor[_][1] 패턴 추출 및 mor[_][0] 이어서 한글 한자 영어 패턴 확인 
+# mor[_][0] = 글자, mor[_][1] = 형태소
 def _check_mor_dict(mor_list, stop_idx):
     each_te_dict = dict()
     kokoten = ''

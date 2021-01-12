@@ -5,7 +5,8 @@ from tqdm import tqdm
 import re
 
 from utils.common_functions import _excel_index_creator, _reg_sent
-from utils.pdf_utils import _isContainKo, _isContainKoT, _isContainEn, _read_pdf_to_text
+from utils.pdf_utils import _read_pdf_to_text
+from utils.word_pos_utils import _isContainKo, _isContainKoT, _isContainEn
 
 
 def _pdf_text_to_list(pdf_file_list):
@@ -36,6 +37,8 @@ def _pdf_text_to_list(pdf_file_list):
                 if _isContainKo(filtered_sent) and _isContainKoT(filtered_sent) and _isContainEn(filtered_sent)== True:
                     if _isContainKoT(filtered_sent) == True:
                         pdf_filtered_list.append(filtered_sent) # db 처리 리스트 추가
+                
+                # 필터로 인해 비처리 할 리스트인지 확인 
                 else:
                     pdf_failed_list.append(filtered_sent) # db 비처리 리스트 추가
 

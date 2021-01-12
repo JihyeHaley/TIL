@@ -24,8 +24,8 @@ def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
     cell_yellow.set_pattern(1)
     cell_yellow.set_bg_color('yellow')
 
-    # 컬럼명
-    db_worksheet.write('A1', 'No')
+    # db 처리 엑셀 컬럼명
+    db_worksheet.write('A1', 'No', cell_yellow)
     db_worksheet.write('B1', '원문', cell_yellow)
     db_worksheet.write('C1', '한글', cell_yellow)
     db_worksheet.write('D1', '한자', cell_yellow)
@@ -43,7 +43,7 @@ def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
     cell_red.set_pattern(1)
     cell_red.set_bg_color('red')
 
-    # 컬럼명
+    # db 비처리 엑셀 컬럼명
     failed_worksheet.write('A1', 'No', cell_red)
     failed_worksheet.write('B1', '비처리 원문', cell_red)
     failed_worksheet.write('C1', 'm or km', cell_red)
@@ -51,7 +51,7 @@ def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
     
 
     # analyze and write
-    for idx, filtered_sent in enumerate(pdf_filtered_list):
+    for filtered_sent in pdf_filtered_list:
         # 형태소 분석
         mor_list = _start_mecab(filtered_sent)
         
@@ -97,14 +97,14 @@ def word_extract_to_word(pdf_filtered_list, pdf_failed_list):
     db_workbook.close()
 
     # 추출하지 않은 모든 파일 다시 적기
-    for idx, failed_sent in enumerate(pdf_failed_list):
+    for failed_sent in pdf_failed_list:
         a_idx = _excel_index_creator('A', failed_row_idx)
         b_idx = _excel_index_creator('B', failed_row_idx)
         c_idx = _excel_index_creator('C', failed_row_idx)
         
         failed_worksheet.write(a_idx, str(failed_row_idx-1)) # No
         failed_worksheet.write(b_idx, failed_sent) # 비처리 원문
-        failed_worksheet.write(c_idx, 'k or km') # m or km 유무
+        failed_worksheet.write(c_idx, '') # m or km 유무
 
         failed_row_idx += 1 # failed_row_idx 더하기
 

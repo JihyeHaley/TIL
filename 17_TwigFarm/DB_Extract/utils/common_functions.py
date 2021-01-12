@@ -4,12 +4,12 @@
 
 from pathlib import Path
 from unicodedata import normalize
+from konlpy.tag import Mecab
+
 import stanza
 import os
 import mammoth
 import re
-from konlpy.tag import Mecab
-
 
 
 # normalized file names
