@@ -10,33 +10,34 @@ from utils.word_pos_utils import _reg_sent, _isContainKo, _isContainKoT, _isCont
 
 
 def xlsx_text_to_list(xlsx_file_list, sub_path):
+    # 파싱한 파일 저장할 사전
+    xlsx_filtered_dict = dict()
+    xlsx_failed_dict = dict()
+
     if len(xlsx_file_list) == 0:
-        print('''-----------------------------------------------------------
-        XLSX파일 없습니다.
+        print('''\n-----------------------------------------------------------
+        XLSX 없습니다.
         ''')
     else:
-        print('''-----------------------------------------------------------
-        EXCEL 작업 시작합니다.
+        print('''\n-----------------------------------------------------------
+        XLSX 작업 시작합니다.
         ''')
         print(f'xlsx는 총 {len(xlsx_file_list)}개 입니다.')
         timestamp = datetime.now().strftime("%m%d%H%M")
 
-        # 파싱한 파일 저장할 사전
-        xlsx_filtered_dict = dict()
-        xlsx_failed_dict = dict()
         completed_log = open(f'./results/' + sub_path  + '/'  + 'xlsx_completed_log_' +timestamp + '.txt', "w+")
 
         for each_xlsx_file in tqdm(xlsx_file_list):
             file_name =  each_xlsx_file.split('/')[-1]  # 파일명만 빼기
             start = timeit.default_timer() # 작업 시작 시점
-
+            xlsx_sheet_name = ''
             try:
                 # xcel 파일 읽기
                 load_wb = open_workbook(each_xlsx_file)
 
                 # 엑셀에 포함돼있는 여러 시트들중 하나를 선택하기
                 for sheet_name in load_wb.sheet_names():
-
+                    xlsx_sheet_name = sheet_name
                     load_sheet = load_wb.sheet_by_name(sheet_name)
 
                     xlsx_filtered_list = list() # db 처리 리스트
@@ -68,12 +69,12 @@ def xlsx_text_to_list(xlsx_file_list, sub_path):
                     xlsx_failed_dict[file_name] = xlsx_failed_list
                     
                     stop = timeit.default_timer() # 작업 끝나는 시점
-                    print(f'{file_name} xlsx_parser Running Time: {stop - start} sec')
+                    print(f'{file_name}_{xlsx_sheet_name} xlsx_parser Running Time: {stop - start} sec')
                     print(f'추출 문장 수: {len(xlsx_filtered_list)}')
-                    completed_log.write(file_name+'\n') # 완료된 파일 적기
+                    completed_log.write(file_name + '\t' + xlsx_sheet_name + '\n') # 완료된 파일 적기
             
             except:
                 print('xlsx file error')
 
         completed_log.close()
-        return xlsx_filtered_dict, xlsx_failed_dict
+    return xlsx_filtered_dict, xlsx_failed_dict

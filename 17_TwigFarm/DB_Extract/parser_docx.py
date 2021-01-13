@@ -15,20 +15,20 @@ stop_word = ['구분', '영문', '국문', '-', '번역', '번역본', '원문',
 
 # 파일을 돌리는 해당 경로에 결과 엑셀 생성
 def docx_text_to_list(docx_file_list, sub_path):
+    # 파싱한 파일 저장할 사전
+    docx_filtered_dict = dict()
+    docx_failed_dict = dict()
+
     if len(docx_file_list) == 0:
-        print('''-----------------------------------------------------------
-        DOCX Mix 파일 없습니다.
+        print('''\n-----------------------------------------------------------
+        DOCX 없습니다.
         ''')
     else:
-        print('''-----------------------------------------------------------
-        DOCX Mix  작업 시작합니다.
+        print('''\n-----------------------------------------------------------
+        DOCX 작업 시작합니다.
         ''')
         print(f'PDF는 총 {len(docx_file_list)}개 입니다.')
         timestamp = datetime.now().strftime("%m%d%H%M")
-        
-        # 파싱한 파일 저장할 사전
-        docx_filtered_dict = dict()
-        docx_failed_dict = dict()
         completed_log = open(f'./results/'  + sub_path  + '/'  + 'docx_completed_log_' +timestamp + '.txt', "w+")
 
 
@@ -71,10 +71,11 @@ def docx_text_to_list(docx_file_list, sub_path):
                 print(f'{file_name} docx_parser Running Time: {stop - start} sec')
                 print(f'전체 문장 수: {len(docx_text_list)}')
                 print(f'추출 문장 수: {len(docx_filtered_list)}')
+                print(f'실패 문장 수: {len(docx_failed_list)}')
                 completed_log.write(file_name+'\n') # 완료된 파일 적기
             
             except:
                 print('docx file error')
 
         completed_log.close()
-        return docx_filtered_dict, docx_failed_dict
+    return docx_filtered_dict, docx_failed_dict

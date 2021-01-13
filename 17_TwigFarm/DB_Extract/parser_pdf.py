@@ -9,20 +9,21 @@ from utils.word_pos_utils import _reg_sent, _isContainKo, _isContainKoT, _isCont
 
 
 def pdf_text_to_list(pdf_file_list, sub_path):
+    # 파싱한 파일 저장할 사전
+    pdf_filtered_dict = dict()
+    pdf_failed_dict = dict()
+    
     if len(pdf_file_list) == 0:
-        print('''-----------------------------------------------------------
-        PDF파일 없습니다.
+        print('''\n-----------------------------------------------------------
+        PDF 없습니다.
         ''')
     else:
-        print('''-----------------------------------------------------------
+        print('''\n-----------------------------------------------------------
         PDF 작업 시작합니다.
         ''')
         print(f'PDF는 총 {len(pdf_file_list)}개 입니다.')
         timestamp = datetime.now().strftime("%m%d%H%M")
         
-        # 파싱한 파일 저장할 사전
-        pdf_filtered_dict = dict()
-        pdf_failed_dict = dict()
         completed_log = open(f'./results/'  + sub_path  + '/'  + 'pdf_completed_log_' +timestamp + '.txt', "w+")
 
         for each_pdf_file in tqdm(pdf_file_list):
@@ -67,7 +68,7 @@ def pdf_text_to_list(pdf_file_list, sub_path):
             except:
                 print('pdf file error')
 
-    completed_log.close()
+        completed_log.close()
     return pdf_filtered_dict, pdf_failed_dict
             
 

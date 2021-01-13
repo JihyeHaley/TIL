@@ -9,21 +9,21 @@ from utils.word_pos_utils import _reg_sent, _isContainKo, _isContainKoT, _isCont
 
 
 def pptx_text_to_list(pptx_file_list, sub_path):
+    # 파싱한 파일 저장할 사전
+    pptx_filtered_dict = dict()
+    pptx_failed_dict = dict()
+
     if len(pptx_file_list) == 0:
-        print('''-----------------------------------------------------------
-        PPTX파일 없습니다.
-        ''')
+        print('''\n-----------------------------------------------------------
+        PPTX 없습니다.
+        ''') 
     else:
-        print('''-----------------------------------------------------------
+        print('''\n-----------------------------------------------------------
         PPTX 작업 시작합니다.
         ''')
         
         print(f'pptx는 총 {len(pptx_file_list)}개 입니다.')
         timestamp = datetime.now().strftime("%m%d%H%M")
-        
-        # 파싱한 파일 저장할 사전
-        pptx_filtered_dict = dict()
-        pptx_failed_dict = dict()
         completed_log = open(f'./results/'  + sub_path  + '/'  + 'pptx_completed_log_' +timestamp + '.txt', "w+")
 
         for each_pptx_file in tqdm(pptx_file_list):
@@ -68,6 +68,6 @@ def pptx_text_to_list(pptx_file_list, sub_path):
             except:
                 print('pptx file error')
 
-    completed_log.close()
+        completed_log.close()
     return pptx_filtered_dict, pptx_failed_dict
             
