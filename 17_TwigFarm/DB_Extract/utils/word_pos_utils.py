@@ -5,6 +5,15 @@ import timeit
 import re
 
 
+# 특수기호, km, m 삭제
+def _reg_sent(sent):
+    # 특수기호는 빼기
+    sent = re.sub(r'▶', '', sent)
+    # _,_._km
+    sent = re.sub(r'[0-9]{1,}\.[0-9]{1,}(km|m)', '', sent)
+    return sent
+    
+
 # 한국어
 def _isContainKo(text):
     ko = re.compile(r'.*[가-힇ㄱ-ㅎㅏ-ㅣ]+') 
