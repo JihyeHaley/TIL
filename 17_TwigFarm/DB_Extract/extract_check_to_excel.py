@@ -19,13 +19,13 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
         filtered_list = value # 추출된 파일 
         failed_list = failed_dict[key] #추출안할 파일
 
+        #########################################################
+        # db 처리 엑셀 파일
         if len(filtered_list) == 0:
             print(f'{key}파일은 filtered 문장이 없습니다.')
-            if len(failed_list) == 0:
-                print(f'{key}파일은 failed 문장이 없습니다.')
+
         else:
-            #########################################################
-            # db 처리 엑셀 파일
+            print(f'{key}파일은 filtered 문장이 있습니다.')
             file_type = key.split('.')[-1]
             db_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + key[:-4] + '_' + file_type +'_추출문장_'  + timestamp +'.xlsx') 
             db_worksheet = db_workbook.add_worksheet()
@@ -43,25 +43,6 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
             db_worksheet.write('E1', '영어', cell_yellow)
             db_row_idx = 2
 
-            if len(failed_list) == 0:
-                continue
-
-            else:
-                #########################################################
-                # db 비처리 엑셀 파일
-                failed_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + key[:-4]  + '_pdf_비추출문장_'  + timestamp +'.xlsx') 
-                failed_worksheet = failed_workbook.add_worksheet()
-
-                # 셀 색칠 
-                cell_red = failed_workbook.add_format()
-                cell_red.set_pattern(1)
-                cell_red.set_bg_color('red')
-
-                # db 비처리 엑셀 컬럼명
-                failed_worksheet.write('A1', 'No', cell_red)
-                failed_worksheet.write('B1', '비처리 원문', cell_red)
-                failed_worksheet.write('C1', 'm or km', cell_red)
-                failed_row_idx = 2
 
             #########################################################
             # Filtered_list, analyze and write
@@ -97,26 +78,33 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
 
                 # 한 section이라도 비워져 있으면, pass -> 추출 안된 문장은 비추출 엑셀에 추가
                 elif ko == '' or kot == '' or en =='':
-                    a_idx = _excel_index_creator('A', failed_row_idx)
-                    b_idx = _excel_index_creator('B', failed_row_idx)
-                    c_idx = _excel_index_creator('C', failed_row_idx)
-                    
-                    failed_worksheet.write(a_idx, str(failed_row_idx-1)) # No
-                    failed_worksheet.write(b_idx, filtered_sent) # 비처리 원문
-                    failed_worksheet.write(c_idx, 'k or km') # m or km 유무
-
-                    failed_row_idx += 1 # failed_row_idx 더하기
-                    continue    
+                    failed_list.append(filtered_sent)
 
             db_workbook.close() # filtered done
 
-    
-        #########################################################
-        # 추출하지 않은 모든 파일 다시 적기
 
+        #########################################################
+        # db 비처리 엑셀 파일
         if len(failed_list) == 0:
             print(f'{key}파일은 failed 문장이 없습니다.')
+
         else:
+            print(f'{key}파일은 failed 문장이 있습니다.')
+            failed_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + key[:-4]  + '_pdf_비추출문장_'  + timestamp +'.xlsx') 
+            failed_worksheet = failed_workbook.add_worksheet()
+
+            # 셀 색칠 
+            cell_red = failed_workbook.add_format()
+            cell_red.set_pattern(1)
+            cell_red.set_bg_color('red')
+
+            # db 비처리 엑셀 컬럼명
+            failed_worksheet.write('A1', 'No', cell_red)
+            failed_worksheet.write('B1', '비처리 원문', cell_red)
+            failed_worksheet.write('C1', '비고', cell_red)
+            failed_row_idx = 2
+
+
             for failed_sent in failed_list:
                 a_idx = _excel_index_creator('A', failed_row_idx)
                 b_idx = _excel_index_creator('B', failed_row_idx)
@@ -130,8 +118,8 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
             
             stop = timeit.default_timer() # 작업 시작 시점
         
-            print(f'{key}_word_extract_to_word Running Time: {stop - start} sec\n')
 
         failed_workbook.close()
+        print(f'{key}_word_extract_to_word Running Time: {stop - start} sec\n')
 
         

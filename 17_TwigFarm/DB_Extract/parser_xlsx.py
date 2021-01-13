@@ -69,7 +69,7 @@ def xlsx_text_to_list(xlsx_file_list, sub_path):
                     xlsx_failed_dict[file_name] = xlsx_failed_list
                     
                     stop = timeit.default_timer() # 작업 끝나는 시점
-                    print(f'{file_name}_{xlsx_sheet_name} xlsx_parser Running Time: {stop - start} sec')
+                    print(f'{xlsx_sheet_name}_{file_name}_xlsx_parser Running Time: {stop - start} sec')
                     print(f'추출 문장 수: {len(xlsx_filtered_list)}')
                     completed_log.write(file_name + '\t' + xlsx_sheet_name + '\n') # 완료된 파일 적기
             
