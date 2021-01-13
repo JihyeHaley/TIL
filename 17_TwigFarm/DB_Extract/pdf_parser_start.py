@@ -1,6 +1,6 @@
 import argparse
 
-from pdf_parser import _pdf_text_to_list
+from pdf_parser import pdf_text_to_list
 from utils.common_functions import get_filename_list
 from extract_check_to_excel import word_extract_to_word
 
@@ -34,7 +34,7 @@ sub_path = args.sub_path
 pdf_file_list = get_filename_list(root_path, sub_path, '.pdf')
 
 # step 2. raw data filter
-pdf_filtered_list, pdf_failed_list = _pdf_text_to_list(pdf_file_list)
+pdf_filtered_dict, pdf_failed_dict = pdf_text_to_list(pdf_file_list, sub_path)
 
 # step 3. filtered data excel로 작성하기
-word_extract_to_word(pdf_filtered_list, pdf_failed_list)
+word_extract_to_word(pdf_filtered_dict, pdf_failed_dict, sub_path)
