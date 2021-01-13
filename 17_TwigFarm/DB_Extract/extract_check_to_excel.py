@@ -12,8 +12,6 @@ from utils.common_functions import _excel_index_creator
 
 def word_extract_to_word(pdf_filtered_dict, pdf_failed_dict, sub_path):
     timestamp = datetime.now().strftime('%m%d%H%M') # timestamp
-    
-    
 
     # analyze and write
     # dict안에 있는 개수 별로
@@ -56,7 +54,7 @@ def word_extract_to_word(pdf_filtered_dict, pdf_failed_dict, sub_path):
             failed_worksheet.write('C1', 'm or km', cell_red)
             failed_row_idx = 2
 
-            
+
             # Filtered_list, analyze and write
             pdf_filtered_list = value
             for filtered_sent in pdf_filtered_list:
