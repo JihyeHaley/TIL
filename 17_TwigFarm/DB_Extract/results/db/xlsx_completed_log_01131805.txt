@@ -1,5 +1,0 @@
-5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx	MESSAGES
-5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx	CAPTIONS
-5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx	ENV_EXPLANATIONS
-5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx	SYNTAX_FUNCTION
-5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx	SYNTAX_RULE

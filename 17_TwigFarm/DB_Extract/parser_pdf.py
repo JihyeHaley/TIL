@@ -1,3 +1,4 @@
+import math
 import timeit
 
 from tqdm import tqdm
@@ -60,10 +61,11 @@ def pdf_text_to_list(pdf_file_list, sub_path):
 
 
                 stop = timeit.default_timer() # 작업 끝나는 시점
-                print(f'{file_name} pdf_parser Running Time: {stop - start} sec')
-                print(f'전체 문장 수: {len(pdf_text_list)}')
-                print(f'추출 문장 수: {len(pdf_filtered_list)}')
-                completed_log.write(file_name+'\n') # 완료된 파일 적기
+                completed_log.write(file_name + '\n') # 완료된 파일 적기
+                completed_log.write('\t전체 문장 수:' + '\t' + str(len(pdf_text_list)) +'\n')
+                completed_log.write('\t추출 문장 수:' + '\t' + str(len(pdf_filtered_list)) +'\n')
+                completed_log.write('\t비추출 문장 수:' + '\t' + str(len(pdf_failed_list)) +'\n')
+                completed_log.write('\tRunning Time:' + '\t' + str(math.ceil(stop - start)) + 'sec\n')
             
             except:
                 print('pdf file error')

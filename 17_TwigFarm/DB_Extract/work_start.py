@@ -35,23 +35,26 @@ root_path = args.root_path
 sub_path = args.sub_path
 
 # step 1. 파일 가져오기
-print('Step 1. 파일 불러오기')
+print('#'*80, '\nStep 1. 파일 불러오기\n')
 pptx_file_list = get_filename_list(root_path, sub_path, '.pptx')
 docx_file_list = get_filename_list(root_path, sub_path, '.docx')
 xlsx_file_list = get_filename_list(root_path, sub_path, '.xlsx')
 pdf_file_list = get_filename_list(root_path, sub_path, '.pdf')
 
+
 # step 2. raw data filter
-print('Step 2. 파싱')
+print('\n')
+print('#'*80, '\nStep 2. 파싱\n')
 pptx_filtered_dict, pptx_failed_dict = pptx_text_to_list(pptx_file_list, sub_path)
 docx_filtered_dict, docx_failed_dict = docx_text_to_list(docx_file_list, sub_path)
 xlsx_filtered_dict, xlsx_failed_dict = xlsx_text_to_list(xlsx_file_list, sub_path)
 pdf_filtered_dict, pdf_failed_dict = pdf_text_to_list(pdf_file_list, sub_path)
 
-total_filtered_dict = {**pdf_filtered_dict, **pptx_filtered_dict, **docx_filtered_dict, **xlsx_filtered_dict}
-total_failed_dict = {**pdf_failed_dict, **pptx_failed_dict, **docx_failed_dict, **xlsx_failed_dict}
+total_filtered_dict = {**pdf_filtered_dict, **pptx_filtered_dict, **docx_filtered_dict, **xlsx_filtered_dict} # 필터된 파일 다 모으기
+total_failed_dict = {**pdf_failed_dict, **pptx_failed_dict, **docx_failed_dict, **xlsx_failed_dict} # 필터안된 파일 다 모으기
 
 
 # step 3. filtered data excel로 작성하기
-print('Step 3. 추출')
+print('\n')
+print('#'*80, '\nStep 3. 추출\n')
 word_extract_to_word(total_filtered_dict, total_failed_dict, sub_path)

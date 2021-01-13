@@ -9,8 +9,8 @@ from utils.common_functions import _excel_index_creator
 
 def word_extract_to_word(filtered_dict, failed_dict, sub_path):
     timestamp = datetime.now().strftime('%m%d%H%M') # timestamp
-    print('''-----------------------------------------------------------
-        파싱을 완료했습니다. 지금부터 엑셀에 분석 후 작성합니다. 
+    print('''
+    파싱을 완료했습니다. 지금부터 엑셀에 분석 후 작성합니다. 
         ''')
 
     # dict안에 있는 개수 별로
@@ -18,7 +18,10 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
         start = timeit.default_timer() # 작업 시작 시점
         filtered_list = value # 추출된 파일 
         failed_list = failed_dict[key] #추출안할 파일
-
+        
+        file_type = key.split('.')[-1] # 파일 형식
+        file_name = key[:-(len(file_type)+1)] # 파일 이름
+        
         #########################################################
         # db 처리 엑셀 파일
         if len(filtered_list) == 0:
@@ -26,8 +29,7 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
 
         else:
             print(f'{key}파일은 filtered 문장이 있습니다.')
-            file_type = key.split('.')[-1]
-            db_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + key[:-4] + '_' + file_type +'_추출문장_'  + timestamp +'.xlsx') 
+            db_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + '추출문장_' + file_name + '_' + file_type + '_'  + timestamp +'.xlsx') 
             db_worksheet = db_workbook.add_worksheet()
 
             # 셀 색칠 
@@ -90,7 +92,7 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
 
         else:
             print(f'{key}파일은 failed 문장이 있습니다.')
-            failed_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + key[:-4]  + '_pdf_비추출문장_'  + timestamp +'.xlsx') 
+            failed_workbook = xlsxwriter.Workbook('./results/' + sub_path + '/' + '비추출문장_' + file_name + '_' + file_type + timestamp +'.xlsx') 
             failed_worksheet = failed_workbook.add_worksheet()
 
             # 셀 색칠 
@@ -121,5 +123,3 @@ def word_extract_to_word(filtered_dict, failed_dict, sub_path):
 
         failed_workbook.close()
         print(f'{key}_word_extract_to_word Running Time: {stop - start} sec\n')
-
-        

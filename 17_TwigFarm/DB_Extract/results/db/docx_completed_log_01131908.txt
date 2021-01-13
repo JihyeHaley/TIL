@@ -1,0 +1,5 @@
+3. InnoRules Installation and Operation Guide v7.2(JP).docx
+	전체 문장 수:	3056
+	추출 문장 수:	0
+	비추출 문장 수:	3056
+	Running Time:	7sec

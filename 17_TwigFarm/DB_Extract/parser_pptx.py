@@ -1,3 +1,4 @@
+import math
 import timeit
 
 from tqdm import tqdm
@@ -60,11 +61,11 @@ def pptx_text_to_list(pptx_file_list, sub_path):
                 
                 
                 stop = timeit.default_timer() # 작업 끝나는 시점
-                print(f'{file_name} pptx_parser Running Time: {stop - start} sec')
-                print(f'전체 문장 수: {len(pptx_text_list)}')
-                print(f'추출 문장 수: {len(pptx_filtered_list)}')
-                completed_log.write(file_name+'\n') # 완료된 파일 적기
-                            
+                completed_log.write(file_name + '\n') # 완료된 파일 적기
+                completed_log.write('\t전체 문장 수:' + '\t' + str(len(pptx_text_list)) +'\n')
+                completed_log.write('\t추출 문장 수:' + '\t' + str(len(pptx_filtered_list)) +'\n')
+                completed_log.write('\t비추출 문장 수:' + '\t' + str(len(pptx_failed_list)) +'\n')
+                completed_log.write('\tRunning Time:' + '\t' + str(math.ceil(stop - start)) + 'sec\n')                           
             except:
                 print('pptx file error')
 

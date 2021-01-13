@@ -1,4 +1,5 @@
 import os
+import math
 import timeit
 
 from tqdm import tqdm
@@ -25,8 +26,8 @@ def xlsx_text_to_list(xlsx_file_list, sub_path):
         print(f'xlsx는 총 {len(xlsx_file_list)}개 입니다.')
         timestamp = datetime.now().strftime("%m%d%H%M")
 
-        completed_log = open(f'./results/' + sub_path  + '/'  + 'xlsx_completed_log_' +timestamp + '.txt', "w+")
-
+        completed_log = open(f'./results/' + sub_path  + '/'  + 'xlsx_completed_log_' + timestamp + '.txt', "w+")
+        
         for each_xlsx_file in tqdm(xlsx_file_list):
             file_name =  each_xlsx_file.split('/')[-1]  # 파일명만 빼기
             start = timeit.default_timer() # 작업 시작 시점
@@ -69,9 +70,10 @@ def xlsx_text_to_list(xlsx_file_list, sub_path):
                     xlsx_failed_dict[file_name] = xlsx_failed_list
                     
                     stop = timeit.default_timer() # 작업 끝나는 시점
-                    print(f'{xlsx_sheet_name}_{file_name}_xlsx_parser Running Time: {stop - start} sec')
-                    print(f'추출 문장 수: {len(xlsx_filtered_list)}')
-                    completed_log.write(file_name + '\t' + xlsx_sheet_name + '\n') # 완료된 파일 적기
+                    completed_log.write(file_name + '\n') # 완료된 파일 적기
+                    completed_log.write('\tSheet 이름' + xlsx_sheet_name + '\n') # 완료된 파일 적기
+                    completed_log.write('\t추출 문장 수:' + '\t' + str(len(xlsx_filtered_list)) +'\n')
+                    completed_log.write('\tRunning Time:' + '\t' + str(math.ceil(stop - start)) + 'sec\n')
             
             except:
                 print('xlsx file error')

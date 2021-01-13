@@ -1,3 +1,4 @@
+import math
 import timeit
 
 from tqdm import tqdm
@@ -27,7 +28,7 @@ def docx_text_to_list(docx_file_list, sub_path):
         print('''\n-----------------------------------------------------------
         DOCX 작업 시작합니다.
         ''')
-        print(f'PDF는 총 {len(docx_file_list)}개 입니다.')
+        print(f'DOCX는 총 {len(docx_file_list)}개 입니다.')
         timestamp = datetime.now().strftime("%m%d%H%M")
         completed_log = open(f'./results/'  + sub_path  + '/'  + 'docx_completed_log_' +timestamp + '.txt', "w+")
 
@@ -43,21 +44,19 @@ def docx_text_to_list(docx_file_list, sub_path):
                 docx_filtered_list = list() # db 처리 리스트
                 docx_failed_list = list() # db 비처리 리스트
 
-                for group in docx_text_list:
-                    each_line = group.strip()
-
-                    for sent in each_line:
-                        filtered_sent = _reg_sent(sent) # 특수문자, km/m 제거
-
-                        # 한국어, 한자, 영어 셋 중 하나라도 없으면 그냥 패스 
-                        if _isContainKo(filtered_sent) and _isContainKoT(filtered_sent) and _isContainEn(filtered_sent)== True:
-                            if _isContainKoT(filtered_sent) == True:
-                                docx_filtered_list.append(filtered_sent) # db 처리 리스트 추가
-
-                         # 필터로 인해 비처리 할 리스트인지 확인 
-                        else:
-                            docx_failed_list.append(filtered_sent) # db 비처리 리스트 추가
                 
+                for sent in docx_text_list:
+                    filtered_sent = _reg_sent(sent) # 특수문자, km/m 제거
+
+                    # 한국어, 한자, 영어 셋 중 하나라도 없으면 그냥 패스 
+                    if _isContainKo(filtered_sent) and _isContainKoT(filtered_sent) and _isContainEn(filtered_sent)== True:
+                        if _isContainKoT(filtered_sent) == True:
+                            docx_filtered_list.append(filtered_sent) # db 처리 리스트 추가
+
+                        # 필터로 인해 비처리 할 리스트인지 확인 
+                    else:
+                        docx_failed_list.append(filtered_sent) # db 비처리 리스트 추가
+            
                 # Remove empty string
                 docx_filtered_list = list(filter(None, docx_filtered_list))
                 docx_failed_list = list(filter(None, docx_failed_list))
@@ -68,11 +67,11 @@ def docx_text_to_list(docx_file_list, sub_path):
 
 
                 stop = timeit.default_timer() # 작업 끝나는 시점
-                print(f'{file_name} docx_parser Running Time: {stop - start} sec')
-                print(f'전체 문장 수: {len(docx_text_list)}')
-                print(f'추출 문장 수: {len(docx_filtered_list)}')
-                print(f'실패 문장 수: {len(docx_failed_list)}')
-                completed_log.write(file_name+'\n') # 완료된 파일 적기
+                completed_log.write(file_name + '\n') # 완료된 파일 적기
+                completed_log.write('\t전체 문장 수:' + '\t' + str(len(docx_text_list)) +'\n')
+                completed_log.write('\t추출 문장 수:' + '\t' + str(len(docx_filtered_list)) +'\n')
+                completed_log.write('\t비추출 문장 수:' + '\t' + str(len(docx_failed_list)) +'\n')
+                completed_log.write('\tRunning Time:' + '\t' + str(math.ceil(stop - start)) + 'sec\n')
             
             except:
                 print('docx file error')

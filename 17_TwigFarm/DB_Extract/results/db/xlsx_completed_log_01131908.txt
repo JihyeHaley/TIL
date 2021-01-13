@@ -1,0 +1,20 @@
+5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx
+	Sheet 이름MESSAGES
+	추출 문장 수:	0
+	Running Time:	1sec
+5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx
+	Sheet 이름CAPTIONS
+	추출 문장 수:	0
+	Running Time:	1sec
+5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx
+	Sheet 이름ENV_EXPLANATIONS
+	추출 문장 수:	0
+	Running Time:	1sec
+5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx
+	Sheet 이름SYNTAX_FUNCTION
+	추출 문장 수:	0
+	Running Time:	1sec
+5.2 & 5.3 InnoRules 7.2 화면 Message&Caption.xlsx
+	Sheet 이름SYNTAX_RULE
+	추출 문장 수:	0
+	Running Time:	1sec
