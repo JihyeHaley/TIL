@@ -25,11 +25,12 @@ def pdf_text_to_list(pdf_file_list, sub_path):
         # 파싱한 파일 저장할 사전
         pdf_filtered_dict = dict()
         pdf_failed_dict = dict()
+        completed_log = open(f'./results/'  + sub_path  + '/'  + 'completed_log_' +timestamp + '.txt', "w+")
 
         for each_file in tqdm(pdf_file_list):
             
             file_name =  each_file.split('/')[-1]  # 파일명만 빼기
-            completed_log = open(f'./results/'  + sub_path  + '/'  + 'completed_log_' + file_name + '_' +timestamp + '.txt', "w+")
+            completed_log.write(file_name+'\n')
 
             start = timeit.default_timer() # 작업 시작 시점
 
@@ -62,6 +63,7 @@ def pdf_text_to_list(pdf_file_list, sub_path):
             print(f'전체 문장 수: {len(pdf_text_list)}')
             print(f'추출 문장 수: {len(pdf_filtered_list)}')
 
+    completed_log.close()
     return pdf_filtered_dict, pdf_failed_dict
             
 
