@@ -49,29 +49,26 @@ def _find_start_stop_idx(a_mor, b_mor, c_mor):
 def _change_diff_words(a_mor, b_mor, c_mor, diff_list):
     a_completed, b_completed, c_completed = '', '', '' 
     pre_output_result_list = list() # 초기화
-    
+
     for idx in range(len(a_mor)):
+        # 다릏다고 판단된 아이는 <b></b>
+        if idx in diff_list:
+            a_mor[idx] += f'<b>{a_mor[idx]}</b>'
+            b_mor[idx] += f'<b>{b_mor[idx]}</b>'
+            c_mor[idx] += f'<b>{c_mor[idx]}</b>'
+        
+        ############################################
         # 마지막 인덱스아니면
         if in_whether_last_idx(idx, a_mor) == False: 
-            if idx in diff_list: # 다릏다고 판가름 났으면
-                a_completed += f'<b>{a_mor[idx]}</b>' + ' '
-                b_completed += f'<b>{b_mor[idx]}</b>' + ' '
-                c_completed += f'<b>{c_mor[idx]}</b>' + ' '
-            else: 
-                a_completed += a_mor[idx] + ' '
-                b_completed += b_mor[idx] + ' '
-                c_completed += c_mor[idx] + ' '
+            a_completed += a_mor[idx] + ' '
+            b_completed += b_mor[idx] + ' '
+            c_completed += c_mor[idx] + ' '
 
         # 마지막 인덱스이면  
         elif in_whether_last_idx(idx, a_mor) == True:
-            if idx in diff_list: # 다릏다고 판가름 났으면
-                a_completed += f'<b>{a_mor[idx]}</b>'
-                b_completed += f'<b>{b_mor[idx]}</b>'
-                c_completed += f'<b>{c_mor[idx]}</b>'
-            else:
-                a_completed += a_mor[idx]
-                b_completed += b_mor[idx]
-                c_completed += c_mor[idx]
+            a_completed += a_mor[idx]
+            b_completed += b_mor[idx]
+            c_completed += c_mor[idx]
     
     pre_output_result_list = [a_completed, b_completed, c_completed]
     return pre_output_result_list
