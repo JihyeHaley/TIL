@@ -35,8 +35,8 @@ def _whether_last_idx(idx, words_list):
 
 # find what is different components in the sentence
 def _find_start_stop_idx(a_mor, b_mor, c_mor):
-    diff_idx = 0
-    diff_list = list()
+    diff_idx = 0 # 인덱스 
+    diff_list = list() # 인덱스 리스트 초기화
     for idx in range(len(a_mor)):
         if a_mor[idx] == b_mor[idx] == c_mor[idx]:
             continue
@@ -47,17 +47,17 @@ def _find_start_stop_idx(a_mor, b_mor, c_mor):
     return diff_list
 
 
-# <b> 넣어서 리턴해주기
-def _return_diff_words(a_mor, b_mor, c_mor, diff_list):
-    for diff_idx in diff_list:
-        a_mor[diff_idx] = f'<b>{a_mor[diff_idx]}</b>'
-        b_mor[diff_idx] = f'<b>{b_mor[diff_idx]}</b>'
-        c_mor[diff_idx] = f'<b>{c_mor[diff_idx]}</b>'
-    a_completed, b_completed, c_completed = '', '', ''
-    
+# <b> 넣어주면서 글쓰기 change diff words
+def _change_diff_words(a_mor, b_mor, c_mor, diff_list):
+    a_completed, b_completed, c_completed = '', '', '' 
+
     for idx in range(len(a_mor)):
         if idx < len(a_mor) - 1:
-            if idx == diff_idx:
+            if idx in diff_list:
+                a_mor[idx] = f'<b>{a_mor[idx]}</b>'
+                b_mor[idx] = f'<b>{b_mor[idx]}</b>'
+                c_mor[idx] = f'<b>{c_mor[idx]}</b>'
+
                 a_completed += a_mor[idx]
                 b_completed += b_mor[idx]
                 c_completed += c_mor[idx]
@@ -69,9 +69,8 @@ def _return_diff_words(a_mor, b_mor, c_mor, diff_list):
             a_completed += a_mor[idx]
             b_completed += b_mor[idx]
             c_completed += c_mor[idx]
-    
+
     output_group_list = [a_completed, b_completed, c_completed]
-    
     return output_group_list
 
 
@@ -86,7 +85,7 @@ def _wrtie_different_component():
         a_mor, b_mor, c_mor = _leave_only_words(a), _leave_only_words(b), _leave_only_words(c)
         diff_list = _find_start_stop_idx(a_mor, b_mor, c_mor)
         
-        output_group_list = _return_diff_words(a_mor, b_mor, c_mor, diff_list)
+        output_group_list = _change_diff_words(a_mor, b_mor, c_mor, diff_list)
         output_result_list.append(output_group_list)
 
     return file_name, case_list, output_result_list
