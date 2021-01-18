@@ -13,7 +13,16 @@ def xlsx_to_list():
 
     # read data
     df = pd.read_excel(xlsx_file)
-    case_list = df['input'].tolist()
+    file_input = df['input'].tolist()
+    case_list = list()
+    '''
+    0, 1, 2, // 3, 4, 5, // 6, 7, 8,
+    '''
+    for idx in range(0, len(file_input), 3):
+        group_list = list()
+        for jdx in range(idx, idx+3):
+            group_list.append(file_input[jdx])
+        case_list.append(group_list)
 
     return file_name, case_list
 

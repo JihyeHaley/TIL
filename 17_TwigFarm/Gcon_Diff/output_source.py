@@ -6,15 +6,20 @@ import pandas as pd
 from datetime import datetime
 
 from utils.common_funtions import _excel_index_creator
-from check_whtz_different import return_to_output_source
+from input_source import xlsx_to_list
+from check_whtz_different import _wrtie_different_component
 
 
 timestamp = datetime.now().strftime('%m%d%H%M') # time stamp
-file_name, output_result_list = return_to_output_source()
+
+
+file_name, case_list, output_result_list = _wrtie_different_component()
+
 
 # create xlsx
 workbook = xlsxwriter.Workbook('./' +  file_name + '_result_' + timestamp + '.xlsx')
 worksheet = workbook.add_worksheet()
+
 
 # cell color
 cell_yellow = workbook.add_format()
@@ -31,4 +36,20 @@ row_idx = 2
     A           B          C
     Case_No     Input      Output
 '''
+
+for idx in range(len(case_list)):
+    input_list = case_list[idx]
+    output_list = output_result_list[idx]
+    a_idx = _excel_index_creator('A', row_idx) # no
+    worksheet.write(a_idx, str(idx + 1))
+
+    for jdx in range(len(input_list)):
+        b_idx = _excel_index_creator('B', row_idx) # input
+        c_idx = _excel_index_creator('C', row_idx) # output
+        
+        worksheet.write(b_idx, input_list[jdx])
+        worksheet.write(c_idx, output_list[jdx])
+        row_idx += 1 
+
+workbook.close()
 
