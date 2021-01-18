@@ -6,7 +6,7 @@ import pandas as pd
 from datetime import datetime
 
 # import xlsx and read input source then save to list
-def xlsx_to_list():
+def _import_xlsx_to_list():
     # file import 
     file_name = str(input('파일 명을 적어주세요(확장자 xlsx default적지마세요): '))
     xlsx_file = f'./{file_name}.xlsx'

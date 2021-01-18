@@ -6,7 +6,7 @@ import pandas as pd
 from datetime import datetime
 
 from utils.common_funtions import _excel_index_creator
-from input_source import xlsx_to_list
+from input_source import _import_xlsx_to_list
 from check_whtz_different import _wrtie_different_component
 
 
@@ -19,8 +19,10 @@ timestamp = datetime.now().strftime('%m%d%H%M') # time stamp
 
 # excel 쓰기
 def create_excel_file():
+    
+    file_name, case_list = _import_xlsx_to_list()
 
-    file_name, case_list, output_result_list = _wrtie_different_component()
+    output_result_list = _wrtie_different_component(case_list)
 
     # create xlsx
     workbook = xlsxwriter.Workbook('./' +  file_name + '_result_' + timestamp + '.xlsx')
