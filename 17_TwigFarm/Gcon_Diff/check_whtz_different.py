@@ -44,7 +44,6 @@ def _find_start_stop_idx(a_mor, b_mor, c_mor):
             diff_idx = idx
         diff_list.append(diff_idx)
            
-        
     return diff_list
 
 
