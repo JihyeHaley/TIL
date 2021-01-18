@@ -8,7 +8,7 @@ from input_source import xlsx_to_list
 
 
 # 형태소 분석
-def _start_mecab(sent):
+def in_start_mecab(sent):
     m = Mecab()
     mor_list = m.pos(sent)
     ''' te -> list > tuple > str'''
@@ -17,7 +17,7 @@ def _start_mecab(sent):
 
 # 앞 글자만 가져오기
 def _leave_only_words(sent):
-    mor_list = _start_mecab(sent)
+    mor_list = in_start_mecab(sent)
     words_list = list()
     for mor_tuple in mor_list:
         words_list.append(mor_tuple[0])
@@ -25,7 +25,7 @@ def _leave_only_words(sent):
 
 
 # 마지막 인덱스인지 체크
-def _whether_last_idx(idx, words_list):
+def in_whether_last_idx(idx, words_list):
     length = len(words_list)
     if idx == length - 1:
         return True
@@ -52,23 +52,27 @@ def _change_diff_words(a_mor, b_mor, c_mor, diff_list):
     a_completed, b_completed, c_completed = '', '', '' 
 
     for idx in range(len(a_mor)):
-        if idx < len(a_mor) - 1:
-            if idx in diff_list:
-                a_mor[idx] = f'<b>{a_mor[idx]}</b>'
-                b_mor[idx] = f'<b>{b_mor[idx]}</b>'
-                c_mor[idx] = f'<b>{c_mor[idx]}</b>'
-
-                a_completed += a_mor[idx]
-                b_completed += b_mor[idx]
-                c_completed += c_mor[idx]
-            else:
+        # 마지막 인덱스아니면
+        if in_whether_last_idx(idx, a_mor) == False: 
+            if idx in diff_list: # 다릏다고 판가름 났으면
+                a_completed += f'<b>{a_mor[idx]}</b>' + ' '
+                b_completed += f'<b>{b_mor[idx]}</b>' + ' '
+                c_completed += f'<b>{c_mor[idx]}</b>' + ' '
+            else: 
                 a_completed += a_mor[idx] + ' '
                 b_completed += b_mor[idx] + ' '
                 c_completed += c_mor[idx] + ' '
-        else:
-            a_completed += a_mor[idx]
-            b_completed += b_mor[idx]
-            c_completed += c_mor[idx]
+
+        # 마지막 인덱스이면  
+        elif in_whether_last_idx(idx, a_mor) == True:
+            if idx in diff_list: # 다릏다고 판가름 났으면
+                a_completed += f'<b>{a_mor[idx]}</b>'
+                b_completed += f'<b>{b_mor[idx]}</b>'
+                c_completed += f'<b>{c_mor[idx]}</b>'
+            else:
+                a_completed += a_mor[idx]
+                b_completed += b_mor[idx]
+                c_completed += c_mor[idx]
 
     output_group_list = [a_completed, b_completed, c_completed]
     return output_group_list
