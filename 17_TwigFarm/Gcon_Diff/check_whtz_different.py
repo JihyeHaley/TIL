@@ -27,7 +27,7 @@ def _leave_only_words(mor_list):
 
 # 마지막 인덱스인지 체크
 def _whether_last_idx(idx, words_list):
-    length = len(any_list)
+    length = len(words_list)
     if idx == length - 1:
         return True
     elif idx != length - 1:
