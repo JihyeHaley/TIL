@@ -1,0 +1,3 @@
+Pass	
+Q.1 : 당신의 어머니가 언제 도시에 오시죠? ----	When is your mother coming into town?Fail	
+Q.2 : 왜 Mrs. Cheng이 일찍 떠났죠? ----	Why did Mrs. Cheng leave early?
