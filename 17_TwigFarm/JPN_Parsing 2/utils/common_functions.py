@@ -20,14 +20,10 @@ def docx_to_raw_text(file_path, stop_words):
         messages = result.messages  # Any messages
 
     contents = text.split("\n")
+    contents = text.split('。')
 
-    contents_prep = []
-    for line in contents:
-        each_line = line.strip()
-        if each_line and not only_char(each_line) and each_line not in stop_words and \
-                not is_page_num(each_line) and not neitherKoNorEn(each_line):
-            contents_prep.append(each_line)
-    return contents_prep
+    return contents
+
 
 
 # normalized file names

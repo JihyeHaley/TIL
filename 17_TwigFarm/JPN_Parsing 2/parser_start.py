@@ -7,13 +7,13 @@
 import argparse
 from pathlib import Path
 
-from parsers import xlsx_parser, pptx_parser, docx_mix_parser, docx_separate_parser, pdf_parser
+from parsers import xlsx_parser, pptx_parser, docx_parser
 
 from utils.regex_functions import *
 from utils.common_functions import *
 
-TM_ROOT = str(Path.home()) + "/Users/haley/desktop/일본어_파싱/"
-DOC_ROOT = str(Path.home()) + "/Users/haley/desktop/일본어_파싱/이노룰스 번역본 문서 (일본어)/"
+TM_ROOT = str(Path.home()) + "/Users/jihyeoh/Desktop/Desktop - Jeewon의 iMac/git/til/17_TwigFarm/JPN_Parsing 2"
+DOC_ROOT = str(Path.home()) + "/Users/jihyeoh/Desktop/Desktop - Jeewon의 iMac/git/til/17_TwigFarm/JPN_Parsing 2/data"
 
 
 # parameter variables
@@ -34,7 +34,7 @@ parser.add_argument(
     "--root_type",
     type=str,
     default="TM",
-    help="<type: str> TM(default) or AD or type root_path manually. ex)/Users/twigfarm/LexcodeDrive/학술정보/",
+    help="<type: str> TM(default) or AD or type root_path manually. /",
 )
 
 args = parser.parse_args()
@@ -73,9 +73,5 @@ all_file_lists = read_directory(root_type, sub_path)
 # pass each file type
 xlsx_parser.xlsx_to_excel(all_file_lists[0], sub_path)
 pptx_parser.pptx_to_excel(all_file_lists[1], sub_path)
-docx_ko_files, docx_en_files, docx_mix_files, docx_non_lists = get_tm_doc_type(
-    all_file_lists[2]
-)
-docx_separate_parser.docx_separate_to_excel(docx_ko_files, sub_path)
-docx_mix_parser.docx_mix_to_excel(docx_mix_files, sub_path)
+docx_parser.docx_parser_(all_file_lists[2], sub_path)
 # pdf_parser.pdf_text_to_excel(all_file_lists[3], sub_path)

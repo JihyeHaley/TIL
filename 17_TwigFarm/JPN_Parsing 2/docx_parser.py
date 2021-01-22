@@ -98,8 +98,6 @@ def file_name_with_path():
 
 
 
-
-
 def parsing_docx_at_once():
 
     start = timeit.default_timer()
@@ -127,6 +125,7 @@ def parsing_docx_at_once():
                 input_raw_sent = raw_sent
             worksheet.write(idx, input_raw_sent)
             row_idx += 1
+            
         print(f'excel idx: {row_idx}줄')
         total_row_cnt += row_idx
         completed_log.write(f'######################\n{file_name}\n엑셀:{row_idx}/\t{len(raw_data)}\n')
