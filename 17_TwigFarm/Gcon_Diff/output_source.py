@@ -1,13 +1,16 @@
+# 일반 
 import re
 import timeit
 import xlsxwriter
 import pandas as pd
 
+# somewhere 일반
 from datetime import datetime
 
+# 참고 함수
 from utils.common_funtions import _excel_index_creator
 from input_source import _import_xlsx_to_list
-from check_whtz_different import _wrtie_different_component
+from find_vb_in import _wrtie_different_component
 
 
 timestamp = datetime.now().strftime('%m%d%H%M') # time stamp
@@ -22,7 +25,7 @@ def create_excel_file():
     
     file_name, case_list = _import_xlsx_to_list()
 
-    output_result_list, output_mor_list = _wrtie_different_component(case_list)
+    output_result_list, output_mor_list, output_diff_times_list = _wrtie_different_component(case_list)
 
     # create xlsx
     workbook = xlsxwriter.Workbook('./' +  file_name + '_result_' + timestamp + '.xlsx')
@@ -38,7 +41,8 @@ def create_excel_file():
     worksheet.write('A1', 'Case_No', cell_yellow)
     worksheet.write('B1', 'Input', cell_yellow)
     worksheet.write('C1', 'Output', cell_yellow)
-    worksheet.write('D1', 'Mor', cell_yellow)
+    worksheet.write('D1', 'Time', cell_yellow)
+    worksheet.write('E1', 'Mor', cell_yellow)
 
     row_idx = 2
 
@@ -49,15 +53,18 @@ def create_excel_file():
 
         a_idx = _excel_index_creator('A', row_idx) # no
         worksheet.write(a_idx, str(idx + 1))
-
+        
+       
         for jdx in range(len(input_list)):
             b_idx = _excel_index_creator('B', row_idx) # input
             c_idx = _excel_index_creator('C', row_idx) # output
-            d_idx = _excel_index_creator('D', row_idx) # output
+            d_idx = _excel_index_creator('D', row_idx) # times
+            e_idx = _excel_index_creator('E', row_idx) # mor
             
             worksheet.write(b_idx, input_list[jdx])
             worksheet.write(c_idx, output_list[jdx])
-            worksheet.write(d_idx, str(mor_list[jdx]))
+            worksheet.write(d_idx, str(output_diff_times_list[idx]))
+            worksheet.write(e_idx, str(mor_list[jdx]))
             row_idx += 1 
 
     workbook.close()
