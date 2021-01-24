@@ -1,5 +1,5 @@
 import nltk
-
+import someting
 from tensorflow.keras.preprocessing.text import text_to_word_sequence
 
 # 마지막 인덱스인지 체크
