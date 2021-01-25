@@ -50,7 +50,6 @@ def write_in_the_excel(file_name):
     worksheet.write('A1', 'No')
     worksheet.write('B1', '관형', cell_yellow)
     row_idx = 2
-    empty_cnt = 0
     for sentence in sentence_list:
         a_idx = excel_index_creator('A', row_idx)
         b_idx = excel_index_creator('B', row_idx)
