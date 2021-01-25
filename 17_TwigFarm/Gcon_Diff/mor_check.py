@@ -1,5 +1,5 @@
 import nltk
-import someting
+
 from tensorflow.keras.preprocessing.text import text_to_word_sequence
 
 # 마지막 인덱스인지 체크
@@ -14,7 +14,7 @@ def in_whether_last_idx(idx, words_list):
 # 형태소 분석 nltk tokenizer
 def in_start_tokenizer(sent):
     # 단어만
-    pre_words_list = text_to_word_sequence(sent) # [Hi, My, name, is, jihye]
+    pre_words_list = text_to_word_sequence(sent) # [Hi, My, name, is, jihye] (문장의 첫 단어도 )
     pre_words_list_1 = nltk.tokenize.word_tokenize(sent)[-1] # 마지막 마침표 ... 떨어뜨려주기
     if pre_words_list_1 in [',', '.', '!', '?']:
         pre_words_list.append(pre_words_list_1)
@@ -53,8 +53,9 @@ def in_vb_in_connect(words_list, mor_list, words_mor_list):
             if idx == len(words_mor_list) - 1: # 끝번호면 작업하면 index error
                 continue
             else: # 앞에 관사('DT')가 없으면 명사('NN')로 인식해서 가져가시오
-                if words_mor_list[idx-1][1] != 'DT' and words_mor_list[idx+1][1] == 'IN': 
+                if words_mor_list[idx-1][1] != 'DT' and words_mor_list[idx+1][1] == 'IN' and words_mor_list[idx+2][1] != 'FW' and words_mor_list[idx-1][1] != 'IN': 
                     tp = 'vbin'
                     words_list, mor_list = in_words_change(tp, idx, words_list, mor_list, words_mor_list)
-                
+                    print(words_list)
+                    print(mor_list)
     return words_list, mor_list
