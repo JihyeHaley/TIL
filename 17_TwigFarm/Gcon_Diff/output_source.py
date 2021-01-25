@@ -10,20 +10,20 @@ from datetime import datetime
 # 참고 함수
 from utils.common_funtions import _excel_index_creator
 from input_source import _import_xlsx_to_list
-from find_vb_in import _wrtie_different_component
+from utils.let_connect_funcs import _wrtie_different_component
 
 
 timestamp = datetime.now().strftime('%m%d%H%M') # time stamp
 
 '''
-    A           B          C
-    Case_No     Input      Output
+    A           B         C         D           E
+    Case_No     Input     Output    Diff_idx    Mor
 '''
 
 # excel 쓰기
 def create_excel_file():
     
-    file_name, case_list = _import_xlsx_to_list()
+    file_name, case_list = _import_xlsx_to_list() # 파일 부르기
 
     output_result_list, output_mor_list, output_diff_times_list = _wrtie_different_component(case_list)
 

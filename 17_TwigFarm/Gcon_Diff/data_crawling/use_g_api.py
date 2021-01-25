@@ -5,9 +5,11 @@ import pandas as pd
 from googletrans import Translator
 translator = Translator()
 
-translated = translator.translate('안녕하세요',dest='en')
-print(translated.origin)
-print(translated.text)ß
+# translated = translator.translate('hello', dest='en', src='ko')
+# print('1')
+# print(translated.origin)
+# print('2')
+# print(translated.text)
 
 xlsxFile = './1_엑셀.xlsx'
 
@@ -18,7 +20,7 @@ def find_korean(ko_sent_df):
 
     for ko_sent in ko_sent_df:
         # 3. 입력하기
-        print(translator.translate('hello').text)
+        print(translator.translate(str('hello'), dest='en', src='ko').text)
         
         
 
