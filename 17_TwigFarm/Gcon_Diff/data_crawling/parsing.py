@@ -1,11 +1,14 @@
 import timeit
 import xlsxwriter
+import pandas as pd 
 
 from datetime import datetime
 
 from utils import excel_index_creator, in_docx_to_raw_text
+from use_bs4 import google_find_korean
 
-# timestamp = datetime.now().strftime('%m%d%H%M') 
+timestamp = datetime.now().strftime('%m%d%H%M') 
+
 file_name = '1'
 
 
@@ -36,8 +39,27 @@ def _split_sent(file_name):
     return sentence_list
 
 
+#  관형 가져오기
+def import_df():
+    xlsxFile = './1_엑셀.xlsx'
+    df = pd.read_excel(xlsxFile)
+    ko_sent_df = df['관형'].tolist()
+    return ko_sent_df
+
+
 # 엑셀에 쓰기
 def write_in_the_excel(file_name):
+    ko_sent_df = import_df()
+    en_sent_df = google_find_korean(ko_sent_df)
+    
+    translated_dict = dict()
+    
+    for idx in range(len(ko_sent_df)):
+        translated_dict[ko_sent_df[idx]] == en_sent_df[idx]
+
+    print(f'len dict = {len(translated_dict)}')
+    print(translated_dict)
+    
     sentence_list = _split_sent(file_name)
     workbook = xlsxwriter.Workbook('./' + file_name + '_엑셀.xlsx')
 

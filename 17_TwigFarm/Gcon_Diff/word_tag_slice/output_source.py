@@ -28,7 +28,7 @@ def create_excel_file():
     output_result_list, output_mor_list, output_diff_times_list = _wrtie_different_component(case_list)
 
     # create xlsx
-    workbook = xlsxwriter.Workbook('./' +  file_name + '_result_' + timestamp + '.xlsx')
+    workbook = xlsxwriter.Workbook('./results/' +  file_name + '_result_' + timestamp + '.xlsx')
     worksheet = workbook.add_worksheet()
 
 
