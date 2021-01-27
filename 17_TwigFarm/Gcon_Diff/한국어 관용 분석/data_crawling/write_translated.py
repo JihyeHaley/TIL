@@ -11,9 +11,10 @@ timestamp = datetime.now().strftime('%m%d%H%M')
 
 # 엑셀에 쓰기
 def write_in_the_excel():
-    ko_sent_df = import_ko_df()
-    en_google_sent_df = import_google_df()
-    en_papago_sent_df = import_papago_df()
+    file_name = './관형_구글번역포함_01261205_엑셀.xlsx'
+    ko_sent_df = import_ko_df(file_name)
+    en_google_sent_df = import_google_df(file_name)
+    en_papago_sent_df = import_papago_df(file_name)
     # en_google_sent_df = google_find_korean() # 구글 크롤링
     # en_papago_sent_df = papago_find_korean() # 파파고 크롤링
     print(ko_sent_df)
