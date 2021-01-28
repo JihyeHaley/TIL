@@ -6,8 +6,8 @@ from datetime import datetime
 
 from utils.common_functions import _excel_index_creator
 from utils.import_excel import import_ko_df, import_en_hb_df
-from utils.crawling_google import google_find_korean
-from utils.crawling_papago import papago_find_korean
+from utils.crawling_google import google_find_korean, _write_google_excel
+from utils.crawling_papago import papago_find_korean, _write_papago_excel
 
 timestamp = datetime.now().strftime('%m%d%H%M') 
 
@@ -18,13 +18,22 @@ def do_carwling_and_gather(file_name):
     # 데이터 import  
     ko_sent_df = import_ko_df(file_name)
     en_hb_df = import_en_hb_df(file_name)
+    en_google_final = list()
+    en_papago_final = list()
+    for idx in range(0, len(ko_sent_df), 500):
+        ko_sent_df_range = ko_sent_df[idx: idx + 500]
+        # 크롤링
+        en_google_df = google_find_korean(ko_sent_df_range)
+        for en_google in en_google_df:
+            en_google_final.append(en_google)
+        _write_google_excel(idx, en_google_df)
+    
+        en_papago_df = papago_find_korean(ko_sent_df_range)
+        for en_papago in en_papago_df:
+            en_papago_final.append(en_papago)
+        _write_papago_excel(idx, en_papago_df)
 
-    # 크롤링
-    en_google_df = google_find_korean(ko_sent_df)
-    en_papago_df = papago_find_korean(ko_sent_df)
-
-    return ko_sent_df, en_hb_df, en_google_df, en_papago_df
-    # return ko_sent_df, en_hb_df
+    return ko_sent_df, en_hb_df, en_google_final, en_papago_final
 
 
 # 엑셀에 쓰기

@@ -49,6 +49,8 @@ def write_in_the_excel():
     worksheet.write('B1', '구글', cell_yellow)
     worksheet.write('C1', '유사도', cell_yellow)
     worksheet.write('D1', '파파고', cell_yellow)
+    worksheet.write('E1', '구글_형태소', cell_yellow)
+    worksheet.write('F1', '파파고_형태소', cell_yellow)
     row_idx = 2
     # 본격적으로 엑셀 쓰기
 
@@ -59,11 +61,15 @@ def write_in_the_excel():
         b_idx = _excel_index_creator('B', row_idx)
         c_idx = _excel_index_creator('C', row_idx)
         d_idx = _excel_index_creator('D', row_idx)
+        d_idx = _excel_index_creator('E', row_idx)
+        d_idx = _excel_index_creator('F', row_idx)
 
         worksheet.write(a_idx, str(ko_df[idx])) # 원문
         worksheet.write(b_idx, str(google_df[idx])) # 구글
         worksheet.write(c_idx, str(similarity_price[-1])) # 유사도
         worksheet.write(d_idx, str(papago_df[idx])) # 파파고 
+        worksheet.write(d_idx, ) # 구글 형태소 
+        worksheet.write(d_idx, ) # 파파고 형태소
 
         row_idx += 1
     print(f'row_idx : {row_idx}')
