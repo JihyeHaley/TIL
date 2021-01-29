@@ -3,8 +3,8 @@ import random
 import xlsxwriter
 import pandas as pd
 
-from datetime import datetime
 
+from datetime import datetime
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
@@ -20,7 +20,7 @@ def papago_find_korean(range_idx, ko_sent_df):
    
     timestamp = datetime.now().strftime('%m%d%H%M') 
 
-    workbook = xlsxwriter.Workbook('./results/'  + '파파고_' + str(range_idx) + '_' + timestamp + '_엑셀.xlsx')
+    workbook = xlsxwriter.Workbook('./results/morn/'  + '파파고_' + str(range_idx) + '_' + timestamp + '_엑셀.xlsx')
 
     worksheet = workbook.add_worksheet()
 

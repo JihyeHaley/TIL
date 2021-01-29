@@ -19,7 +19,7 @@ def google_find_korean(range_idx, ko_sent_df):
 
     timestamp = datetime.now().strftime('%m%d%H%M') 
 
-    workbook = xlsxwriter.Workbook('./results/'  + '구글_' + str(range_idx) + '_' + timestamp + '_엑셀.xlsx')
+    workbook = xlsxwriter.Workbook('./results/morn/'  + '구글_' + str(range_idx) + '_' + timestamp + '_엑셀.xlsx')
 
     worksheet = workbook.add_worksheet()
 

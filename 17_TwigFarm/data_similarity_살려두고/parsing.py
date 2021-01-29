@@ -8,7 +8,7 @@ from datetime import datetime
 from similarity import calc_distance
 from import_excel import import_df
 from common_functions import _excel_index_creator
-
+from mor_analyze import _work_start_tokenizer
 timestamp = datetime.now().strftime('%m%d%H%M') 
 
 
@@ -61,15 +61,18 @@ def write_in_the_excel():
         b_idx = _excel_index_creator('B', row_idx)
         c_idx = _excel_index_creator('C', row_idx)
         d_idx = _excel_index_creator('D', row_idx)
-        d_idx = _excel_index_creator('E', row_idx)
-        d_idx = _excel_index_creator('F', row_idx)
+        e_idx = _excel_index_creator('E', row_idx)
+        f_idx = _excel_index_creator('F', row_idx)
+
+        google_mor = _work_start_tokenizer(google_df[idx])
+        papago_mor = _work_start_tokenizer(papago_df[idx])
 
         worksheet.write(a_idx, str(ko_df[idx])) # 원문
         worksheet.write(b_idx, str(google_df[idx])) # 구글
         worksheet.write(c_idx, str(similarity_price[-1])) # 유사도
         worksheet.write(d_idx, str(papago_df[idx])) # 파파고 
-        worksheet.write(d_idx, ) # 구글 형태소 
-        worksheet.write(d_idx, ) # 파파고 형태소
+        worksheet.write(e_idx, str(google_mor)) # 구글 형태소 
+        worksheet.write(f_idx, str(papago_mor)) # 파파고 형태소
 
         row_idx += 1
     print(f'row_idx : {row_idx}')
