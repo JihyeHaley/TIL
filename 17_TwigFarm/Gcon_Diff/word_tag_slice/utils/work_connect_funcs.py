@@ -12,6 +12,8 @@ def _work_start_tokenizer(sent):
     if pre_words_list_1 in [',', '.', '!', '?']:
         pre_words_list.append(pre_words_list_1)
     
+
+
     words_list = list()
     for word in pre_words_list:
         pre = word.split(' ')
