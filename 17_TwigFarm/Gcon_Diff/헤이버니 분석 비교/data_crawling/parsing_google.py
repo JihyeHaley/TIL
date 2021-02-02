@@ -7,7 +7,6 @@ from datetime import datetime
 from utils.common_functions import _excel_index_creator
 from utils.import_excel import import_ko_df, import_en_hb_df
 from utils.crawling_google import google_find_korean
-from utils.crawling_papago import papago_find_korean
 
 timestamp = datetime.now().strftime('%m%d%H%M') 
 
