@@ -70,7 +70,7 @@ def write_in_the_excel():
         worksheet.write(c_idx, str(similarity_price[-1])) # c. 유사도
         if similarity_price[-1] >= 9 or similarity_price[-1] == 0 or len(google_words) <= 3 or len(papago_words) <= 3:
             worksheet.write(b_idx, str(google_df[idx])) # 구글
-            worksheet.write(d_idx, str(papago_df[idx])) # 파파고 
+            worksheet.write(d_idx, str(papago_df[idx])) # 파파고
         
         elif similarity_price[-1] > 0 and similarity_price[-1] < 9:
             g_sent, p_sent = _diff_word_dark(google_words, papago_words)
@@ -78,6 +78,7 @@ def write_in_the_excel():
             worksheet.write(d_idx, str(p_sent), cell_yellow) # 파파고 
             print(g_sent)
             print(p_sent)
+
         row_idx += 1
     print(f'row_idx : {row_idx}')
     print('done')
