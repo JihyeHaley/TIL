@@ -10,7 +10,7 @@ def _work_start_tokenizer(sent):
     # 단어와 형태소 List
     words_mor_list = nltk.tag.pos_tag(words_list) # [(Hi, NNG), ...] 
 
-    return words_mor_list
+    return words_list, words_mor_list
 
 
 # A- 2. (작업용) 단어 바꿔주기 

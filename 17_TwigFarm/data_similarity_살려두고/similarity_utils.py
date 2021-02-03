@@ -5,7 +5,6 @@ def _check_totally_same(a, b):
 
 # 대문자화 동일한지 확인
 def _check_upper_same(a, b):
-    a, b = a.strip(' ').upper(), b.strip(' ').upper()
 
     if a == b:
         return True

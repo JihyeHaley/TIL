@@ -3,9 +3,6 @@ import numpy as np
 from similarity_utils import _check_totally_same, _check_upper_same
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-a = 'There is a habit of looking for only good things more than enough.'
-b = 'I have a habit of finding only good things that are more than just enough.'
-
 def calc_distance(a,b):
     '''레벤슈타인 거리 계산하기'''
 

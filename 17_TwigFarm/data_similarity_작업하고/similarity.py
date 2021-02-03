@@ -10,7 +10,7 @@ a = 'There is a habit of looking for only good things more than enough.'
 b = 'I have a habit of finding only good things that are more than just enough.'
 
 
-def calc_distance(a,b):
+def calc_distance(a, b):
     '''레벤슈타인 거리 계산하기'''
     
     # 동일하면 바로 유사도 0 (제일 정확도가 높다는 뜻)
