@@ -8,7 +8,7 @@ def import_df():
 
     ko_xlsxFile = '헤이버니 사전(한-영).xlsx'
     ko_df = pd.read_excel(ko_xlsxFile)
-    ko_all = ko_df['ko'].tolist()[823:]
+    ko_all = ko_df['ko'].tolist()
     ko_original_df = list()
     for idx in range(500):
         ko_original_df.append(ko_all[idx])
