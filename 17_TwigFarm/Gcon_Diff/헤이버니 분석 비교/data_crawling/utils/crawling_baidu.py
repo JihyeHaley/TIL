@@ -50,7 +50,7 @@ def baidu_find_korean(range_idx, ko_sent_df):
             a_idx = _excel_index_creator('A', row_idx)
             b_idx = _excel_index_creator('B', row_idx)
             c_idx = _excel_index_creator('C', row_idx)
-
+            
             worksheet.write(a_idx, str(row_idx - 1)) # 인덱스
             worksheet.write(b_idx, str(ko_sent)) # 원문
             worksheet.write(c_idx, str(en_sent)) # 구글

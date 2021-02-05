@@ -10,7 +10,7 @@ from utils.common_functions import _excel_index_creator
 
 
 # 구글 크롤링
-def google_find_korean(range_idx, ko_sent_df):
+def google_find_korean(ko_sent_df):
     en_google_sent_df = list()
     total_len = len(ko_sent_df)
     # 2. 웹브라우저 열기
@@ -19,7 +19,7 @@ def google_find_korean(range_idx, ko_sent_df):
 
     timestamp = datetime.now().strftime('%m%d%H%M') 
 
-    workbook = xlsxwriter.Workbook('./results/morn/'  + '구글_' + str(range_idx) + '_' + timestamp + '_엑셀.xlsx')
+    workbook = xlsxwriter.Workbook('./results/google/'  + '구글_' + timestamp + '_엑셀.xlsx')
 
     worksheet = workbook.add_worksheet()
 
@@ -32,10 +32,11 @@ def google_find_korean(range_idx, ko_sent_df):
     worksheet.write('C1', '구글', cell_yellow)
 
     row_idx = 2
-
+    header = {'User-Agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36'}
     try:
         for idx, ko_sent in enumerate(ko_sent_df):
             sleep_time = random.randrange(3,5)
+            # driver.get(url, header)
             driver.get(url)
             driver.find_element_by_css_selector('#yDmH0d > c-wiz > div > div.WFnNle > c-wiz > div.OlSOob > c-wiz > div.ccvoYb > div.AxqVh > div.OPPzxe > c-wiz.rm1UF.UnxENd > span > span > div > textarea').click
             element_ko = driver.find_element_by_css_selector('c-wiz > div > div.WFnNle > c-wiz > div.OlSOob > c-wiz > div.ccvoYb > div.AxqVh > div.OPPzxe > c-wiz.rm1UF.UnxENd > span > span > div > textarea')

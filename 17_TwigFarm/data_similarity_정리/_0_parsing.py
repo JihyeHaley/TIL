@@ -49,11 +49,12 @@ def write_in_the_excel():
     papago_driver = webdriver.Chrome('/Users/haley/Downloads/chromedriver')
     papago_url = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%84%A4%EC%9D%B4%EB%B2%84+%EB%B2%88%EC%97%AD'
 
-    sleep_time = random.randrange(3,5)
+    sleep_time = random.randrange(1,4)
     time.sleep(6) ## 5초
 
     # D. 한 줄씩 -> 작성하기
     for idx, ko_sent in enumerate(ko_df):
+        print(idx)
         print(ko_sent)
 
         # a. 번역된 데이터 가져오기

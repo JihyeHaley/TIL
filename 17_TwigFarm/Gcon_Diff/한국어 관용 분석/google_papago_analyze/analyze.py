@@ -32,7 +32,7 @@ def _upper(word):
 ko_list, en_google_list, en_papago_list = _import_ens()
 
 
-# 비슷하면 sameㅇㅡ로
+# 비슷하면 same으로
 def _check_whether_same(en_google_list, en_papago_list):
     check_diff = list()
     for idx in range(len(en_google_list)):
