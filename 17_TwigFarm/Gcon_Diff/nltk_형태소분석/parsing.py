@@ -8,53 +8,40 @@ from utils import excel_index_creator, in_docx_to_raw_text
 # timestamp = datetime.now().strftime('%m%d%H%M') 
 file_name = 'nltk_형태소'
 
+a = 'Our headquarters is in Seoul, but our R&D center is in Busan.'
+b = 'Our headquarters is in Seoul, but the research and development center is in Busan.'
 
-# 형태소와 의미를 쪼개기
-def _split_mor_mean(file_name):
-    mor_mean_dict = dict()
-    raw_contents = in_docx_to_raw_text(file_name)
-    print(f'raw_contesnt : {len(raw_contents)}')
-    cnt = 0
-    for raw_content in raw_contents:
-        chunk = raw_content.split(' ')
-        dict_key = chunk[0]
-        dict_value = raw_content[len(dict_key):]
-        mor_mean_dict[dict_key] = dict_value
-        cnt += 1 
-    print(f'cnt : {cnt}')
-    return mor_mean_dict
+c = 'Our overseas office is in Chicago.'
+d = 'Our company\'s overseas branch is located in Chicago.'
 
+e = 'As soon as I hear from the customer, my secretary will turn the agenda.'
+f = 'As soon as I hear from the client, my secretary will change the agenda.'
 
-# 엑셀에 쓰기
-def write_in_the_excel(file_name):
-    mor_mean_dict = _split_mor_mean(file_name)
-    workbook = xlsxwriter.Workbook('./' + file_name + '_엑셀.xlsx')
+g = 'Stop by the new store on Brown Street!'
+h = 'Please stop by the new store on Brown Street!'
 
-    worksheet = workbook.add_worksheet()
+i = 'From Monday, my new email address is mmin@gmail.com.'
+j = 'Starting Monday, my new email address is mmin@gmail.com.'
 
-    cell_yellow = workbook.add_format()
-    cell_yellow.set_pattern(1)
-    cell_yellow.set_bg_color(('yellow'))
+k = 'I received the document by fax yesterday.'
+l = 'I received the document by fax yesterday.'
 
-    worksheet.write('A1', 'No')
-    worksheet.write('B1', 'Mor(형태소)', cell_yellow)
-    worksheet.write('C1', 'Meaning(의미)', cell_yellow)
-    row_idx = 2
-    empty_cnt = 0
-    for key, value in mor_mean_dict.items():
-        a_idx = excel_index_creator('A', row_idx)
-        b_idx = excel_index_creator('B', row_idx)
-        c_idx = excel_index_creator('C', row_idx)
-        if (key and value) == '':
-            empty_cnt += 1
-            continue
-        worksheet.write(a_idx, str(row_idx - 1)) # 인덱스
-        worksheet.write(b_idx, str(key)) # 형태소 
-        worksheet.write(c_idx, str(value)) # 의미
-        row_idx += 1
-    print(f'empty_cnt : {empty_cnt}')
-    print(f'row_idx : {row_idx}')
-    print('done')
-    workbook.close()
+a_splited = a.split(' ')
+b_splited = b.split(' ')
+stop_begin_idx = int()
+stop_end_idx = int()
 
-write_in_the_excel(file_name)
+for idx in range(len(a_splited)):
+    if a_splited[idx] == b_splited[idx]:
+        continue
+    else:
+        stop_begin_idx = idx
+
+for jdx in range(len(a_splited)):
+    if a_splited[-jdx] == b_splited[-jdx]:
+        continue
+    else:
+        stop_end_idx = jdx
+
+print(a_splited[stop_begin_idx:stop_end_idx])
+print(b_splited[stop_begin_idx:stop_end_idx])

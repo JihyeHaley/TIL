@@ -3,21 +3,14 @@ import time
 import pandas as pd
 
 
-file_name = '헤이버니 사전(한-영).xlsx'
+# file_name = '4000_rest.xlsx'
 
 
-# 헤이버니 koimport 
+# 헤이버니 ko import 
 def import_ko_df(file_name):
     df = pd.read_excel(file_name)
-    ko_sent_df = df['ko'].tolist()[823:]
+    ko_sent_df = df['rest'].tolist()
     return ko_sent_df
-
-
-# 헤이버니 en import 
-def import_en_hb_df(file_name):
-    df = pd.read_excel(file_name)
-    en_hb_df = df['en'].tolist()[823:]
-    return en_hb_df
 
 
 

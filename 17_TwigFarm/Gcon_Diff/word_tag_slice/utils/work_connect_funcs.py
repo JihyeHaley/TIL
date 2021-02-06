@@ -12,6 +12,8 @@ def _work_start_tokenizer(sent):
     if pre_words_list_1 in [',', '.', '!', '?']:
         pre_words_list.append(pre_words_list_1)
     
+
+
     words_list = list()
     for word in pre_words_list:
         pre = word.split(' ')
@@ -82,7 +84,6 @@ def _work_connect_word(a_words, b_words, c_words, a, b, c):
                 a_completed += f'{a[0]}{a_words[jdx][1:]}'
                 b_completed += f'{b[0]}{b_words[jdx][1:]}'
                 c_completed += f'{c[0]}{c_words[jdx][1:]}'
-                
 
         # 마지막 인덱스는 띄어 쓰기 없이 만나기
         elif jdx == len(a_words) - 1:
