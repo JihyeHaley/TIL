@@ -40,7 +40,7 @@ def kakao_find_korean(ko_sent_df):
             driver.find_element_by_css_selector('#query').click
             element_ko = driver.find_element_by_css_selector('#query')
             element_ko.send_keys(ko_sent) # 한국어 보내기
-            time.sleep(sleep_time) ## 5초
+            time.sleep(sleep_time) # 5초
             element_en = driver.find_element_by_css_selector('#result')# 
             en_sent = element_en.text
             en_kakao_sent_df.append(en_sent)

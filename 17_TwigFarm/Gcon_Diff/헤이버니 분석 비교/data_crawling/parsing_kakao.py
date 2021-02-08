@@ -16,6 +16,6 @@ ko_sent_df = import_ko_df(file_name)
 
 # kakao_find_korean(ko_sent_df[:1000]) # 완료
 # kakao_find_korean(ko_sent_df[1000:2000]) # 완료
-kakao_find_korean(ko_sent_df[2000:3000])
-# kakao_find_korean(ko_sent_df[3000:])
+# kakao_find_korean(ko_sent_df[2000:3000])
+kakao_find_korean(ko_sent_df[3000:])
 
