@@ -10,14 +10,14 @@ class Dog1:
         self.name = name #인스턴스 변수
 
 print('--dog1--')
-my_dog = Dog1('gazi')
-your_dog = Dog1('namu')
+my_dog = Dog1('gazi') 
+your_dog = Dog1('namu') 
 
 
-print(my_dog.kind) # kind
-print(your_dog.kind) # kind
+print(my_dog.kind) # kind ## canine
+print(your_dog.kind) # kind ## canine
 
-print(my_dog.name) #gazi
+print(my_dog.name) # gazi 
 print(your_dog.name) # namu
 
 class Dog2:
@@ -31,18 +31,18 @@ class Dog2:
         self.tricks.append(trick)
 
 print('--dog2--')
-my_dog = Dog2('gazi')
+my_dog = Dog2('gazi') 
 your_dog = Dog2('namu')
 
 my_dog.add_trick('hello')
 your_dog.add_trick('hihi')
 
 #클래스변수는 모든 인스턴스가 참조한다.
-print(my_dog)
-print(my_dog.name)
-print(your_dog.name)
-print(my_dog.tricks)
-print(your_dog.tricks)
+print(my_dog) # dog
+print(my_dog.name) # gazi
+print(your_dog.name) # namu
+print(my_dog.tricks) # ['hello', 'hihi']
+print(your_dog.tricks) # ['hello', 'hihi']
 
 
 class Dog3:
