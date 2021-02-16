@@ -60,4 +60,4 @@ for t in range(500):
 
     # 경사하강법(gradient descent)를 사용하여 가중치를 갱신합니다.
     w1 -= learning_rate * grad_w1
-    w2 -= learning_rate * grad_w2
+    w2 -= learning_rate * grad_w
